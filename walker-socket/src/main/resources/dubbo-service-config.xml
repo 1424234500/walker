@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 可配置于classPath:dubbo.properties -->
+
+
+	<!-- name提供方应用名 owner负责人 aa-->
+	<dubbo:application name="socket" owner="walker" logger="log4j"  />
+
+	<!-- 提供服务端口 -->
+<!--	<dubbo:protocol name="dubbo" port="8095" />-->
+
+	<!-- 注册中心 -->
+	<!-- zookeeper 版本可配？ enable="true" ,122.10.1.12:2182 register="false" 只订阅-->
+	<dubbo:registry protocol="zookeeper" address="zookeeper://localhost:8096" />
+
+	<!-- redis -->
+
+
+	<!-- 监控中心 从注册中心获取监控地址 address version-->
+	<dubbo:monitor protocol="registry"  />
+
+	<!-- 1.提供者 服务提供 ref：指向注解定义的本地bean（多实现分组） interface：指向接口-->
+<!--	&lt;!&ndash;具体实现该接口的 bean&ndash;&gt;-->
+<!--	<bean id="echoService" class="com.walker.service.impl.EchoServiceImpl" />-->
+<!--	&lt;!&ndash; 要暴露的服务接口 &ndash;&gt;-->
+<!--	<dubbo:service id="echoService" interface="com.walker.service.EchoService" timeout="2048" version="1.0"  />-->
+
+
+
+	<!-- 2.消费者 消费服务 id:bean名字 interface:指向远程接口 group:多实现分组区分 check:启动时候是否检查 一般设置成false 启动时候不检查 -->
+	<dubbo:reference id="echoService" interface="com.walker.service.EchoService" version="1.0" timeout="30000" check="false" />
+
+
+
+	<!--日志服务-->
+	<dubbo:reference id="logService" interface="com.walker.service.LogService" version="1.0" timeout="30000" check="false" />
+
+	<!--    登录服务-->
+	<dubbo:reference id="loginService" interface="com.walker.service.LoginService" version="1.0" timeout="30000" check="false" />
+
+	<!--    jdbc teacher增删查改-->
+	<dubbo:reference id="teacherJdbcService" interface="com.walker.service.TeacherService" version="1.0" timeout="30000" check="false" />
+	<!--    jpa teacher增删查改-->
+	<dubbo:reference id="teacherJpaService" interface="com.walker.service.TeacherService" group="jpa" version="1.0" timeout="30000" check="false" />
+
+	<!--    消息表服务 手动分表-->
+	<dubbo:reference id="messageService" interface="com.walker.service.MessageService" version="1.0" timeout="30000" check="false" />
+	<!--    消息表服务 自动分表-->
+	<dubbo:reference id="messageServiceSharding" interface="com.walker.service.MessageService" group="sharding" version="1.0" timeout="30000" check="false"/>
+	<!--    消息推送提醒服务 分类 -->
+	<dubbo:reference id="pushAgentService" interface="com.walker.service.PushAgentService" version="1.0" timeout="30000" check="false"/>
+
+
+
+</beans>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 可配置于classPath:dubbo.properties -->
+
+
+    <!-- name提供方应用名 owner负责人 aa-->
+    <dubbo:application name="service-provider" owner="walker" logger="log4j" />
+
+    <!-- 提供服务端口 -->
+    <dubbo:protocol name="dubbo" port="8095" />
+
+    <!-- 注册中心 -->
+
+<!-- zookeeper 版本可配？ 多ip问题汉注意！ enable="true" ,122.10.1.12:2182 register="false" 只订阅 -->
+<!--    <dubbo:registry protocol="redis" address="localhost:6379,localhost:6389,localhost:6399" />-->
+    <dubbo:registry protocol="zookeeper" address="localhost:8096,localhost:8888" timeout="30000" check="false" />
+    <!-- 监控中心 从注册中心获取监控地址 address version-->
+    <dubbo:monitor protocol="registry"   />
+
+    <!-- 指定了集群容错模式，此处为快速失败 -->
+<!--    <dubbo:provider cluster="failfast"/>-->
+
+
+
+    <!-- 1.提供者 服务提供 ref：指向注解定义的本地dubbo-bean而非spring-bean?（多实现分组） interface：指向接口-->
+    <!--具体实现该接口的 bean-->
+    <!-- 要暴露的服务接口 -->
+    <dubbo:reference id="echoService" interface="com.walker.service.EchoService" timeout="30000" version="1.0"  />
+
+
+
+
+    <!--    日志服务-->
+    <dubbo:reference id="logService" interface="com.walker.service.LogService" timeout="30000" version="1.0"  />
+    <!--    配置服务-->
+    <dubbo:reference id="sysConfigService" interface="com.walker.service.SysConfigService" timeout="30000" version="1.0" />
+
+    <!--    文件索引服务-->
+    <dubbo:reference id="fileIndexService" interface="com.walker.service.FileIndexService" timeout="30000" version="1.0"  />
+
+    <!--基础sql-->
+    <dubbo:reference id="baseService" interface="com.walker.service.BaseService" timeout="30000" version="1.0"  />
+
+
+
+    <!--    登录服务-->
+    <dubbo:reference id="loginService" interface="com.walker.service.LoginService" timeout="30000" version="1.0" />
+
+<!--    jdbc teacher增删查改 同服务不同实现 须分组-->
+    <dubbo:reference id="teacherJdbcService" interface="com.walker.service.TeacherService" timeout="30000" version="1.0" />
+<!--    jpa teacher增删查改 同服务不同实现 须分组-->
+    <dubbo:reference id="teacherJpaService" interface="com.walker.service.TeacherService" group="jpa" timeout="30000" version="1.0" />
+    <!--    用户student-->
+    <dubbo:reference id="studentService" interface="com.walker.service.StudentService" timeout="30000" version="1.0" />
+
+    <!--    用户user-->
+    <dubbo:reference id="userService" interface="com.walker.service.UserService" timeout="30000" version="1.0" />
+    <!--    部门dept-->
+    <dubbo:reference id="deptService" interface="com.walker.service.DeptService" timeout="30000" version="1.0" />
+    <!--    地理 area-->
+    <dubbo:reference id="areaService" interface="com.walker.service.AreaService" timeout="30000" version="1.0" />
+    <!--    角色role-->
+    <dubbo:reference id="roleService" interface="com.walker.service.RoleService" timeout="30000" version="1.0" />
+    <!--    角色role关联-->
+    <dubbo:reference id="roleUserService" interface="com.walker.service.RoleUserService" timeout="30000" version="1.0" />
+
+
+
+    <!--    调度类型 触发 异步 耗时操作-->
+    <dubbo:reference id="syncService" interface="com.walker.service.SyncService" timeout="30000" version="1.0" />
+
+
+
+<!--    消息表服务 手动分表-->
+    <dubbo:reference id="messageService" interface="com.walker.service.MessageService" timeout="30000" version="1.0" />
+<!--    消息表服务 自动分表-->
+    <dubbo:reference id="messageServiceSharding" interface="com.walker.service.MessageService" group="sharding" timeout="30000" version="1.0" />
+    <!--    消息推送提醒服务 分类 -->
+    <dubbo:reference id="pushAgentService" interface="com.walker.service.PushAgentService" version="1.0" timeout="30000" check="false"/>
+
+
+
+</beans>
+<!--
+超时配置
+<dubbo:consumer timeout="5000" />
+<dubbo:reference interface="com.foo.BarService" timeout="2000">
+    <dubbo:method name="sayHello" timeout="3000" />
+</dubbo:reference>
+1. 方法级配置别优于接口级别，即小Scope优先
+2. Consumer端配置优于Provider配置，优于全局配置
+3. Dubbo Hard Code的配置值（默认）
+
+应用负责人，用于服务治理
+dubbo.owner=dzm
+#组织名称(BU或部门)，用于注册中心区分服务来源
+dubbo.organization=dzmsoft
+#注册中心地址
+dubbo.registry.address=zookeeper://192.168.5.122:8096?backup=192.168.5.122:2182,192.168.5.122:2183
+#端口号，同一电脑不可复用
+dubbo.protocol=8095
+#是否启用JSR303标准注解验证
+dubbo.service.validation=true
+#服务版本，通常在接口不兼容时版本号才需要升级
+dubbo.service.version=1.0.0
+#远程服务调用超时时间(毫秒)
+dubbo.service.timeout=5000
+#远程服务调用重试次数，不包括第一次调用，不需要重试请设为0
+dubbo.service.retries=2
+#负载均衡策略，可选值：random,roundrobin,leastactive，分别表示：随机，轮循，最少活跃调用
+dubbo.service.loadbalance=leastactive
+#每服务消费者每服务每方法最大并发调用数
+dubbo.service.actives=150
+
+#启动时检查提供者是否存在，true报错，false忽略
+dubbo.reference.check=false
+#服务版本，与服务提供者的版本一致
+dubbo.reference.version=1.0.0
+-->

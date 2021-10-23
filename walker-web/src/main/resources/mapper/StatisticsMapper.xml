@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.walker.mapper.StatisticsMapper" >
+    <!--/**
+    * 多指标  按   接口排名
+    * x      y1        y2              y3          y4              y5
+    * 接口名  成功次数  成功平均耗时      失败次数      失败平均耗时     成功率0～100
+    */
+CREATE TABLE `W_LOG_TIME` (
+  `ID` varchar(32) NOT NULL DEFAULT '' COMMENT '主键',
+  `AVE_COST_NO` varchar(128) DEFAULT '' COMMENT '失败平均耗时',
+  `AVE_COST_OK` varchar(1998) DEFAULT '' COMMENT '成功平均耗时',
+  `CATE` varchar(256) DEFAULT '1970-01-01 00:00:00' COMMENT '类别',
+  `COUNT_NO` varchar(128) DEFAULT '' COMMENT '失败次数',
+  `COUNT_OK` varchar(128) DEFAULT '' COMMENT '成功次数',
+  `IP_PORT` varchar(128) DEFAULT '' COMMENT '统计服务器ip:port',
+  `S_MTIME` varchar(32) DEFAULT '' COMMENT '修改时间',
+  `URL` varchar(1998) DEFAULT '' COMMENT '受理接口',
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+    -->
+
+<!--
+| X                            | Y1   | Y2   | Y3   | Y4   | Y5   |
+| com.walker.job.JobMakeUser   |   10 |    0 |    0 | NULL |    0 |
+| /common/findPage.do          |    2 |    0 |    0 | NULL |    0 |
+| com.walker.job.JobUpdateArea |    1 |    0 |    0 | NULL |    0 |
+-->
+    <select id="findAction" resultType="java.util.Map" >
+        select w.URL X
+        , w.OK Y1, ifnull(w.COST_OK / w.OK, 0) Y2
+        , w.NO Y3,  ifnull(w.COST_NO / w.NO, 0) Y4
+        , ifnull(100 * w.OK / (w.OK + w.NO), 0) Y5
+        from
+            (
+                select URL
+                , ifnull(sum(COUNT_OK), 0) OK, ifnull(sum(COUNT_NO), 0) NO
+                , ifnull(sum(COUNT_OK * AVE_COST_OK), 0) COST_OK, ifnull(sum(COUNT_NO * AVE_COST_NO), 0) COST_NO
+                from W_LOG_TIME
+                <where>
+                    <if test="from != null and from != '' ">
+                        and  S_MTIME &gt;= #{from}
+                    </if>
+                    <if test="to != null and to != '' ">
+                        and  S_MTIME &lt;= #{to}
+                    </if>
+                </where>
+                group by URL
+            ) w
+        order by w.OK desc,w.NO
+
+    </select>
+
+    <select id="findActionUrl" resultType="java.util.Map" >
+        select distinct URL from W_LOG_TIME
+        <where>
+            <if test="from != null and from != '' ">
+                and  S_MTIME &gt;= #{from}
+            </if>
+            <if test="to != null and to != '' ">
+                and  S_MTIME &lt;= #{to}
+            </if>
+        </where>
+        order by URL
+
+    </select>
+
+    <select id="findActionDetail" resultType="java.util.Map" >
+
+        select w.minu X
+        , w.OK Y1, ifnull(w.COST_OK / w.OK, 0) Y2
+        , w.NO Y3,  ifnull(w.COST_NO / w.NO, 0) Y4
+        , ifnull(100 * w.OK / (w.OK + w.NO), 0) Y5
+        from
+        (
+            select SUBSTRING_INDEX(S_MTIME, ':', 2) minu
+            , ifnull(sum(COUNT_OK), 0) OK, ifnull(sum(COUNT_NO), 0) NO
+            , ifnull(sum(COUNT_OK * AVE_COST_OK), 0) COST_OK, ifnull(sum(COUNT_NO * AVE_COST_NO), 0) COST_NO
+            from W_LOG_TIME
+            <where>
+                <if test="url != null and url != '' ">
+                    and  URL = #{url}
+                </if>
+                <if test="from != null and from != '' ">
+                    and  S_MTIME &gt;= #{from}
+                </if>
+                <if test="to != null and to != '' ">
+                    and  S_MTIME &lt;= #{to}
+                </if>
+            </where>
+            group by SUBSTRING_INDEX(S_MTIME, ':', 2)
+        ) w
+        order by w.minu asc
+
+    </select>
+
+    <select id="findUserData" resultType="java.util.Map" >
+
+        select * from
+
+        (
+            select count(*) CC, SUBSTRING_INDEX(S_MTIME, ' ', 1) DAY from W_USER
+            <where>
+                <if test="from != null and from != '' ">
+                    and  S_MTIME &gt;= #{from}
+                </if>
+                <if test="to != null and to != '' ">
+                    and  S_MTIME &lt;= #{to}
+                </if>
+            </where>
+            group by SUBSTRING_INDEX(S_MTIME, ' ', 1)
+        ) u,
+        (
+            select count(*) CC, SUBSTRING_INDEX(S_MTIME, ' ', 1) DAY from W_DEPT
+            <where>
+                <if test="from != null and from != '' ">
+                    and  S_MTIME &gt;= #{from}
+                </if>
+                <if test="to != null and to != '' ">
+                    and  S_MTIME &lt;= #{to}
+                </if>
+            </where>
+            group by SUBSTRING_INDEX(S_MTIME, ' ', 1)
+        ) d,
+        (
+            select count(*) CC, SUBSTRING_INDEX(S_MTIME, ' ', 1) DAY from W_AREA
+            <where>
+                <if test="from != null and from != '' ">
+                    and  S_MTIME &gt;= #{from}
+                </if>
+                <if test="to != null and to != '' ">
+                    and  S_MTIME &lt;= #{to}
+                </if>
+            </where>
+            group by SUBSTRING_INDEX(S_MTIME, ' ', 1)
+        ) a,
+        (
+            select count(*) CC, SUBSTRING_INDEX(S_MTIME, ' ', 1) DAY from W_ROLE
+            <where>
+                <if test="from != null and from != '' ">
+                    and  S_MTIME &gt;= #{from}
+                </if>
+                <if test="to != null and to != '' ">
+                    and  S_MTIME &lt;= #{to}
+                </if>
+            </where>
+            group by SUBSTRING_INDEX(S_MTIME, ' ', 1)
+        ) r
+        where 1=1
+
+
+    </select>
+
+
+
+
+<!--        select w.minu X-->
+<!--        , w.NET_COUNT Y1, ifnull(w.NET_COST / w.NET_COUNT, 0) Y2-->
+<!--        , w.WAIT_COUNT Y3, ifnull(w.WAIT_COST / w.WAIT_COUNT, 0) Y4-->
+<!--        , w.DONE_COUNT Y5, ifnull(w.DONE_COST / w.DONE_COUNT, 0) Y6-->
+<!--        from-->
+<!--        (-->
+<!--        select SUBSTRING_INDEX(S_MTIME, ':', 2) minu-->
+<!--        , ifnull(sum(NET_COUNT), 0) NET_COUNT, ifnull(sum(NET_COST), 0) NET_COST-->
+<!--        , ifnull(sum(WAIT_COUNT), 0) WAIT_COUNT, ifnull(sum(WAIT_COST), 0) WAIT_COST-->
+<!--        , ifnull(sum(DONE_COUNT), 0) DONE_COUNT, ifnull(sum(DONE_COST), 0) DONE_COST-->
+<!--        from W_LOG_SOCKET_MODEL-->
+<!--        group by SUBSTRING_INDEX(S_MTIME, ':', 2)-->
+<!--        ) w-->
+<!--        order by w.minu asc-->
+    <select id="findSocketDetail" resultType="java.util.Map" >
+        select w.minu X
+        , w.NET_COUNT Y1, w.NET_COST Y2
+        , w.WAIT_COUNT Y3, w.WAIT_COST Y4
+        , w.DONE_COUNT Y5, w.DONE_COST Y6
+        from
+        (
+        select SUBSTRING_INDEX(S_MTIME, ':', 2) minu
+        , ifnull(sum(NET_COUNT), 0) NET_COUNT, ifnull(sum(NET_COST), 0) NET_COST
+        , ifnull(sum(WAIT_COUNT), 0) WAIT_COUNT, ifnull(sum(WAIT_COST), 0) WAIT_COST
+        , ifnull(sum(DONE_COUNT), 0) DONE_COUNT, ifnull(sum(DONE_COST), 0) DONE_COST
+        from W_LOG_SOCKET_MODEL
+        <where>
+            <if test="plugin != null and plugin != '' ">
+                and  PLUGIN = #{plugin}
+            </if>
+            <if test="from != null and from != '' ">
+                and  S_MTIME &gt;= #{from}
+            </if>
+            <if test="to != null and to != '' ">
+                and  S_MTIME &lt;= #{to}
+            </if>
+        </where>
+        group by SUBSTRING_INDEX(S_MTIME, ':', 2)
+        ) w
+        order by w.minu asc
+
+    </select>
+    <select id="findSocketDetailUrl" resultType="java.util.Map" >
+        select distinct PLUGIN from W_LOG_SOCKET_MODEL
+        <where>
+            <if test="from != null and from != '' ">
+                and  S_MTIME &gt;= #{from}
+            </if>
+            <if test="to != null and to != '' ">
+                and  S_MTIME &lt;= #{to}
+            </if>
+        </where>
+        order by PLUGIN
+    </select>
+
+
+
+<!--//| id                               | invoke_date | service                             | method             | consumer       | provider   | type     | invoke_time   | success | failure | elapsed | concurrent | max_elapsed | max_concurrent |-->
+<!--//| 36cd17a74b504665a50dfd7b8219b9ab | 2020-07-28  | com.walker.service.LogService       | saveLogModel       | 172.17.149.176 | 172.18.0.1 | provider | 1595901121739 |    2149 |       0 |    7842 |          1 |          31 |              3 |-->
+<!--//| 4bc23d7265f84428beebc18b5b8b58b2 | 2020-07-28  | com.walker.service.LogService       | saveLogSocketModel | 172.17.149.176 | 172.18.0.1 | provider | 1595901121739 |     997 |       0 |   33369 |          1 |         133 |              1 |-->
+<!--//| 9c76c0f73ddd430396d632e9dd214e9f | 2020-07-28  | com.walker.service.SyncService      | doAction           | 172.17.149.176 | 172.18.0.1 | provider | 1595901121739 |       1 |       0 |    3559 |          1 |        3559 |              1 |-->
+<!--//| b8b1579c96f245a8b73e5a7a4ef9b6f5 | 2020-07-28  | com.walker.service.RoleService      | finds              | 172.18.0.1     | 172.18.0.1 | consumer | 1595901121888 |       3 |       0 |     290 |          1 |         157 |              1 |-->
+<!--//| c020d00750494e70bef24bb2acf7de47 | 2020-07-28  | com.walker.service.SysConfigService | count              | 172.18.0.1     | 172.18.0.1 | consumer | 1595901121888 |     134 |       0 |    5159 |          1 |          91 |              1 |-->
+<!--//| f175e9805292439a92d670c68ac8ae57 | 2020-07-28  | com.walker.service.LogService       | saveLogModelNoTime | 172.17.149.176 | 172.18.0.1 | provider | 1595901121739 |    1068 |       0 |   40346 |          1 |         289 |              2 |-->
+    <!--    定义对象匹配规则 模糊查询  findPage  and  count  -->
+    <select id="findDubboDetail" resultType="java.util.Map" >
+        select w.minu X
+        , w.success Y1, w.failure Y2
+        , w.elapsed Y3, w.concurrent Y4
+        , w.max_elapsed Y5, w.max_concurrent Y6
+        from
+        (
+        select SUBSTRING_INDEX(date_format(FROM_UNIXTIME(invoke_time / 1000),'%Y-%m-%d %H:%i:%S'), ':', 2) minu
+        , ifnull(sum(success), 0) success
+        , ifnull(sum(failure), 0) failure
+        , ifnull(sum(elapsed), 0) elapsed
+        , ifnull(sum(concurrent), 0) concurrent
+        , ifnull(sum(max_elapsed), 0) max_elapsed
+        , ifnull(sum(max_concurrent), 0) max_concurrent
+        from dubbo_invoke
+        <where>
+            <if test="url != null and url != '' ">
+                and  service like #{url}"%"
+            </if>
+            <if test="from != null and from != '' ">
+                and  date_format(FROM_UNIXTIME(invoke_time / 1000),'%Y-%m-%d %H:%i:%S') &gt;= #{from}
+            </if>
+            <if test="to != null and to != '' ">
+                and  date_format(FROM_UNIXTIME(invoke_time / 1000),'%Y-%m-%d %H:%i:%S') &lt;= #{to}
+            </if>
+            <if test="consumer != null and consumer != '' ">
+                and  consumer like #{consumer}"%"
+            </if>
+            <if test="provider != null and provider != '' ">
+                and  provider like #{provider}"%"
+            </if>
+            <if test="type != null and type != '' ">
+                and  type like #{type}"%"
+            </if>
+        </where>
+        group by SUBSTRING_INDEX(date_format(FROM_UNIXTIME(invoke_time / 1000),'%Y-%m-%d %H:%i:%S'), ':', 2)
+        ) w
+        order by w.minu asc
+
+    </select>
+    <select id="findDubboDetailUrl" resultType="java.util.Map" >
+        select distinct service from dubbo_invoke
+        <where>
+            <if test="from != null and from != '' ">
+                and  date_format(FROM_UNIXTIME(invoke_time / 1000),'%Y-%m-%d %H:%i:%S') &gt;= #{from}
+            </if>
+            <if test="to != null and to != '' ">
+                and  date_format(FROM_UNIXTIME(invoke_time / 1000),'%Y-%m-%d %H:%i:%S') &lt;= #{to}
+            </if>
+        </where>
+        order by service
+    </select>
+
+
+</mapper>

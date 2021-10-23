@@ -1,0 +1,109 @@
+#正式使用 不独立配置的模块
+quartz:
+  enabled: true
+spring:
+#默认主数据源
+  datasource: #连接超时问题 MYSQL八小时 reconnect?
+    url: jdbc:mysql://39.106.111.11:8098/walker?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&autoReconnect=true
+    username: walker
+    password: qwer
+#    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      max-idle: 1
+      max-wait: 1
+      max-active: 8
+      validation-query: select 1 from dual
+      validation-query-timeout: 1000
+
+    sql-script-encoding: utf-8
+    schema: classpath:ddl.sql  # 初始化schema文件位置
+    data: classpath:dml.sql  # 初始化data位置
+    initialization-mode: always #初始化模式（springboot2.0），其中有三个值，always为始终执行初始化，embedded只初始化内存数据库（默认值）,如h2等，never为不执行初始化。
+    continue-on-error: true
+  jpa:
+    database: mysql
+    show-sql: true
+    generate-ddl: false #启动时是否初始化数据库-hibernate 为true时，执行schema创建，会检测classpath下的import.sql文件，当然spring.jpa.hibernate.ddl-auto: 必须为create/update/create-drop，none和validate是不行的
+    hibernate:
+      #自动创建表
+      ddl-auto: update
+
+#  create：
+#  每次加载hibernate时都会删除上一次的生成的表，然后根据你的model类再重新来生成新表，哪怕两次没有任何改变也要这样执行，这就是导致数据库表数据丢失的一个重要原因。
+#  create-drop ：
+#  每次加载hibernate时根据model类生成表，但是sessionFactory一关闭,表就自动删除。
+#  update：
+#  最常用的属性，第一次加载hibernate时根据model类会自动建立起表的结构（前提是先建立好数据库），以后加载hibernate时根据 model类自动更新表结构，即使表结构改变了但表中的行仍然存在不会删除以前的行。要注意的是当部署到服务器后，表结构是不会被马上建立起来的，是要等 应用第一次运行起来后才会。
+#  validate ：
+#  每次加载hibernate时，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。
+
+      #jpa表名大小写问题 全大写
+      naming:
+        physical-strategy:  org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5Dialect  #分表合表MERGE引擎依赖myisam
+  #    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加这句则默认为myisam引擎
+
+  #
+  #mybatis:
+  #  mapper-locations: classpath:mybatis/mapper/*.xml
+  #  type-aliases-package: com.sun.shard.bean
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 39.106.111.11
+    # Redis服务器连接密码（默认为空）
+    password: qwer
+    # Redis服务器连接端口
+    port: 6379
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 20
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 3000
+        # 连接池中的最小空闲连接
+        min-idle: 1
+    # 连接超时时间（毫秒）
+    timeout: 8000
+
+    default:
+      #redis cache 过期时间
+      expiration: 61
+  session:
+    jdbc:
+      initialize-schema:
+#        schemaUpdate：true
+
+
+
+##还是在专用文件中配置 集成映射集中暴露服务 单接口多实现
+#  dubbo:
+#    application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+#      name: service-provider
+#      id: service-provider
+#    registry:                 #注册中心配置，用于配置连接注册中心相关信息。
+#      address: zookeeper://127.0.0.1:8096
+##      address: redis://39.106.111.11:6379
+#    #    server: true
+#
+#    protocol:     #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+#      name: dubbo
+#      port: 8095
+#    scan: com.walker.service.impl  #服务暴露与发现消费所在的package
+
+
+
+
+session:
+  redis:
+    #session登录过期时间token
+    expiration: 180100
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    call-setters-on-nulls: true #当查询数据为空时字段返回为null，不加这个查询数据为空时，字段将被隐藏
+#  config-location: classpath:mybatis-config.xml
+

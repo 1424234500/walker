@@ -1,0 +1,61 @@
+{
+	"version": 1.0,
+	"about-plugins": "plugin插件配置，不分顺序，一个消息只执行一个业务处理 type data，限流配置",
+	"plugins": {
+		"login": {
+			"class": "com.walker.socket.server.plugin.LoginPlugin",
+			"on": true,
+			"limit": 0
+		},
+		"message": {
+			"class": "com.walker.socket.server.plugin.MessagePlugin",
+			"on": true
+		},
+		"monitor": {
+			"class": "com.walker.socket.server.plugin.MonitorPlugin",
+			"on": true
+		},
+		"session": {
+			"class": "com.walker.socket.server.plugin.SessionPlugin",
+			"on": true
+		},
+		"echo": {
+			"class": "com.walker.socket.server.plugin.EchoPlugin",
+			"on": true,
+			"limit": 0
+		}
+	},
+	"about-before": "执行plugin之前执行，拦截器，顺序执行，可配例外plugin，返回false则中断",
+	"before": [
+		{
+			"class": "com.walker.socket.server.plugin.aop.SizeAop",
+			"on": true,
+			"excludes": [
+				"echo"
+			],
+			"params": {
+				"size": 2048,
+				"tip": "最大长度不能超过"
+			}
+		},
+		{
+			"class": "com.walker.socket.server.plugin.aop.AuthAop",
+			"on": true,
+			"excludes": [
+				"login"
+			],
+			"params": {
+				"tip": "未登录"
+			}
+		}
+	],
+	"about-after": "执行plugin之后再执行，用于统计执行结果情况，监控计数配置位置 登录前？还是（有效）处理完后？可调整配置位置",
+	"after": [
+	]
+}
+
+
+
+
+
+

@@ -1,0 +1,175 @@
+#分表mysql  shardingsphere
+#select from TableName会被转换为select from tablename，也就是转小写，这是在代码中处理的，如果不希望转换（sql标准是大小写不敏感的，主要是mysql linux下lower-case-table-names=1这个特立会区分大小写，而且mysql 8.0不允许数据库初始化和启动的值不一致，5.7之前是可以的，https://bugs.mysql.com/bug.php?id=90695）；，则需要自己编译sharding-jdbc，并更改getTableTokens中的转小写的代码（这应该算是个bug），2.0.3版本代码位置为：
+#io.shardingjdbc.core.rewrite.SQLRewriteEngine.getTableTokens(TableUnit)中对sql语句中的表名做了toLowerCase()导致的
+#异常: jpa连接查询 第二张表名字变为小写
+#1.独立非分表数据源
+#2.改sharding源码 重新打包 <context:property-placeholder location="classpath:property/*.properties" ignore-unresolvable="true" />
+
+
+
+spring:
+sharding:
+  jdbc:
+    datasource:
+      #独立数据源  分库数据源分库别名配置   #主从读写分离 master slave
+      #walker   默认  不分表数据源
+      #walker0        分库1 主
+      #walker1        分库2 主
+      #walker3        分库1 备
+      #walker4        分库2 备
+      names: walker,walker0,walker1
+      walker:
+        type: org.apache.commons.dbcp.BasicDataSource
+        url: jdbc:mysql://localhost:8098/walker?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
+        username: walker
+        password: qwer
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        maxWait: 3000
+        maxActive: 8
+        maxIdle: 2
+        minIdle: 1
+        validationQuery: select 1 from dual
+        validation-query-time: 10000
+
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        druid:
+#          driverClassName: com.mysql.cj.jdbc.Driver
+#          url: jdbc:mysql://localhost:8098/walker?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
+#          username: walker
+#          password: qwer
+#          initial-size: 10
+#          max-active: 64
+#          min-idle: 4
+#          max-wait: 3000
+#          pool-prepared-statements: true
+#          max-pool-prepared-statement-per-connection-size: 20
+#          time-between-eviction-runs-millis: 60000
+#          min-evictable-idle-time-millis: 300000
+#          max-evictable-idle-time-millis: 60000
+#          validation-query: SELECT 1 FROM DUAL
+#          # validation-query-timeout: 5000
+
+
+      walker0:
+        type: org.apache.commons.dbcp.BasicDataSource
+#        type: com.mchange.v2.c3p0.ComboPooledDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:8098/walker0?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
+        username: walker0
+        password: qwer
+        maxWait: 3000
+        maxActive: 8
+        maxIdle: 2
+        minIdle: 1
+        validationQuery: select 1 from dual
+        validation-query-time: 10000
+      walker1:
+        type: org.apache.commons.dbcp.BasicDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:8098/walker1?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
+        username: walker1
+        password: qwer
+        maxWait: 3000
+        maxActive: 8
+        maxIdle: 2
+        minIdle: 1
+        validationQuery: select 1 from dual
+        validation-query-time: 10000
+
+    config:
+#      masterslave:
+#        #walker0  = [walker0_master + walker0_slave]
+#        name: walker0
+#        master-data-source-name: walker0_master
+#        slave-data-source-names: walker0_slave
+#        load-balance-algorithm-type: round_robin
+##        load-balance-algorithm-class-name: com.xxxx
+      sharding:
+        # 默认数据源 不配置分库分表参数的直接存这个源
+        default-data-source-name: walker
+
+        props:
+          sql.show: true
+
+
+# 默认分库策略   分库ID不能与分表ID一样?
+# 不加策略使用默认 注意 不分库的表是否受到影响
+#        default-database-strategy:
+#          inline: #inline表达式
+#            sharding-column: SEX
+#            algorithm-expression: walker$->{SEX % 2}
+##          standard:  #standard自定义表达式
+##            precise-algorithm-class-name: com.walker.sharding.DefaultShardingAlgorithm
+##            sharding-column: SEX
+        default-table-strategy: #默认分表配置复用
+          standard:
+            precise-algorithm-class-name: com.walker.sharding.DefaultShardingAlgorithm
+            sharding-column: ID
+
+        tables:
+          #表 不配分库则默认库 不配分表则不分表!
+
+          #表 ID 不分库 分表2  -> 外键
+          W_SHARDING_MSG:
+            actual-data-nodes: walker0.W_SHARDING_MSG_$->{0..1}
+          #表 ID  不分库 分表2
+          W_SHARDING_MSG_USER:
+            actual-data-nodes: walker0.W_SHARDING_MSG_USER_$->{0..3}
+
+          #表 ID, SEX[0,1], NAME, PWD 分库2 分表4 共表8
+          W_MAN:
+            #walker0.W_MAN_0 -> walker1.W_MAN_3
+            actual-data-nodes: walker$->{0..1}.W_MAN_$->{0..3}
+            database-strategy:  #分库策略
+              inline:
+                sharding-column: SEX
+                algorithm-expression:  walker${SEX % 2}
+#              stanard:
+#                sharding-column: SEX
+#                precise-algorithm-class-name: com.walker.sharding.DefaultShardingAlgorithm
+            table-strategy:  #分表策略
+#              inline:
+#                sharding-column: ID
+#                algorithm-expression: W_MAN_${ID % 4}
+              standard:
+                precise-algorithm-class-name: com.walker.sharding.DefaultShardingAlgorithm
+                sharding-column: ID
+
+
+#
+# 配置有三种策略：
+#
+#defaultDataSourceName: 默认数据源，未配置分片规则的表将通过默认数据源定位
+#   
+#tables: 分库分表配置，可配置多个logic_table_name
+#    <logic_table_name>: 逻辑表名
+#        actualDataNodes: 真实数据节点，由数据源名 + 表名组成，以小数点分隔。多个表以逗号分隔，支持inline表达式。不填写表示将为现有已知的数据源 + 逻辑表名称生成真实数据节点。用于广播表（即每个库中都需要一个同样的表用于关联查询，多为字典表）或只分库不分表且所有库的表结构完全一致的情况。
+#          
+#        databaseStrategy: 分库策略，以下的分片策略只能任选其一
+#            standard: 标准分片策略，用于单分片键的场景
+#                shardingColumn: 分片列名
+#                preciseAlgorithmClassName: 精确的分片算法类名称，用于=和IN。该类需使用默认的构造器或者提供无参数的构造器
+#                rangeAlgorithmClassName: 范围的分片算法类名称，用于BETWEEN，可以不配置。该类需使用默认的构造器或者提供无参数的构造器
+#                  
+#            complex: 复合分片策略，用于多分片键的场景
+#                shardingColumns : 分片列名，多个列以逗号分隔
+#                algorithmClassName: 分片算法类名称。该类需使用默认的构造器或者提供无参数的构造器
+#                  
+#            inline: inline表达式分片策略
+#                shardingColumn : 分片列名
+#                algorithmInlineExpression: 分库算法Inline表达式，需要符合groovy动态语法
+#                  
+#            hint: Hint分片策略
+#                algorithmClassName: 分片算法类名称。该类需使用默认的构造器或者提供无参数的构造器
+#            none: 不分片
+#        tableStrategy: 分表策略，同分库策略
+#  bindingTables: 绑定表列表
+#    - 逻辑表名列表，多个<logic_table_name>以逗号分隔
+#   
+#defaultDatabaseStrategy: 默认数据库分片策略，同分库策略
+#   
+#defaultTableStrategy: 默认数据表分片策略，同分库策略
+#   
+#props: 属性配置(可选)
+#    sql.show: 是否开启SQL显示，默认值: false
+#    executor.size: 工作线程数量，默认值: CPU核数

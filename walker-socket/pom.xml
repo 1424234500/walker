@@ -1,0 +1,201 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>com.walker</groupId>
+		<artifactId>walker</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.walker</groupId>
+	<artifactId>walker-socket</artifactId>
+	<version>0.0.1</version>
+	<name>socket</name>
+	<description>netty socket active mq</description>
+	<packaging>jar</packaging>
+
+
+
+
+	<build>
+
+
+		<plugins>
+			<!-- 配置jdk编译版本 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<encoding>UTF-8</encoding>
+					<verbose>false</verbose>
+				</configuration>
+			</plugin>
+
+
+			<!-- 打包配置启动类 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>${dir_name_lib}</classpathPrefix>
+                            <mainClass>com.walker.socket.Launcher</mainClass>  <!-- 指定启动类 -->
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<!--
+            将打包后生成的jar复制到指定路径 命令mvn package后，才生成jar的包，如果单纯的用resources方法复制文件，是无法在package时复制一个还未存在的东西到某地的
+             -->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources-jar</id>
+						<phase>package</phase>
+						<configuration>
+							<tasks>
+								<!-- <delete dir="src/main/webapp/WEB-INF/lib" />-->
+								<copy todir="${dir_release}">
+									<fileset dir="${project.build.directory}">
+										<include name="*.*ar" />
+									</fileset>
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- 复制依赖jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+
+
+					</execution>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${dir_release}/${dir_name_lib}</outputDirectory>  	<!-- copy lib目录 -->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- 打包前资源复制 构建项目部署结构 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources-conf</id>
+						<!-- 触发阶段 process-resources 执行resources插件的copy-resources目标 -->
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<!-- 指定resources插件处理资源文件到哪个目录下 -->
+							<outputDirectory>${dir_release}/${dir_name_conf}</outputDirectory>
+							<!-- 待处理的资源定义 -->
+							<resources>
+								<resource>
+									<!-- 指定resources插件处理哪个目录下的资源文件 -->
+									<directory>${dir_name_conf}</directory>
+									<!--  <filtering>true</filtering> -->
+									<!-- <excludes> <exclude>WEB-INF/*.*</exclude> </excludes> -->
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-bin</id>
+						<!-- 触发阶段 process-resources 执行resources插件的copy-resources目标 -->
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<!-- 指定resources插件处理资源文件到哪个目录下 -->
+							<outputDirectory>${dir_release}</outputDirectory>
+							<!-- 待处理的资源定义 -->
+							<resources>
+								<resource>
+									<!-- 指定resources插件处理哪个目录下的资源文件 -->
+									<directory>${dir_name_bin}</directory>
+									<!--  <filtering>true</filtering> -->
+									<!-- <excludes> <exclude>WEB-INF/*.*</exclude> </excludes> -->
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+<!--					复制resource下文件到release根路径-->
+					<execution>
+						<id>copy-resources-dubbo-xml</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<!-- 指定resources插件处理资源文件到哪个目录下 -->
+							<outputDirectory>${dir_release}</outputDirectory>
+							<!-- 待处理的资源定义 -->
+							<resources>
+								<resource>
+									<!-- 指定resources插件处理哪个目录下的资源文件 -->
+									<directory>${dir_name_resource}</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+
+
+
+
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.42.Final</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.walker</groupId>
+			<artifactId>walker-core</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+            <groupId>com.walker</groupId>
+            <artifactId>walker-service</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+	</dependencies>
+</project>

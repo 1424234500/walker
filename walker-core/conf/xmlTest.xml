@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<root>
+	<version>1.0</version>
+	<about>简单类型string</about>
+	<plugins>
+		<about>对象类型map</about>
+		<login class="写法1 属性attr方式" on="true" limit="0" />
+		<login1>
+			 <class>写法2 子节点模式</class>
+			 <on>false</on>
+			 <limit>1</limit>
+		</login1>
+	</plugins>
+	<arr class="数组类型list 元素1" on="true" >
+		<excludes>元素1的数组元素a</excludes>
+		<excludes>元素1的数组元素b</excludes>
+		<params>
+			<size>元素1的对象元素c</size>
+			<tip>最大长度不能超过</tip>
+		</params>
+	</arr>
+	<arr class="数组类型list 元素2" on="true" >
+		<excludes>login</excludes>
+		<excludes>login1</excludes>
+		<params>
+			<size>2048</size>
+			<tip>未登录</tip>
+		</params>
+	</arr>
+</root>
+
+

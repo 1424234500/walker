@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+
+   <!--默认配置-->
+    <default-config>  
+        <property name="initialPoolSize">4</property>
+        <property name="maxIdleTime">32</property>
+        <property name="maxPoolSize">16</property>
+        <property name="minPoolSize">4</property>
+        <property name="maxStatements">256</property>
+         
+    </default-config>  
+  
+   <!--配置连接池mysql 此处配置初始化 或者 通过 jdbc配置 手动初始化连接池 -->
+     <!--
+     <named-config name="mysql">
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/CoupleSpace</property>
+        <property name="webUser">root</property>
+        <property name="password">root</property>
+    </named-config>  
+    -->
+    
+</c3p0-config>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.walker.mapper.StudentMapper" >
+ <!--
+    <resultMap id="BaseResultMap" type="com.walker.mode.Student" >
+        <id column="ID" property="ID" jdbcType="" />
+        <result column="S_MTIME" property="S_MTIME" jdbcType="VARCHAR" />
+        <result column="S_ATIME" property="S_ATIME" jdbcType="VARCHAR" />
+        <result column="S_FLAG" property="S_FLAG" javaType="VARCHAR"/>
+        <result column="NAME" property="NAME" jdbcType="VARCHAR" />
+        <result column="SEX" property="SEX" jdbcType="VARCHAR" />
+        <result column="CLASS_CODE" property="CLASS_CODE" jdbcType="VARCHAR" />
+    </resultMap>
+    -->
+<!--    定义表名-->
+    <sql id="SQL_TABLE_NAME" >
+        W_STUDENT
+    </sql>
+<!--    定义列组合-->
+    <sql id="SQL_COLUMN_ALL" >
+        ID, S_MTIME, S_ATIME, S_FLAG, NAME, SEX, CLASS_CODE
+    </sql>
+<!--    定义对象插入序列-->
+    <sql id="SQL_COLUMN_ALL_INSERT" >
+        #{object.ID}, #{object.S_MTIME}, #{object.S_ATIME}, #{object.S_FLAG}, #{object.NAME}, #{object.SEX}, #{object.CLASS_CODE}
+    </sql>
+<!--    定义对象匹配规则 模糊查询  findPage  and  count  -->
+    <sql id="SQL_COLUMN_ALL_LIKE">
+        <if test="object.ID != null and object.ID != '' ">
+            and  ID = #{object.ID}
+        </if>
+        <if test="object.S_MTIME != null and object.S_MTIME != '' ">
+            and  S_MTIME &gt; #{object.S_MTIME}
+        </if>
+        <if test="object.S_ATIME != null and object.S_ATIME != '' ">
+            and  S_ATIME &gt; #{object.S_ATIME}
+        </if>
+        <if test="object.S_FLAG != null and object.S_FLAG != '' ">
+            and  S_FLAG like "%"#{object.S_FLAG}"%"
+        </if>
+        <if test="object.NAME != null and object.NAME != '' ">
+            and  NAME like "%"#{object.NAME}"%"
+        </if>
+        <if test="object.SEX != null and object.SEX != '' ">
+            and  SEX like "%"#{object.SEX}"%"
+        </if>
+        <if test="object.CLASS_CODE != null and object.CLASS_CODE != '' ">
+            and  CLASS_CODE like "%"#{object.CLASS_CODE}"%"
+        </if>
+    </sql>
+<!--    /**-->
+<!--    * 分页查询 排序-->
+<!--    * @param obj-->
+<!--    * @param page-->
+<!--    * @return-->
+<!--    */-->
+<!--    List<Student> findPage(Student obj, Page page);-->
+    <select id="findPage" resultType="com.walker.mode.Student">
+        select
+        <include refid="SQL_COLUMN_ALL" />
+        from
+        <include refid="SQL_TABLE_NAME" />
+        <where>
+            <include refid="SQL_COLUMN_ALL_LIKE" />
+        </where>
+        <if test="page != null ">
+            <if test="page.order != null and page.order != '' ">
+                order by ${page.order}
+            </if>
+            limit #{page.start}, #{page.shownum}
+        </if>
+    </select>
+
+<!--    /**-->
+<!--    * 计数-->
+<!--    * @param obj-->
+<!--    * @return-->
+<!--    */-->
+<!--    Integer count(Student obj);-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from
+        <include refid="SQL_TABLE_NAME" />
+        <where>
+            <include refid="SQL_COLUMN_ALL_LIKE" />
+        </where>
+    </select>
+
+<!--    /**-->
+<!--    * 批量插入-->
+<!--    * @param objs-->
+<!--    */-->
+<!--    void insert(List<Student> objs);-->
+    <insert id ="insert"  >
+        insert into
+        <include refid="SQL_TABLE_NAME" />
+        (
+            <include refid="SQL_COLUMN_ALL" />
+        )
+        values
+        <foreach collection ="list" item="object" index= "index" separator =",">
+            (
+                <include refid="SQL_COLUMN_ALL_INSERT" />
+            )
+        </foreach >
+    </insert >
+<!--    /**-->
+<!--    * 批量更新-->
+<!--    * @param obj-->
+<!--    */-->
+<!--    void update(List<Student> obj);-->
+    <!-- 批量更新第一种方法，通过接收传进来的参数list进行循环着组装sql -->
+    <update id="update" >
+        <!-- 接收list参数，循环着组装sql语句，注意for循环的写法
+           separator=";" 代表着每次循环完，在sql后面放一个分号
+           item="cus" 循环List的每条的结果集
+           collection="list" list 即为 map传过来的参数key -->
+        <foreach collection="list" separator=";" item="object">
+            update
+            <include refid="SQL_TABLE_NAME" />
+            <set>
+                <if test="object.ID != null ">
+                    ID = #{object.ID},
+                </if>
+                <if test="object.S_MTIME != null ">
+                    S_MTIME = #{object.S_MTIME},
+                </if>
+                <if test="object.S_ATIME != null ">
+                    S_ATIME = #{object.S_ATIME},
+                </if>
+                <if test="object.S_FLAG != null ">
+                    S_FLAG = #{object.S_FLAG}",
+                </if>
+                <if test="object.NAME != null ">
+                    NAME = #{object.NAME},
+                </if>
+                <if test="object.SEX != null ">
+                    SEX = #{object.SEX},
+                </if>
+                <if test="object.CLASS_CODE != null ">
+                    CLASS_CODE = #{object.CLASS_CODE},
+                </if>
+            </set>
+            where ID = #{object.ID}
+        </foreach>
+    </update>
+<!--    /**-->
+<!--    * 批量删除-->
+<!--    * @param ids-->
+<!--    */-->
+<!--    void delete(Set<String> ids);-->
+    <delete id="delete"  >
+        delete from
+        <include refid="SQL_TABLE_NAME" />
+        where 1 &gt; 2
+        or ID in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+</mapper>
+
+
+
+<!--
+语法
+
+传递多个参数
+    void fff(Object obj, Page page)
+        #{0}, #{1} 分别取第一第二个参数
+    void fff(Map obj)
+        #{obj.key1}, #{obj.key2}  分别取两个键值
+    void fff(@Param("obj") Object obj, @Param("page") Page page)
+        #{obj}, #{page} 分别取参数
+
+
+复用sql代码段落
+    include 引用sql片段 可其他namespace中的
+    <include refid="com.company.ShareMapper.someSQL"/>
+
+模糊匹配like拼接
+    and NAME like concat('%',#{NAME},'%')
+    and NAME like '%${NAME}%'
+    and NAME like "%"#{NAME}"%"
+
+逻辑运算
+    原符号 < <= > >= & ' " 替换符号    &lt;    &lt;=   &gt;    &gt;=   &amp;   &apos;  &quot;
+    例如：sql如下： create_date_time &gt;= #{startTime} and  create_date_time &lt;= #{endTime}
+    大于等于 <![CDATA[ >= ]]> 小于等于 <![CDATA[ <= ]]>
+    例如：sql如下： create_date_time <![CDATA[ >= ]]> #{startTime} and  create_date_time <![CDATA[ <= ]]> #{endTime}
+
+1. if 语句 (简单的条件判断)
+2. choose (when,otherwize) ,相当于java 语言中的 switch ,与 jstl 中的choose 很类似.
+<select id="dynamicChooseTest" parameterType="Blog" resultType="Blog">
+    select * from t_blog where 1 = 1
+    <choose>
+        <when test="title != null">
+            and title = #{title}
+         </when>
+         <when test="content != null">
+            and content = #{content}
+         </when>
+         <otherwise>
+            and owner = "owner1"
+         </otherwise>
+     </choose>
+</select>
+3. trim (对包含的内容加上 prefix,或者 suffix 等，前缀，后缀)
+    select * from user
+    <trim prefix="WHERE" prefixoverride="AND |OR">
+        <if test="name != null and name.length()>0">
+            AND name=#{name}
+        </if>
+        <if test="gender != null and gender.length()>0">
+            AND gender=#{gender}
+        </if>
+    </trim>
+4. where (主要是用来简化sql语句中where条件判断的，能智能的处理(消除1=1) and or ,不必担心多余导致语法错误)
+<select id="dynamicWhereTest" parameterType="Blog" resultType="Blog">
+    select * from t_blog
+    <where>
+        <if test="title != null">
+            title = #{title}
+        </if>
+        <if test="content != null">
+            and content = #{content}
+        </if>
+        <if test="owner != null">
+            and owner = #{owner}
+        </if>
+    </where>
+</select>
+5. set (主要用于更新时, 智能处理 ',' )
+    <update id="dynamicSetTest" parameterType="Blog">
+        update t_blog
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="owner != null">
+                owner = #{owner}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+6. foreach (在实现 mybatis in 语句查询时特别有用)
+collection属性为必填属性! 可以是list,array,map.
+
+list类型
+<select id="dynamicForeachTest" resultType="com.mybatis.entity.User">
+    select * from t_user where id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</select>
+数组类型
+<select id="dynamicForeach2Test" resultType="com.mybatis.entity.User">
+    select * from t_user where id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</select>
+
+-->
+
+<!--
+    jpa 表字段配置
+        @SqlColumn(name="ID", columnDefinition = "varchar(32) default '' comment '主键' ")
+        private String ID;
+        @SqlColumn(name = "S_MTIME", columnDefinition = "varchar(32) default '1970-01-01 00:00:00' comment '修改时间' ")
+        private String S_MTIME;
+        @SqlColumn(name = "S_ATIME", columnDefinition = "varchar(32) default '1970-01-01 00:00:00' comment '添加时间' ")
+        private String S_ATIME;
+        @SqlColumn(name = "S_FLAG", columnDefinition = "varchar(4) default '0' comment '1是0否' ")
+        private String S_FLAG;
+        @SqlColumn(name = "NAME", columnDefinition = "varchar(512) default 'name' comment '名字' ")    //255
+        private String NAME;
+        @SqlColumn(name = "SEX", columnDefinition = "varchar(4) default '0' comment '1男0女' ")
+        private String SEX;
+        @SqlColumn(name = "CLASS_CODE", columnDefinition = "varchar(32) default 'name' comment '班级' ")    //255
+        private String CLASS_CODE;
+-->
