@@ -14,12 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * redis 普通模式
- * 接入工具模型
- * CacheLockerBase
- * is a TestAdapter, cache, cacheDb, locker, lockerHelp
- * <p>
- * eg: *test
+ *
  */
 @Data
 public class PoolC3p0Mysql extends Pool {
@@ -90,6 +85,11 @@ public class PoolC3p0Mysql extends Pool {
         }
     }
 
+    @Override
+    String getDsName() {
+        return "mysql";
+    }
+
     private static class SingletonFactory {
         static PoolC3p0Mysql instance;
 
@@ -112,6 +112,7 @@ public class PoolC3p0Mysql extends Pool {
 
         }
     }
+
 
 
 }

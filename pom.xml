@@ -13,11 +13,11 @@
 
     <modules>
         <module>walker-core</module>
-        <module>walker-socket</module>
-        <module>walker-service</module>
+        <module>walker-service-client</module>
+        <module>walker-socket-server</module>
         <module>walker-spring-core</module>
-        <module>walker-service-provider</module>
-        <module>walker-web</module>
+        <module>walker-spring-provider</module>
+        <module>walker-spring-web</module>
         <!--        <module>walker-test</module>-->
     </modules>
 

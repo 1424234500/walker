@@ -1,0 +1,66 @@
+server:
+  connection-timeout: 8000
+  tomcat:
+    uri-encoding: utf-8
+    max-connections: 1000
+    max-threads: 200
+    min-spare-threads: 10
+  port: 8090
+#  前缀
+#  servlet:
+#    context-path: /service
+
+spring:
+
+
+  profiles:
+    active: sqlite #加载多个模块配置文件yml pro,test,log4j
+  #    java -jar example.jar --spring.profiles.active=test
+
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+#  config-location: classpath:mybatis-config.xml
+
+
+
+
+#logging:
+#  file: classpath:log4j2.yml
+#logging:
+#  file: /home/walker/logs/walker-web.log
+#  #  pattern:
+#  #    console: "%date{HH:mm:ss.SSS} %-5level %-30.30logger{29} : %msg%n"
+#  Root:
+#    level: debug
+#    AppenderRef:
+#      - ref: CONSOLE
+#      - ref: ROLLING_FILE
+#  level:
+#    com.demo: DEBUG
+#    org.springframework.jdbc.core.JdbcTemplate: DEBUG
+
+#
+#  Springboot加载配置文件的顺序
+#
+#  home目录下的devtools全局设置属性（ ~/.spring-boot-devtools.properties ，如果devtools激活）。
+#  测试用例上的@TestPropertySource注解。
+#  测试用例上的@SpringBootTest#properties注解。
+#  命令行参数
+#  来自 SPRING_APPLICATION_JSON 的属性（环境变量或系统属性中内嵌的内联JSON）。
+#  ServletConfig 初始化参数。
+#  ServletContext 初始化参数。
+#  来自于 java:comp/env 的JNDI属性。
+#  Java系统属性（System.getProperties()）。
+#  操作系统环境变量。
+#  RandomValuePropertySource，只包含 random.* 中的属性。
+#  没有打进jar包的Profile-specific应用属性（ application-{profile}.properties 和YAML变量）。
+#  打进jar包中的Profile-specific应用属性（ application-{profile}.properties 和YAML变量）。
+#  没有打进jar包的应用配置（ application.properties 和YAML变量）。
+#  打进jar包中的应用配置（ application.properties 和YAML变量）。
+#  @Configuration 类上的 @PropertySource 注解。
+#  默认属性（使用 SpringApplication.setDefaultProperties 指定）。

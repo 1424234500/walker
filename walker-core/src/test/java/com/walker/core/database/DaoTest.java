@@ -2,6 +2,7 @@ package com.walker.core.database;
 
 
 import com.walker.core.encode.PinyinUtil;
+import com.walker.util.FileUtil;
 import com.walker.util.Tools;
 import org.junit.Test;
 
@@ -9,6 +10,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoTest {
+
+	@Test
+	public void testPool(){
+		PoolC3p0Mysql pool = PoolC3p0Mysql.getInstance();
+		pool.setPwd("wxxxx");
+		pool.setDriver("slsls.dsakfl.slsdf");
+		Dao dao = new Dao(pool);
+		Tools.formatOut(dao.find("SELECT * FROM DUAL LIMIT 1;"));
+	}
+	@Test
+	public void testPoolSqlite(){
+		PoolC3p0Mysql pool = PoolC3p0Mysql.getInstance();
+		pool.setDriver("org.sqlite.JDBC");
+//		pool.setUrl("jdbc:sqlite:/sqlite/walker");
+		String file = "/db/walker.sqlite.db";
+		FileUtil.mkfile(file);
+		pool.setUrl("jdbc:sqlite:" + file);
+		Dao dao = new Dao(pool);
+		Tools.out(dao.executeSql("create table if not exists test(name text, age text)"));
+		Tools.out(dao.executeSql("insert into test(name, age) values(?, ?) ", "name", "18"));
+		Tools.out(dao.executeSql("insert into test(name, age) values(?, ?) ", "name1", "19"));
+
+		Tools.formatOut(dao.find("SELECT * FROM test LIMIT 10 "));
+
+
+
+		dao = new Dao(PoolC3p0Sqlite.getInstance());
+		Tools.out(dao.executeSql("create table if not exists test(name text, age text)"));
+		Tools.out(dao.executeSql("insert into test(name, age) values(?, ?) ", "name", "18"));
+		Tools.out(dao.executeSql("insert into test(name, age) values(?, ?) ", "name1", "19"));
+
+		Tools.formatOut(dao.find("SELECT * FROM test LIMIT 10 "));
+	}
+
+
 	@Test
 	public void testGetColumnMap(){
 		Tools.out(new Dao().getDatabasesOrUsers());

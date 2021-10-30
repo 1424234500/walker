@@ -10,7 +10,6 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 //		testgc();
-
 		FileUtil.showDir("D:\\Pictures\\pc\\BelgiumTSC_Training", new FileUtil.FunArgsReturnBool<File>() {
 			@Override
 			public Boolean make(File obj) {

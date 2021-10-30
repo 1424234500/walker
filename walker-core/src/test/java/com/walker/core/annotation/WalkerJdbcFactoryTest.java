@@ -10,9 +10,8 @@ public class WalkerJdbcFactoryTest {
 
     @Test
     public void getInstance() {
-
-        StudentWalkerJdbc studentWalkerJdbc = WalkerJdbcFactory
-                .getInstance(StudentWalkerJdbc.class, new Dao().setDs("mysql"));
+        Dao datasource = new Dao();
+        StudentWalkerJdbc studentWalkerJdbc = WalkerJdbcFactory.getInstance(StudentWalkerJdbc.class, datasource);
         Tools.out(studentWalkerJdbc.updateNameById("2", "1"));
 
         Page page = new Page().setShownum(5).setNowpage(1);

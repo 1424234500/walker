@@ -19,9 +19,8 @@ abstract class Pool {
     /**
      * 默认第一个作为默认数据源
      */
-    protected static List<String> defaultDsNames = Arrays.asList("mysql", "oracle");
+    protected static List<String> defaultDsNames = Arrays.asList("mysql", "oracle", "sqlite");
     protected static String defaultDsName = defaultDsNames.get(0);
-    Logger log = LoggerFactory.getLogger(getClass());
 
     /**
      * 获取默认数据源 连接
@@ -29,5 +28,7 @@ abstract class Pool {
     abstract Connection getConn();
 
     abstract void close(Connection conn, PreparedStatement pst, ResultSet rs);
+
+    abstract String getDsName();
 
 }

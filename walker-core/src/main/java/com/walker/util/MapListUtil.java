@@ -13,7 +13,7 @@ public class MapListUtil {
     public static void main(String[] argc) {
         Tools.out("-------测试list set map相关区别 争议点");
 
-        ArrayList<Map<String, Object>> list = new ArrayList<>>();
+        ArrayList<Map<String, Object>> list = new ArrayList<>();
 
         Map<String, Object> map = getMap().put("key1", "value1").put(null, "value null").put("value null", null).build();
         Map<String, Object> map2 = getMap().put("key2", "value2").build();
@@ -62,7 +62,7 @@ public class MapListUtil {
 
         Tools.out("-----------");
 
-        List<Map<String, Object>> li = new ArrayList<>>();
+        List<Map<String, Object>> li = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             Map<String, Object> mm = getMap()
                     .put("id", "id-" + i)
@@ -240,7 +240,7 @@ public class MapListUtil {
      */
     @SuppressWarnings("rawtypes")
     public static List<Map<String, String>> getList(List<Map> list) {
-        List<Map<String, String>> res = new ArrayList<>>();
+        List<Map<String, String>> res = new ArrayList<>();
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 Map<String, String> map = new HashMap<String, String>(list.get(i));
@@ -437,7 +437,7 @@ public class MapListUtil {
      * @param list
      */
     public static List<List<String>> toArray(List<Map<String, Object>> list) {
-        List<List<String>> res = new ArrayList<>>();
+        List<List<String>> res = new ArrayList<>();
 
         if (list != null && list.size() > 0) {
             Set<?> set = list.get(0).keySet();
@@ -463,7 +463,7 @@ public class MapListUtil {
      */
     public static List<List<String>> turnRerix(List<List<String>> list) {
 
-        List<List<String>> res = new ArrayList<>>();
+        List<List<String>> res = new ArrayList<>();
 
         if (list != null && list.size() > 0) {
             int colSize = list.get(0).size();
@@ -494,7 +494,7 @@ public class MapListUtil {
     @SuppressWarnings("unused")
     public static List<Map<String, Object>> turnListMap(List<Map<String, Object>> list) {
 
-        List<Map<String, Object>> res = new ArrayList<>>();
+        List<Map<String, Object>> res = new ArrayList<>();
 
         if (list != null && list.size() > 0) {
             Set<?> set = list.get(0).keySet();

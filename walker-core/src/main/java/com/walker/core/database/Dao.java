@@ -15,7 +15,6 @@ import java.util.Map;
 public class Dao extends BaseDaoAdapter {
 
     private final Pool pool;
-    String dsName = "mysql";
 
     public Dao(Pool pool) {
         this.pool = pool;
@@ -29,12 +28,7 @@ public class Dao extends BaseDaoAdapter {
 
     @Override
     public String getDs() {
-        return this.dsName;
-    }
-
-    public Dao setDs(String dsName) {
-        this.dsName = dsName;
-        return this;
+        return pool.getDsName();
     }
 
     /**
@@ -48,12 +42,8 @@ public class Dao extends BaseDaoAdapter {
      * 关闭连接
      */
     private void close(Connection conn, PreparedStatement pst, ResultSet rs) {
-        this.pool.close(conn, pst, rs);
+        pool.close(conn, pst, rs);
     }
-//	PreparedStatement ps = conn.prepareStatement(sql);
-//	conn = this.pool.getConn(dsName);
-//	this.pool.close(conn, pst, rs);
-
 
     @Override
     public List<Map<String, Object>> find(String sql, Object... objects) {

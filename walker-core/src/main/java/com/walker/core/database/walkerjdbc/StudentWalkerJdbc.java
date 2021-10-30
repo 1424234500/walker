@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 模拟mybatis 动态代理实现接口mapper
+ * 模拟mybatis 动态代理实现接口 mapper
  */
 @WalkerJdbc("studentWalkerJdbc")
 public interface StudentWalkerJdbc {

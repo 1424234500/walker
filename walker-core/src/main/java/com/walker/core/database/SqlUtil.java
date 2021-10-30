@@ -334,7 +334,7 @@ public class SqlUtil {
      * @throws SQLException
      */
     public static List<Map<String, Object>> toListMap(ResultSet rs) throws SQLException {
-        List<Map<String, Object>> res = new ArrayList<>>();
+        List<Map<String, Object>> res = new ArrayList<>();
         ResultSetMetaData md = rs.getMetaData(); // 得到结果集(rs)的结构信息，比如字段数、字段名等
         int columnCount = md.getColumnCount(); // 返回此 ResultSet 对象中的列数
         while (rs.next()) {
@@ -355,7 +355,7 @@ public class SqlUtil {
      * @return [ [1, n1], [2,n2] ]
      */
     public static List<List<String>> toValues(ResultSet rs) throws SQLException {
-        List<List<String>> res = new ArrayList<>>();
+        List<List<String>> res = new ArrayList<>();
         ResultSetMetaData md = rs.getMetaData(); // 得到结果集(rs)的结构信息，比如字段数、字段名等
         int columnCount = md.getColumnCount(); // 返回此 ResultSet 对象中的列数
         while (rs.next()) {
@@ -376,7 +376,7 @@ public class SqlUtil {
      * @return [ [1, n1], [2,n2] ]
      */
     public static List<List<String>> toValues(List<Map<String, Object>> rs) {
-        List<List<String>> res = new ArrayList<>>();
+        List<List<String>> res = new ArrayList<>();
         for (Map<String, Object> map : rs) {
             ArrayList<String> list = new ArrayList<>();
             for (String key : map.keySet()) {

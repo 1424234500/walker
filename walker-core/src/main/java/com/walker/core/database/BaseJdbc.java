@@ -8,14 +8,6 @@ public interface BaseJdbc {
 
     String getDs();
 
-    /**
-     * 数据源 不同数据源 不同实现方式 分页 ddl dml
-     *
-     * @param ds
-     */
-    BaseJdbc setDs(String ds);
-
-
     /////////////////////////////////必须实现 其他依赖以下接口
 
     /**

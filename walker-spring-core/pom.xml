@@ -142,7 +142,7 @@
 
         <dependency>
             <groupId>com.walker</groupId>
-            <artifactId>walker-service</artifactId>
+            <artifactId>walker-service-client</artifactId>
             <version>0.0.1</version>
         </dependency>
         <dependency>

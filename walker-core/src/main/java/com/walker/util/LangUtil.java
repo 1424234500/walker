@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -149,9 +151,10 @@ public class LangUtil {
 	}
 
 	/**
-	 * class bean对象转换为map
+	 * class bean对象  fieds 属性值 转换为map
 	 *
 	 * @param obj
+	 * @return {name:xxx, agx:18}
 	 */
 	public static Map<String, Object> turnObj2Map(Object obj) {
 		Map<String, Object> map = new HashMap<>();
@@ -168,10 +171,36 @@ public class LangUtil {
 			}
 		}
 		log.debug("turn obj to " + map.keySet() + " from " + obj);
-
 		return map;
 	}
 
+	/**
+	 * class bean对象  method 调用值 转换为map
+	 *
+	 * @param obj
+	 * @param regex eg: is*
+	 * @return {isReadable: true, isHelp:false}
+	 */
+	public static Map<String, Object> turnObj2Map(Object obj, String startWith) {
+		Map<String, Object> map = new HashMap<>();
+		for(Method item : obj.getClass().getMethods()){
+			String key = item.getName();
+			Object value = null;
+			try {
+				if(
+						(startWith == null || startWith.length() == 0 || key.startsWith(startWith))
+						&& item.getParameters().length <= 0 //无参数
+				) {
+					value = item.invoke(obj);
+					map.put(key, value);
+				}
+			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+				log.error(e.getMessage(), e);
+			}
+		}
+		log.debug("turn obj to " + map.keySet() + " from " + obj);
+		return map;
+	}
 	/**
 	 * class bean对象转换为map
 	 *
