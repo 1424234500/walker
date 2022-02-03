@@ -2,7 +2,7 @@ package com.walker.controller.user;
 
 
 import com.walker.Response;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.mode.Area;
 import com.walker.service.AreaService;
 import com.walker.service.BaseService;

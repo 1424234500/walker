@@ -1,7 +1,7 @@
 package com.walker.util;
 
 
-import com.walker.core.mode.Emp;
+import com.walker.mode.Emp;
 import sun.misc.Unsafe;
 
 import java.io.File;

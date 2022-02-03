@@ -1,6 +1,6 @@
 package com.walker.demo;
 
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.ThreadUtil;
 import com.walker.util.Tools;
 import com.walker.util.Watch;

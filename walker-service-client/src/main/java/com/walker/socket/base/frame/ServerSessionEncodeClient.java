@@ -1,7 +1,7 @@
 package com.walker.socket.base.frame;
 
 import com.walker.socket.base.Session;
-import com.walker.socket.client.frame.Out;
+import com.walker.socket.client.chat.frame.Out;
 
 /**
  * 使用future模板控制socket事件启停

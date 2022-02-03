@@ -1,9 +1,9 @@
 package com.walker.core.database;
 
-import com.walker.core.mode.CacheModelRedis;
-import com.walker.core.mode.Page;
+import com.walker.mode.CacheModelRedis;
+import com.walker.mode.Page;
 import com.walker.util.LangUtil;
-import com.walker.util.SerializeUtil;
+import com.walker.core.encode.SerializeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;

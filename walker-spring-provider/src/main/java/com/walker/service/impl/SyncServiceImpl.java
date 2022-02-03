@@ -3,7 +3,7 @@ package com.walker.service.impl;
 
 import com.walker.config.MakeConfig;
 import com.walker.core.encode.PinyinUtil;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.dao.BaseDateRepository;
 import com.walker.dao.ConfigDao;
 import com.walker.dao.JdbcTemplateDao;

@@ -2,7 +2,7 @@ package com.walker.core.annotation;
 
 import com.walker.core.database.Dao;
 import com.walker.core.database.walkerjdbc.StudentWalkerJdbc;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.util.Tools;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.dao.TeacherRepository;
 import com.walker.mode.Teacher;
 import com.walker.service.TeacherService;

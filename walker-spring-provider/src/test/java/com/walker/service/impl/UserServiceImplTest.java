@@ -1,7 +1,7 @@
 package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.mode.Student;
 import com.walker.mode.Teacher;
 import com.walker.mode.User;

@@ -5,7 +5,7 @@ import com.walker.core.cache.ConfigMgr;
 import com.walker.core.encode.MD5;
 import com.walker.dao.JdbcTemplateDao;
 import com.walker.service.LoginService;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

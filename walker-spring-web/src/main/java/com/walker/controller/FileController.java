@@ -3,7 +3,7 @@ package com.walker.controller;
 import com.alibaba.fastjson.JSON;
 import com.walker.Response;
 import com.walker.config.Context;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.dao.JdbcDao;
 import com.walker.mode.FileIndex;
 import com.walker.service.Config;
@@ -83,7 +83,7 @@ public class FileController {
         String info = "delete ids:" + ids;
         List<FileIndex> fileIndexList = fileIndexService.findsAllById(Arrays.asList(ids.split(",")));
         Object res = fileIndexService.deleteAll(Arrays.asList(ids.split(",")));
-        for(FileIndex fileIndex : fileIndexList){
+        for (FileIndex fileIndex : fileIndexList) {
             FileUtil.delete(fileIndex.getPATH());
             FileUtil.delete(getUploadPathTempDir(fileIndex.getEXT(), fileIndex.getCHECKSUM()));   //删除该文件的缓存目录
         }
@@ -177,7 +177,7 @@ public class FileController {
         int count = 0;
         String info = "";
         List<String> pathList = Arrays.asList(paths.split(","));
-        for(String path : pathList) {
+        for (String path : pathList) {
             if (path.length() > 0) {
                 if (path.startsWith(Config.getUploadDir())) {
                     count += FileUtil.delete(path) ? 1 : 0;
@@ -208,7 +208,7 @@ public class FileController {
                 FileUtil.mv(oldPath, newPath);
                 //更新该文件及其子文件索引
                 List<FileIndex> fileIndexList = fileIndexService.findsAllByStartPath(oldPath);
-                for(FileIndex fileIndex : fileIndexList){
+                for (FileIndex fileIndex : fileIndexList) {
                     fileIndex.setPATH(fileIndex.getPATH().replace(oldPath, newPath));
                     fileIndex.setNAME(FileUtil.getFileName(fileIndex.getPATH()));
                     fileIndex.setEXT(FileUtil.getFileType(fileIndex.getPATH()));
@@ -226,23 +226,22 @@ public class FileController {
 
     /**
      * 支撑请求头 特定 图片预览问题 img src
-     *
+     * <p>
      * id是否存在
      * 若是图片 且有尺寸控制
-     *      缩略图是否存在
-     *          变换路径为缩略图路径
-     *      缩略图 并缓存redis
-     *
+     * 缩略图是否存在
+     * 变换路径为缩略图路径
+     * 缩略图 并缓存redis
      */
     @ApiOperation(value = "下载文件 ", notes = "")
     @ResponseBody
     @RequestMapping(value = "/download.do")
     public void downloadFile(HttpServletRequest request,
-                               HttpServletResponse response,
-                                @RequestParam(value = "ID", required = false, defaultValue = "") String id,
-                                 @RequestParam(value = "PATH", required = false, defaultValue = "") String path,
+                             HttpServletResponse response,
+                             @RequestParam(value = "ID", required = false, defaultValue = "") String id,
+                             @RequestParam(value = "PATH", required = false, defaultValue = "") String path,
 //                                 图片文件即可 200x200放大缩小
-                                 @RequestParam(value = "SIZE", required = false, defaultValue = "") String size
+                             @RequestParam(value = "SIZE", required = false, defaultValue = "") String size
 
     ) throws IOException {
         Watch w = new Watch(new Object[]{"download"});
@@ -256,23 +255,23 @@ public class FileController {
         if (id.length() > 0) {
             fileIndex = fileIndexService.get(new FileIndex().setID(id));
             path = fileIndex == null ? path : fileIndex.getPATH();
-        }else if(path.length() > 0){
+        } else if (path.length() > 0) {
             path = path.startsWith(Config.getDownloadDir()) ? path : Config.getUploadDir() + File.separator + path;
             path = new String(path.getBytes("iso-8859-1"), "utf-8");
             List<FileIndex> list = fileIndexService.findsAllByPath(Arrays.asList(path));
-            if(list.size() > 0){
+            if (list.size() > 0) {
                 fileIndex = list.get(0);
             }
         }
         w.cost("getIndex");
         //若是图片 且需要放缩
-        if(ImageUtil.isImage(fileIndex.getEXT()) && size != null && size.length() > 0){
+        if (ImageUtil.isImage(fileIndex.getEXT()) && size != null && size.length() > 0) {
             size = size.toLowerCase().replace('*', 'x');
 
             String toPath = getUploadPathTempFile(fileIndex.getEXT(), fileIndex.getCHECKSUM(), size);//如果是图片则 转换为临时文件放置位置 转换缓存文件
-            if(new File(toPath).isFile()){  //已存在
+            if (new File(toPath).isFile()) {  //已存在
                 w.put("cache file");
-            }else{
+            } else {
                 size = ImageUtil.makeIfImageThenSize(fileIndex.getPATH(), fileIndex.getEXT(), size, toPath);
                 w.cost("turn file");
             }
@@ -299,7 +298,7 @@ public class FileController {
         w.put("info", info);
         if (!res) {
             w.res();
-            String s = JSON.toJSONString( Response.makeFalse(w.toPrettyString()).toString() );
+            String s = JSON.toJSONString(Response.makeFalse(w.toPrettyString()).toString());
             response.getWriter().println(s);
             log.error(w.toString());
 //            response.flushBuffer();
@@ -312,9 +311,9 @@ public class FileController {
             OutputStream outputStream = response.getOutputStream();
             try {
                 FileUtil.copyStream(inputStream, outputStream);
-            }finally {
-                if(inputStream != null) inputStream.close();
-                if(outputStream != null) outputStream.close();
+            } finally {
+                if (inputStream != null) inputStream.close();
+                if (outputStream != null) outputStream.close();
             }
             w.cost("copyStream");
             log.info(w.toPrettyString());
@@ -325,40 +324,46 @@ public class FileController {
 
     /**
      * 获取文件缓存的具体路径
-     * @param ext   png
-     * @param checksum  asdflaksdfj
-     * @return   /home/walker/files/png/2020-20-10/alsjdfadf_temp/100x100
+     *
+     * @param ext      png
+     * @param checksum asdflaksdfj
+     * @return /home/walker/files/png/2020-20-10/alsjdfadf_temp/100x100
      */
-    public String getUploadPathTempFile(String ext, String checksum, String size){
+    public String getUploadPathTempFile(String ext, String checksum, String size) {
         return getUploadPathTempDir(ext, checksum) + File.separator + size;
     }
+
     /**
      * 获取文件的临时缓存目录
-     * @param ext   png
-     * @param checksum  asdflaksdfj
-     * @return   /home/walker/files/png/2020-20-10/alsjdfadf_temp
+     *
+     * @param ext      png
+     * @param checksum asdflaksdfj
+     * @return /home/walker/files/png/2020-20-10/alsjdfadf_temp
      */
-    public String getUploadPathTempDir(String ext, String checksum){
+    public String getUploadPathTempDir(String ext, String checksum) {
         String res = getTemp(getUploadPathByExtAndChecksum("", ext, checksum));
         FileUtil.mkdir(res);
         return res;
     }
-    public String getTemp(String path){
+
+    public String getTemp(String path) {
         return path + "_temp";
     }
+
     /**
      * 构造文件上传的命名 路径
-     * @param dir   预期路径    ""
-     * @param ext   后缀  png
-     * @param checksum  校验码 alsjdfadf
-     * @return  /home/walker/files/png/2020-20-10/alsjdfadf
+     *
+     * @param dir      预期路径    ""
+     * @param ext      后缀  png
+     * @param checksum 校验码 alsjdfadf
+     * @return /home/walker/files/png/2020-20-10/alsjdfadf
      */
-    public String getUploadPathByExtAndChecksum(String dir, String ext, String checksum){
+    public String getUploadPathByExtAndChecksum(String dir, String ext, String checksum) {
         String uploadDir = Config.getUploadDir();
-        String res = dir.length() > 0 && dir.startsWith(uploadDir)?
+        String res = dir.length() > 0 && dir.startsWith(uploadDir) ?
                 dir
                 :
-                uploadDir + File.separator +  (
+                uploadDir + File.separator + (
                         ext.length() > 0 ?
                                 ext + File.separator + TimeUtil.getTimeYmd()
                                 :
@@ -370,11 +375,10 @@ public class FileController {
     }
 
 
-
     @ApiOperation(value = "上传文件", notes = "")
     @ResponseBody
     @RequestMapping(value = "/upload.do", method = RequestMethod.POST)
-    public Response     upload(
+    public Response upload(
             @RequestParam(value = "file", required = true) MultipartFile file,
             @RequestParam(value = "checksum", required = false, defaultValue = "") String checksum,
             @RequestParam(value = "dir", required = false, defaultValue = "") String dir
@@ -409,7 +413,7 @@ public class FileController {
                 w.put("new file");
                 FileUtil.mv(tempFile.getAbsolutePath(), path);
                 fileIndexService.saveAll(Arrays.asList(fileIndexNew));  //保存记录 然后移动文件
-            }else {
+            } else {
                 w.put("reupload file");
                 FileUtil.mv(fileIndexOld.getPATH(), path);
                 fileIndexOld.setPATH(path);
@@ -441,13 +445,13 @@ public class FileController {
             res.put("list", list);
             res.put("dir", dir);
             return Response.makeTrue("", res);
-        } else if(FileUtil.check(dir) == 0) {
+        } else if (FileUtil.check(dir) == 0) {
             return Response.makeFalse("这是一个文件" + dir);
-        }else{
-            if(dir.startsWith(Config.getDownloadDir())){
+        } else {
+            if (dir.startsWith(Config.getDownloadDir())) {
                 FileUtil.mkdir(dir);
                 return Response.makeTrue("不存在 创建文件夹" + dir);
-            }else{
+            } else {
                 return Response.makeFalse("不存在 无权限创建" + dir);
             }
         }

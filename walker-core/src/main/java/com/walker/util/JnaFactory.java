@@ -13,15 +13,16 @@ import java.util.List;
 
 public class JnaFactory {
     private static final Logger log = LoggerFactory.getLogger(JnaFactory.class);
+
     public static JnaTest jnaSC;
-
     static {
-        jnaSC = loadDll(JnaTest.class, Arrays.asList(/*"StreamConvertor", */"StreamConvertor.dll", "libStreamConvertor.so"));
+        jnaSC = loadDll(JnaTest.class, Arrays.asList("StreamConvertor.dll", "libStreamConvertor.so"));
     }
-
     public static JnaTest getJnaTest() {
         return jnaSC;
     }
+
+
 
     private static <T extends Library> T loadDll(Class<T> clz, List<String> names) {
         T res = null;

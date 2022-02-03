@@ -1,7 +1,7 @@
 package com.walker.core.encode;
 
-import com.walker.util.Bean;
-import com.walker.util.BeanLinked;
+import com.walker.mode.Bean;
+import com.walker.mode.BeanLinked;
 import com.walker.util.FileUtil;
 import com.walker.util.Tools;
 import org.apache.commons.lang3.StringUtils;

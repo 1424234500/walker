@@ -3,6 +3,7 @@ package com.walker.dao;
 import com.walker.core.aop.FunArgsReturn;
 import com.walker.core.encode.JsonUtil;
 import com.walker.core.exception.ErrorException;
+import com.walker.mode.Bean;
 import com.walker.mode.Key;
 import com.walker.util.*;
 import io.lettuce.core.RedisFuture;

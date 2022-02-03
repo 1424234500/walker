@@ -1,6 +1,6 @@
 package com.walker.common.util;
 
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.HttpBuilder;
 import com.walker.util.HttpBuilder.Type;
 import org.junit.Test;

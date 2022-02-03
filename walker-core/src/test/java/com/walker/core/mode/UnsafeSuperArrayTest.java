@@ -1,5 +1,6 @@
 package com.walker.core.mode;
 
+import com.walker.mode.UnsafeSuperArray;
 import com.walker.util.Tools;
 import org.junit.Assert;
 import org.junit.Test;

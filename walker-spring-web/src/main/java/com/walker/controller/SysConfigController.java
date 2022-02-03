@@ -3,7 +3,7 @@ package com.walker.controller;
 
 import com.walker.Response;
 import com.walker.core.aop.FunArgsReturn;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.dao.ConfigDao;
 import com.walker.dao.JdbcDao;
 import com.walker.mode.SysConfig;

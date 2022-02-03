@@ -1,5 +1,7 @@
 package com.walker.util;
 
+import com.walker.mode.Bean;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

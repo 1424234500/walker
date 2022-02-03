@@ -1,7 +1,7 @@
 package com.walker.service;
 
 
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 
 /**
  * 调度器

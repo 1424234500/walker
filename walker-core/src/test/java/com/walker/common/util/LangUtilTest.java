@@ -1,6 +1,6 @@
 package com.walker.common.util;
 
-import com.walker.core.mode.Emp;
+import com.walker.mode.Emp;
 import com.walker.util.LangUtil;
 import com.walker.util.Tools;
 import org.junit.Test;

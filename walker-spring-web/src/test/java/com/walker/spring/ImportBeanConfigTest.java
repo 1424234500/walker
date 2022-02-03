@@ -1,7 +1,7 @@
 package com.walker.spring;
 
 import com.walker.ApplicationTests;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.mapper.StudentWalkerJdbc;
 import com.walker.util.Tools;
 import org.junit.Test;

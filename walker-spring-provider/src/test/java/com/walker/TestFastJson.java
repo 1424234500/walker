@@ -2,7 +2,7 @@ package com.walker;
 
 import com.alibaba.fastjson.JSON;
 import com.walker.mode.Student;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import org.junit.Test;
 
 import java.util.Arrays;

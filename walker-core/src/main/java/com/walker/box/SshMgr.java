@@ -4,7 +4,7 @@ import com.walker.core.encode.JsonFastUtil;
 import com.walker.system.Result;
 import com.walker.system.Server;
 import com.walker.system.SshJsch;
-import com.walker.util.BeanLinked;
+import com.walker.mode.BeanLinked;
 import com.walker.util.FileUtil;
 import com.walker.util.Tools;
 

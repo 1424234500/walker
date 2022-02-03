@@ -1,5 +1,6 @@
 package com.walker.util;
 
+import com.walker.mode.Bean;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;

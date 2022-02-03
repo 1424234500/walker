@@ -1,5 +1,7 @@
 package com.walker.util;
 
+import com.walker.mode.Bean;
+
 import java.util.*;
 
 /**

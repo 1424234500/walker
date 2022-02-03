@@ -1,7 +1,7 @@
 package com.walker.mapper;
 
 import com.walker.ApplicationTests;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.mode.Student;
 import com.walker.util.TimeUtil;
 import org.junit.Test;

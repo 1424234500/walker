@@ -31,12 +31,6 @@ public class JdbcTemplateDao extends BaseDaoAdapter {
     }
 
     @Override
-    public JdbcTemplateDao setDs(String ds) {
-        this.ds = ds;
-        return this;
-    }
-
-    @Override
     public List<Map<String, Object>> find(String sql, Object... params) {
         return jdbcTemplate.queryForList(sql, params);
     }

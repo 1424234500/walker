@@ -1,6 +1,6 @@
 package com.walker.service;
 
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 
 /**
  * 表相关操作 ddl

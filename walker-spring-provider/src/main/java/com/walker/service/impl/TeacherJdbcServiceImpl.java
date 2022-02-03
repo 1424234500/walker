@@ -1,7 +1,7 @@
 package com.walker.service.impl;
 
 import com.walker.core.database.SqlUtil;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.dao.JdbcTemplateDao;
 import com.walker.mode.Teacher;
 import com.walker.service.TeacherService;

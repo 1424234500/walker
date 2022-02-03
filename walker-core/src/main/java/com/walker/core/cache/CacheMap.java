@@ -1,7 +1,7 @@
 package com.walker.core.cache;
 
-import com.walker.core.mode.CacheModel;
-import com.walker.core.mode.Page;
+import com.walker.mode.CacheModel;
+import com.walker.mode.Page;
 import com.walker.util.LangUtil;
 import com.walker.util.TimeUtil;
 import org.slf4j.Logger;

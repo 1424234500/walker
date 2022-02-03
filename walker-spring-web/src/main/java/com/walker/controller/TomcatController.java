@@ -5,7 +5,7 @@ import com.walker.core.encode.JsonFastUtil;
 import com.walker.dao.ConfigDao;
 import com.walker.dao.JdbcDao;
 import com.walker.mapper.StatisticsMapper;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.MapListUtil;
 import com.walker.util.TimeUtil;
 import io.swagger.annotations.ApiOperation;

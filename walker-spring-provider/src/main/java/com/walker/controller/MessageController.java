@@ -5,7 +5,7 @@ import com.walker.Response;
 import com.walker.mode.Msg;
 import com.walker.mode.UserSocket;
 import com.walker.service.MessageService;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

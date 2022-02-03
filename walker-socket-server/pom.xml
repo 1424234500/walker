@@ -47,7 +47,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>${dir_name_lib}</classpathPrefix>
-                            <mainClass>com.walker.socket.server.Launcher</mainClass>  <!-- 指定启动类 -->
+                            <mainClass>com.walker.socket.server.chat.Launcher</mainClass>  <!-- 指定启动类 -->
 						</manifest>
 					</archive>
 				</configuration>

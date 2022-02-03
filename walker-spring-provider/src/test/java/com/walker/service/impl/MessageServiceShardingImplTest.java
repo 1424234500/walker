@@ -3,7 +3,7 @@ package com.walker.service.impl;
 import com.walker.mode.Msg;
 import com.walker.mode.UserSocket;
 import com.walker.service.MessageService;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.TimeUtil;
 import com.walker.util.Tools;
 import com.walker.util.Watch;

@@ -2,6 +2,7 @@ package com.walker.box;
 
 
 import com.walker.core.encode.PinyinUtil;
+import com.walker.mode.Bean;
 import com.walker.util.*;
 
 import java.io.File;

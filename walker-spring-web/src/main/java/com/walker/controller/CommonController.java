@@ -5,14 +5,14 @@ import com.walker.Response;
 import com.walker.core.aop.FunArgsReturn;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.database.SqlUtil;
-import com.walker.core.mode.Page;
-import com.walker.core.mode.SqlColumn;
-import com.walker.core.mode.SqlDatabase;
-import com.walker.core.mode.SqlTable;
+import com.walker.mode.Page;
+import com.walker.mode.SqlColumn;
+import com.walker.mode.SqlDatabase;
+import com.walker.mode.SqlTable;
 import com.walker.dao.JdbcDao;
 import com.walker.service.BaseService;
 import com.walker.service.CacheService;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.LangUtil;
 import com.walker.util.RequestUtil;
 import com.walker.util.TimeUtil;
@@ -260,8 +260,8 @@ public class CommonController {
     @RequestMapping(value = "/findPage.do", method = RequestMethod.GET)
     public Response findPage(HttpServletRequest request) {
         Page page = new Page()
-                .setNowpage(request.getParameter("nowPage"))
-                .setShownum(request.getParameter("showNum"))
+                .setNowpage(Integer.parseInt(request.getParameter("nowPage")))
+                .setShownum(Integer.parseInt(request.getParameter("showNum")))
                 .setOrder(request.getParameter("order"));
 
 

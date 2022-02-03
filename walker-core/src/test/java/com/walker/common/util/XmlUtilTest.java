@@ -2,7 +2,7 @@ package com.walker.common.util;
 
 import com.walker.core.encode.JsonUtil;
 import com.walker.core.encode.XmlUtil;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.FileUtil;
 import com.walker.util.Tools;
 import org.dom4j.DocumentException;

@@ -2,7 +2,7 @@ package com.walker.mapper;
 
 import com.walker.core.annotation.WalkerJdbc;
 import com.walker.core.annotation.WalkerJdbcQuery;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 
 import java.util.List;
 import java.util.Map;

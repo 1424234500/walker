@@ -2,7 +2,7 @@ package com.walker.job;
 
 import com.walker.quartz.TaskJob;
 import com.walker.service.SyncService;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.SpringContextUtil;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.PersistJobDataAfterExecution;

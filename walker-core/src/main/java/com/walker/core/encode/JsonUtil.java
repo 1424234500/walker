@@ -3,8 +3,8 @@ package com.walker.core.encode;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.walker.util.Bean;
-import com.walker.util.BeanLinked;
+import com.walker.mode.Bean;
+import com.walker.mode.BeanLinked;
 import com.walker.util.Tools;
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,13 +18,15 @@ import java.util.List;
 
 
 public class JsonUtil {
-	public static void main(String[] argv) {
-		Bean bean = new Bean().set("key1", 23).set("key2", 232);
-		Tools.out(makeJson(bean));
-		List<Object> list = new ArrayList<>();
-		list.add("asdf");
-		list.add(bean);
-		Tools.out(makeJson(list));
+	private static class TestMain {
+		public static void main(String[] argv) {
+			Bean bean = new Bean().set("key1", 23).set("key2", 232);
+			Tools.out(makeJson(bean));
+			List<Object> list = new ArrayList<>();
+			list.add("asdf");
+			list.add(bean);
+			Tools.out(makeJson(list));
+		}
 	}
 
 	public static String makeJson(Object obj) {

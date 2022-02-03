@@ -2,12 +2,12 @@ package com.walker.controller;
 
 
 import com.walker.Response;
-import com.walker.core.mode.CacheModelRedis;
-import com.walker.core.mode.Page;
-import com.walker.core.mode.SqlColumn;
+import com.walker.mode.CacheModelRedis;
+import com.walker.mode.Page;
+import com.walker.mode.SqlColumn;
 import com.walker.dao.RedisDao;
 import com.walker.service.RedisService;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

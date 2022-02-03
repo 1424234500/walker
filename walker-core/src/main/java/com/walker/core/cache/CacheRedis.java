@@ -2,8 +2,8 @@ package com.walker.core.cache;
 
 import com.walker.core.database.Redis;
 import com.walker.core.database.RedisUtil;
-import com.walker.core.mode.CacheModelRedis;
-import com.walker.core.mode.Page;
+import com.walker.mode.CacheModelRedis;
+import com.walker.mode.Page;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.walker.core.database;
 
-import com.walker.core.mode.CacheModelZk;
-import com.walker.core.mode.Page;
+import com.walker.mode.CacheModelZk;
+import com.walker.mode.Page;
 import com.walker.util.LangUtil;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;

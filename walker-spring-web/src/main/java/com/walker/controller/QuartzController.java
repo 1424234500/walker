@@ -3,7 +3,7 @@ package com.walker.controller;
 
 import com.walker.Response;
 import com.walker.core.database.SqlUtil;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.core.scheduler.Task;
 import com.walker.dao.JdbcDao;
 import com.walker.service.BaseService;

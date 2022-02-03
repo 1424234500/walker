@@ -2,7 +2,7 @@ package com.walker.controller;
 
 
 import com.walker.Response;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.mode.Teacher;
 import com.walker.service.TeacherService;
 import io.swagger.annotations.Api;

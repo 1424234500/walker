@@ -7,7 +7,7 @@ import com.walker.dao.RedisDao;
 import com.walker.mode.Key;
 import com.walker.mode.Msg;
 import com.walker.service.MessageService;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.LangUtil;
 import com.walker.util.TimeUtil;
 import com.walker.util.Tools;

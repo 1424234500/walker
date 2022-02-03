@@ -2,7 +2,7 @@ package com.walker.service.impl;
 
 import com.walker.config.Config;
 import com.walker.core.encode.MD5;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.dao.RoleUserRepository;
 import com.walker.dao.UserRepository;
 import com.walker.mode.User;

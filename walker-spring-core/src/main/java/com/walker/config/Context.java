@@ -1,8 +1,8 @@
 package com.walker.config;
 
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.mode.User;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,18 +86,6 @@ public class Context {
      */
     public static <T> Bean set(Object key, T value) {
         return Context.getContext().set(key, value);
-    }
-
-    /**
-     * 获取分页对象
-     */
-    public static Page getPage() {
-        HttpServletRequest request = Context.getRequest();
-        Page res = new Page();
-        res.setNowpage(request.getParameter("nowpage"));
-        res.setShownum(request.getParameter("shownum"));
-        res.setOrder(request.getParameter("order"));
-        return res;
     }
 
     /**

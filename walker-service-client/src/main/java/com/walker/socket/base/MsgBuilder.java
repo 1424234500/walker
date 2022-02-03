@@ -1,9 +1,9 @@
 package com.walker.socket.base;
 
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.mode.DataNormal;
 import com.walker.mode.Msg;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.LangUtil;
 import com.walker.util.Tools;
 

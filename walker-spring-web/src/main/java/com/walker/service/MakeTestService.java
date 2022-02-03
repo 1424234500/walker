@@ -9,7 +9,7 @@ import com.walker.mode.LogModel;
 import com.walker.mode.LogSocketModel;
 import com.walker.mode.User;
 import com.walker.system.Pc;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.HttpBuilder;
 import com.walker.util.ThreadUtil;
 import com.walker.util.Tools;

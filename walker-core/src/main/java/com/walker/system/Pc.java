@@ -3,7 +3,7 @@ package com.walker.system;
 import com.walker.core.exception.ExceptionUtil;
 import com.walker.util.FileUtil;
 import com.walker.util.Tools;
-import com.walker.util.Tuple;
+import com.walker.mode.Tuple;
 
 import java.awt.*;
 import java.awt.datatransfer.*;

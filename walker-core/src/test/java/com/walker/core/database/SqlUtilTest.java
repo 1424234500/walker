@@ -1,6 +1,6 @@
 package com.walker.core.database;
 
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.Tools;
 import org.junit.Test;
 

@@ -2,6 +2,8 @@ package com.walker.util;
 
 
 import com.walker.core.encode.JsonUtil;
+import com.walker.core.encode.SerializeUtil;
+import com.walker.mode.Bean;
 
 import java.io.File;
 import java.lang.reflect.*;
@@ -43,8 +45,7 @@ public class ClassUtil {
 			try {
 				cls = Class.forName(className);
 			} catch (ClassNotFoundException cne) {
-				out("反射类", className, "加载异常", cne.toString(), cne.getCause());
-				throw new RuntimeException(cne);
+				throw new RuntimeException(Arrays.toString(new Object[]{"反射类", className, "加载异常", cne.toString()}));
 			}
 		}
 		return cls;
@@ -73,8 +74,7 @@ public class ClassUtil {
 			constructor.setAccessible(true);
 			res = constructor.newInstance(constructorArgs);
 		} catch (Exception e) {
-			out("反射[" + cls + ".构造]" + Arrays.toString(constructorArgs) + e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("反射[" + cls + ".构造]" + Arrays.toString(constructorArgs) + e.getMessage());
 		}
 		return res;
 	}
@@ -851,6 +851,66 @@ public class ClassUtil {
 			return obj;
 		}
 	}
+
+
+	/**
+	 * 类名
+	 * 构造参数
+	 * 方法名
+	 * 方法参数
+	 *
+	 * 返回结果
+	 */
+	public static class Model{
+		String className;
+		List<Object> constructorArgs = new ArrayList<>();
+
+		String methodName;
+		List<Object> methodArgs = new ArrayList<>();
+
+		public Object action(){
+			return new Builder(className, constructorArgs.toArray()).doMethod(methodName, methodArgs.toArray());
+		}
+
+		public Model setClassName(String className) {
+			this.className = className;
+			return this;
+		}
+
+		public Model setConstructorArgs(Object...constructorArgs) {
+			this.constructorArgs.clear();
+			this.constructorArgs.addAll(Arrays.asList(constructorArgs));
+			return this;
+		}
+
+		public Model setMethodName(String methodName) {
+			this.methodName = methodName;
+			return this;
+		}
+
+		public Model setMethodArgs(Object...methodArgs) {
+			this.methodArgs.clear();
+			this.methodArgs.addAll(Arrays.asList(methodArgs));
+			return this;
+		}
+
+		public String getClassName() {
+			return className;
+		}
+
+		public List<Object> getConstructorArgs() {
+			return constructorArgs;
+		}
+
+		public String getMethodName() {
+			return methodName;
+		}
+
+		public List<Object> getMethodArgs() {
+			return methodArgs;
+		}
+	}
+
 
 	public static class Builder {
 		Object instance;

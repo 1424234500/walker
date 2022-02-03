@@ -1,7 +1,7 @@
 package com.walker;
 
 import com.walker.config.Context;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

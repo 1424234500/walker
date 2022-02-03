@@ -1,8 +1,8 @@
 package com.walker.core.cache;
 
-import com.walker.core.mode.CacheModel;
-import com.walker.core.mode.Page;
-import com.walker.core.mode.SqlColumn;
+import com.walker.mode.CacheModel;
+import com.walker.mode.Page;
+import com.walker.mode.SqlColumn;
 
 import java.util.List;
 import java.util.Map;

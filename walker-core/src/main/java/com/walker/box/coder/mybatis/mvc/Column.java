@@ -1,7 +1,7 @@
 package com.walker.box.coder.mybatis.mvc;
 
 import com.walker.box.coder.CodeUtil;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.Tools;
 import lombok.Data;
 

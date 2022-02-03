@@ -1,9 +1,9 @@
 package com.walker.core.database;
 
-import com.walker.core.mode.Page;
-import com.walker.core.mode.SqlColumn;
-import com.walker.core.mode.SqlDatabase;
-import com.walker.core.mode.SqlTable;
+import com.walker.mode.Page;
+import com.walker.mode.SqlColumn;
+import com.walker.mode.SqlDatabase;
+import com.walker.mode.SqlTable;
 import com.walker.util.MapListUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -125,7 +125,7 @@ public class RepositoryController {
         Sort sort = new Sort(Sort.Direction.ASC, "name");
         Pageable pageable = PageRequest.of(nowPage - 1, showNum, sort);
         log.info(pageable.toString());
-        com.walker.core.mode.Page page1 = new com.walker.core.mode.Page().setNowpage(nowPage).setShownum(showNum);
+        com.walker.mode.Page page1 = new com.walker.mode.Page().setNowpage(nowPage).setShownum(showNum);
         List<Teacher> list = teacherRepository.selfFindPage(name, pageable);
         int count = teacherRepository.selfCount(name);
         page1.setNum(count);
@@ -144,7 +144,7 @@ public class RepositoryController {
         Sort sort = new Sort(Sort.Direction.ASC, "name");
         Pageable pageable = PageRequest.of(nowPage - 1, showNum, sort);
         log.info(pageable.toString());
-        com.walker.core.mode.Page page1 = new com.walker.core.mode.Page().setNowpage(nowPage).setShownum(showNum);
+        com.walker.mode.Page page1 = new com.walker.mode.Page().setNowpage(nowPage).setShownum(showNum);
         Page<Teacher> pageOnceJpql = teacherRepository.selfFindPageOnceJpql(name, pageable);
         List<Teacher> list = pageOnceJpql.getContent();
 
@@ -165,7 +165,7 @@ public class RepositoryController {
         Sort sort = new Sort(Sort.Direction.ASC, "name");
         Pageable pageable = PageRequest.of(nowPage - 1, showNum, sort);
         log.info(pageable.toString());
-        com.walker.core.mode.Page page1 = new com.walker.core.mode.Page().setNowpage(nowPage).setShownum(showNum);
+        com.walker.mode.Page page1 = new com.walker.mode.Page().setNowpage(nowPage).setShownum(showNum);
         Page<Teacher> pageOnceJpql = teacherRepository.selfFindPageOnceSql(name, pageable);
         List<Teacher> list = pageOnceJpql.getContent();
 

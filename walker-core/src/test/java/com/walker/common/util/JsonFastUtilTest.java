@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.walker.core.encode.JsonFastUtil;
 import com.walker.core.encode.JsonUtil;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import com.walker.util.Tools;
 import org.junit.Test;
 

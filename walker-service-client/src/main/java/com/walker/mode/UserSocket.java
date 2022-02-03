@@ -1,7 +1,5 @@
 package com.walker.mode;
 
-import com.walker.util.Bean;
-
 import java.io.Serializable;
 
 /**

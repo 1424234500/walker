@@ -4,7 +4,7 @@ package com.walker.service;
 import com.walker.dao.JdbcDao;
 import com.walker.dao.RedisDao;
 import com.walker.mode.Key;
-import com.walker.util.Bean;
+import com.walker.mode.Bean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

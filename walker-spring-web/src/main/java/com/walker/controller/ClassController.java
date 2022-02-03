@@ -6,7 +6,7 @@
 package com.walker.controller;
 
 import com.walker.Response;
-import com.walker.core.mode.Page;
+import com.walker.mode.Page;
 import com.walker.util.ClassUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
