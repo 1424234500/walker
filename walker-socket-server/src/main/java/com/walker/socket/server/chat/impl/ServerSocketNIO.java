@@ -1,8 +1,8 @@
 package com.walker.socket.server.chat.impl;
 
-import com.walker.socket.base.Session;
-import com.walker.socket.base.frame.ServerSessionEncode;
-import com.walker.socket.base.util.SocketUtil;
+import com.walker.socket.frame.Session;
+import com.walker.socket.frame.ServerSessionEncode;
+import com.walker.socket.util.SocketUtil;
 import com.walker.util.LangUtil;
 
 import java.io.IOException;

@@ -2,7 +2,7 @@ package com.walker.config;
 
 import com.walker.dao.RedisDao;
 import com.walker.mode.Key;
-import com.walker.mode.User;
+import com.walker.mode.school.User;
 import com.walker.service.UserService;
 import com.walker.util.TimeUtil;
 import org.apache.shiro.authc.*;

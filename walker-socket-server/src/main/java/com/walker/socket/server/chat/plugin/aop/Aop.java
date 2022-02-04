@@ -1,6 +1,6 @@
 package com.walker.socket.server.chat.plugin.aop;
 
-import com.walker.socket.base.frame.SocketException;
+import com.walker.socket.frame.SocketException;
 import com.walker.mode.Bean;
 import org.apache.log4j.Logger;
 

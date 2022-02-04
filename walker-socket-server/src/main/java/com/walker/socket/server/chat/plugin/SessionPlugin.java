@@ -1,7 +1,7 @@
 package com.walker.socket.server.chat.plugin;
 
 import com.walker.mode.Page;
-import com.walker.mode.Msg;
+import com.walker.socket.model.Msg;
 import com.walker.socket.server.chat.handler.HandlerSessionArpListImpl;
 import com.walker.mode.Bean;
 import com.walker.mode.BeanLinked;

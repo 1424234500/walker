@@ -1,6 +1,6 @@
 package com.walker.service;
 
-import com.walker.mode.PushModel;
+import com.walker.mode.sys.PushModel;
 
 import java.util.Set;
 

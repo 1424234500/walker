@@ -1,10 +1,10 @@
 package com.walker.socket.server.chat.impl;
 
-import com.walker.socket.base.Session;
-import com.walker.socket.base.frame.ServerSessionEncode;
-import com.walker.socket.base.encode.NettyDecoder;
-import com.walker.socket.base.encode.NettyEncoder;
-import com.walker.socket.base.util.SocketUtil;
+import com.walker.socket.frame.Session;
+import com.walker.socket.frame.ServerSessionEncode;
+import com.walker.socket.encode.StringJsonDecoder;
+import com.walker.socket.encode.StringJsonEncoder;
+import com.walker.socket.util.SocketUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -62,7 +62,7 @@ public class ServerSocketNetty<DATA> extends ServerSessionEncode<ChannelHandlerC
                                     p.addLast(new IdleStateHandler(10, 0, 0, TimeUnit.SECONDS));    //5s心跳包
 //						p.addLast(new LoggingHandler(LogLevel.INFO));
 //						p.addLast( new ObjectEncoder(),  new ObjectDecoder(ClassResolvers.cacheDisabled(null)))
-                                    p.addLast(new NettyEncoder(), new NettyDecoder());
+                                    p.addLast(new StringJsonEncoder(), new StringJsonDecoder());
 //						p.addLast(new HeartBeatClientHandler());
                                     p.addLast(new HandlerNetty());
 

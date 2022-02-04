@@ -1,7 +1,7 @@
 package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.Teacher;
+import com.walker.mode.school.Teacher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

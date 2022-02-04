@@ -2,8 +2,8 @@ package com.walker.intercept;
 
 import com.walker.config.Context;
 import com.walker.config.ControllerConfig;
-import com.walker.mode.LogModel;
-import com.walker.mode.User;
+import com.walker.mode.sys.LogModel;
+import com.walker.mode.school.User;
 import com.walker.service.Config;
 import com.walker.service.LogService;
 import com.walker.system.Pc;

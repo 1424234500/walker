@@ -1,7 +1,6 @@
 package com.walker.config;
 
-import com.walker.mode.Page;
-import com.walker.mode.User;
+import com.walker.mode.school.User;
 import com.walker.mode.Bean;
 import org.springframework.stereotype.Component;
 

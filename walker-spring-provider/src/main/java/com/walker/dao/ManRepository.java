@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.Man;
+import com.walker.mode.school.Man;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,10 @@
 package com.walker.socket.client.chat.frame;
 
-import com.walker.socket.base.Session;
-import com.walker.socket.base.handler.HandlerAdapter;
-import com.walker.socket.base.handler.HandlerLog;
-import com.walker.socket.base.handler.HandlerWrite;
-import com.walker.socket.base.frame.ServerSessionEncodeClient;
+import com.walker.socket.frame.Session;
+import com.walker.socket.handler.HandlerAdapter;
+import com.walker.socket.handler.HandlerLog;
+import com.walker.socket.handler.HandlerWrite;
+import com.walker.socket.frame.ServerSessionEncodeClient;
 
 import java.util.Arrays;
 

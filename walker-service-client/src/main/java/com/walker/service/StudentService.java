@@ -1,7 +1,7 @@
 package com.walker.service;
 
 import com.walker.mode.Page;
-import com.walker.mode.Student;
+import com.walker.mode.school.Student;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import com.walker.core.encode.MD5;
 import com.walker.mode.Page;
 import com.walker.dao.RoleUserRepository;
 import com.walker.dao.UserRepository;
-import com.walker.mode.User;
+import com.walker.mode.school.User;
 import com.walker.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.walker.controller;
 
 import com.walker.Response;
 import com.walker.mode.Page;
-import com.walker.mode.Teacher;
+import com.walker.mode.school.Teacher;
 import com.walker.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

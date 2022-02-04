@@ -1,7 +1,7 @@
 package com.walker.service;
 
 import com.walker.mode.Page;
-import com.walker.mode.SysConfig;
+import com.walker.mode.sys.SysConfig;
 
 import java.util.List;
 

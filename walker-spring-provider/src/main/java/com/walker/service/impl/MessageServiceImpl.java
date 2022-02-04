@@ -5,7 +5,7 @@ import com.walker.core.database.SqlUtil;
 import com.walker.dao.JdbcTemplateDao;
 import com.walker.dao.RedisDao;
 import com.walker.mode.Key;
-import com.walker.mode.Msg;
+import com.walker.socket.model.Msg;
 import com.walker.service.MessageService;
 import com.walker.mode.Bean;
 import com.walker.util.LangUtil;

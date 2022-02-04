@@ -1,6 +1,6 @@
 package com.walker.quartz;
 
-import com.walker.mode.LogModel;
+import com.walker.mode.sys.LogModel;
 import com.walker.service.Config;
 import com.walker.service.LogService;
 import com.walker.util.SpringContextUtil;

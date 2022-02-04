@@ -19,6 +19,7 @@ public class Tools {
 	private static final Logger log = LoggerFactory.getLogger("Tools");
 
 	public static void main(String[] args) {
+		out(replace("aaa${bbb}, ${bbb}, ${ccc}", "bbb", "hello"));
 	}
 
 	/**
@@ -337,4 +338,10 @@ public class Tools {
 		return res;
 	}
 
+	/**
+	 * linux变量替换
+	 */
+    public static String replace(String buf, String key, String value) {
+		return buf.replaceAll("\\$\\{" + key + "\\}", value);
+    }
 }

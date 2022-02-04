@@ -1,7 +1,7 @@
 package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.Message;
+import com.walker.socket.model.Message;
 import com.walker.util.TimeUtil;
 import com.walker.util.Tools;
 import org.junit.Test;

@@ -1,8 +1,7 @@
 package com.walker.socket.client.http;
 
-import com.walker.socket.base.encode.HttpJsonRequestEncoder;
-import com.walker.socket.base.encode.HttpJsonResponseDecoder;
-import com.walker.util.ClassUtil;
+import com.walker.socket.encode.HttpJsonRequestEncoder;
+import com.walker.socket.encode.HttpJsonResponseDecoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -86,8 +85,6 @@ public class HttpJsonClient {
         }
         new HttpJsonClient().connect(port);
     }
-
-
 
 
 }

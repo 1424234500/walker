@@ -2,7 +2,7 @@ package com.walker.socket.server.chat.plugin.aop;
 
 import com.walker.core.database.Redis;
 import com.walker.core.database.Redis.Fun;
-import com.walker.mode.Msg;
+import com.walker.socket.model.Msg;
 import redis.clients.jedis.Jedis;
 
 import java.util.Map;

@@ -3,7 +3,7 @@ package com.walker.service.impl;
 import com.walker.config.Config;
 import com.walker.mode.Page;
 import com.walker.dao.AreaRepository;
-import com.walker.mode.Area;
+import com.walker.mode.school.Area;
 import com.walker.service.AreaService;
 import com.walker.util.TimeUtil;
 import org.apache.commons.lang3.StringUtils;

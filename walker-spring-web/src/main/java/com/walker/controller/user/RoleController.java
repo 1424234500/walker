@@ -3,8 +3,8 @@ package com.walker.controller.user;
 
 import com.walker.Response;
 import com.walker.mode.Page;
-import com.walker.mode.Role;
-import com.walker.mode.RoleUser;
+import com.walker.mode.school.Role;
+import com.walker.mode.school.RoleUser;
 import com.walker.service.BaseService;
 import com.walker.service.RoleService;
 import com.walker.util.TimeUtil;

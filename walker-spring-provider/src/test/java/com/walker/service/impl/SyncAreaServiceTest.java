@@ -1,6 +1,6 @@
 package com.walker.service.impl;
 
-import com.walker.mode.Area;
+import com.walker.mode.school.Area;
 import com.walker.service.Config;
 import com.walker.util.Tools;
 import com.walker.util.Watch;

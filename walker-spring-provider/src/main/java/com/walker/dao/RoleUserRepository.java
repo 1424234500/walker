@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.RoleUser;
+import com.walker.mode.school.RoleUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

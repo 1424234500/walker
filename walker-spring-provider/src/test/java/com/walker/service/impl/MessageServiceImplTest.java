@@ -1,7 +1,7 @@
 package com.walker.service.impl;
 
-import com.walker.mode.Msg;
-import com.walker.mode.UserSocket;
+import com.walker.socket.model.Msg;
+import com.walker.socket.model.UserSocket;
 import com.walker.service.MessageService;
 import com.walker.mode.Bean;
 import com.walker.util.TimeUtil;

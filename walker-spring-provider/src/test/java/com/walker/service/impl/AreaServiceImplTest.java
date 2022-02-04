@@ -2,7 +2,7 @@ package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
 import com.walker.mode.Page;
-import com.walker.mode.Area;
+import com.walker.mode.school.Area;
 import com.walker.service.AreaService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

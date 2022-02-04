@@ -1,7 +1,7 @@
 package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.Man;
+import com.walker.mode.school.Man;
 import com.walker.util.TimeUtil;
 import com.walker.util.Tools;
 import org.junit.Test;

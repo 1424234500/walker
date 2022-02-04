@@ -1,6 +1,6 @@
 package com.walker.socket.client.chat.impl;
 
-import com.walker.socket.base.util.SocketUtil;
+import com.walker.socket.util.SocketUtil;
 import com.walker.socket.client.chat.frame.Client;
 
 import java.net.Socket;

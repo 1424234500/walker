@@ -1,7 +1,7 @@
 package com.walker.socket.server.chat;
 
 import com.walker.core.Context;
-import com.walker.mode.Msg;
+import com.walker.socket.model.Msg;
 import com.walker.socket.server.chat.impl.ServerSocketNettyFileServer;
 import org.apache.log4j.PropertyConfigurator;
 

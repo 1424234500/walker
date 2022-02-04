@@ -1,7 +1,7 @@
 package com.walker.mapper;
 
 import com.walker.mode.Page;
-import com.walker.mode.Student;
+import com.walker.mode.school.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

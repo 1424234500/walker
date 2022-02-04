@@ -3,7 +3,7 @@ package com.walker.controller.user;
 
 import com.walker.Response;
 import com.walker.mode.Page;
-import com.walker.mode.Area;
+import com.walker.mode.school.Area;
 import com.walker.service.AreaService;
 import com.walker.service.BaseService;
 import com.walker.util.TimeUtil;

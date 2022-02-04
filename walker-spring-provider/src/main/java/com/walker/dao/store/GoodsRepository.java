@@ -1,6 +1,6 @@
 package com.walker.dao.store;
 
-import com.walker.mode.Dept;
+import com.walker.mode.school.Dept;
 import com.walker.mode.store.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

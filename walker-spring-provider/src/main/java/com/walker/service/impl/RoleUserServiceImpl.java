@@ -3,7 +3,7 @@ package com.walker.service.impl;
 import com.walker.config.Config;
 import com.walker.mode.Page;
 import com.walker.dao.RoleUserRepository;
-import com.walker.mode.RoleUser;
+import com.walker.mode.school.RoleUser;
 import com.walker.service.RoleUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

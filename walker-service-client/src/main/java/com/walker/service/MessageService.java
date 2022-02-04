@@ -1,6 +1,6 @@
 package com.walker.service;
 
-import com.walker.mode.Msg;
+import com.walker.socket.model.Msg;
 
 import java.util.List;
 

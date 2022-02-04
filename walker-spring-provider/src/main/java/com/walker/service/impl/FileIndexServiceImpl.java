@@ -3,7 +3,7 @@ package com.walker.service.impl;
 import com.walker.config.Config;
 import com.walker.mode.Page;
 import com.walker.dao.FileIndexRepository;
-import com.walker.mode.FileIndex;
+import com.walker.mode.sys.FileIndex;
 import com.walker.service.FileIndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

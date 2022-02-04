@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.LogModel;
+import com.walker.mode.sys.LogModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

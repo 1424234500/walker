@@ -1,10 +1,7 @@
 package com.walker.socket.server.chat.impl;
 
-import com.walker.socket.base.Session;
-import com.walker.socket.base.encode.NettyDecoder;
-import com.walker.socket.base.encode.NettyEncoder;
-import com.walker.socket.base.frame.ServerSessionEncode;
-import com.walker.socket.base.util.SocketUtil;
+import com.walker.socket.frame.ServerSessionEncode;
+import com.walker.socket.util.SocketUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -17,27 +14,16 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedFile;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.CharsetUtil;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeUnit;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.*;
-import io.netty.handler.codec.http.*;
-import io.netty.handler.stream.ChunkedFile;
-import io.netty.util.CharsetUtil;
 
 import javax.activation.MimetypesFileTypeMap;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
 import static io.netty.handler.codec.http.HttpMethod.GET;

@@ -19,7 +19,7 @@ import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.ConfigUtils;
 import com.walker.dao.DubboInvokeRepository;
-import com.walker.mode.DubboInvoke;
+import com.walker.mode.sys.DubboInvoke;
 import com.walker.util.LangUtil;
 import com.walker.util.TimeUtil;
 import org.slf4j.Logger;

@@ -1,9 +1,9 @@
 package com.walker.socket.server.chat.plugin;
 
 import com.walker.core.exception.ErrorException;
-import com.walker.mode.UserSocket;
-import com.walker.mode.Msg;
-import com.walker.socket.base.Session;
+import com.walker.socket.model.UserSocket;
+import com.walker.socket.model.Msg;
+import com.walker.socket.frame.Session;
 import com.walker.mode.Bean;
 import com.walker.mode.BeanLinked;
 

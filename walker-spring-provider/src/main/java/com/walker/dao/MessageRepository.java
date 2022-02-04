@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.Message;
+import com.walker.socket.model.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

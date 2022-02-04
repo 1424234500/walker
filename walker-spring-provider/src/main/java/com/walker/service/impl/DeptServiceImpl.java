@@ -4,7 +4,7 @@ import com.walker.config.Config;
 import com.walker.mode.Page;
 import com.walker.dao.DeptRepository;
 import com.walker.dao.RoleUserRepository;
-import com.walker.mode.Dept;
+import com.walker.mode.school.Dept;
 import com.walker.service.DeptService;
 import com.walker.util.TimeUtil;
 import org.apache.commons.lang3.StringUtils;

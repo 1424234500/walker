@@ -2,7 +2,7 @@
 package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.FileIndex;
+import com.walker.mode.sys.FileIndex;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

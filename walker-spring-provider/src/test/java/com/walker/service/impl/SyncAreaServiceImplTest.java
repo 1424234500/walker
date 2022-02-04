@@ -1,7 +1,7 @@
 package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.Area;
+import com.walker.mode.school.Area;
 import com.walker.mode.Key;
 import com.walker.service.SyncAreaService;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package com.walker.socket.server.chat.plugin;
 
-import com.walker.mode.DataNormal;
-import com.walker.mode.Msg;
+import com.walker.mode.sys.DataNormal;
+import com.walker.socket.model.Msg;
 import com.walker.socket.server.chat.handler.HandlerSessionArpListImpl;
 import com.walker.mode.Bean;
 import com.walker.mode.BeanLinked;

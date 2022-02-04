@@ -15,7 +15,7 @@ mvn clean install -Dmaven.test.skip=true
 8090    walker-web
 8091    socket http 文件服务 无权限控制
 8092    socket http controller接口服务 无权限控制
-8093    socket netty
+8093    socket netty / websocket
 8094    service provider    swagger
 8095    dubbo-provider-port 
 8096    zookeeper-port

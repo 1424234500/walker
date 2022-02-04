@@ -4,7 +4,7 @@ import com.walker.config.Context;
 import com.walker.config.ShiroConfig;
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
-import com.walker.mode.User;
+import com.walker.mode.school.User;
 import com.walker.service.LogService;
 import com.walker.service.LoginService;
 import com.walker.util.RequestUtil;

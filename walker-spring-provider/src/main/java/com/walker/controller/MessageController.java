@@ -2,8 +2,8 @@ package com.walker.controller;
 
 
 import com.walker.Response;
-import com.walker.mode.Msg;
-import com.walker.mode.UserSocket;
+import com.walker.socket.model.Msg;
+import com.walker.socket.model.UserSocket;
 import com.walker.service.MessageService;
 import com.walker.mode.Bean;
 import io.swagger.annotations.Api;

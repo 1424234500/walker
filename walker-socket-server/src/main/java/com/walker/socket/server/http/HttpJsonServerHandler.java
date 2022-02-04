@@ -1,7 +1,7 @@
 package com.walker.socket.server.http;
 
-import com.walker.mode.HttpJsonRequest;
-import com.walker.mode.HttpJsonResponse;
+import com.walker.socket.model.HttpJsonRequest;
+import com.walker.socket.model.HttpJsonResponse;
 import com.walker.util.ClassUtil;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;

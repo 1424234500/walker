@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.SysConfig;
+import com.walker.mode.sys.SysConfig;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

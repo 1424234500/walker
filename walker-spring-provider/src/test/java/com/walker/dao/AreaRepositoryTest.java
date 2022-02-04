@@ -1,7 +1,7 @@
 package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.Area;
+import com.walker.mode.school.Area;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

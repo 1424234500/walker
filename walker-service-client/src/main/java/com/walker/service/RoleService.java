@@ -1,8 +1,8 @@
 package com.walker.service;
 
 import com.walker.mode.Page;
-import com.walker.mode.Role;
-import com.walker.mode.RoleUser;
+import com.walker.mode.school.Role;
+import com.walker.mode.school.RoleUser;
 
 import java.util.List;
 

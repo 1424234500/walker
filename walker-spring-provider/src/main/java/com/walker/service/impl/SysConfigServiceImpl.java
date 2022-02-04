@@ -3,7 +3,7 @@ package com.walker.service.impl;
 import com.walker.config.Config;
 import com.walker.mode.Page;
 import com.walker.dao.SysConfigRepository;
-import com.walker.mode.SysConfig;
+import com.walker.mode.sys.SysConfig;
 import com.walker.service.SysConfigService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.walker.Response;
 import com.walker.config.Context;
 import com.walker.mode.Page;
 import com.walker.dao.JdbcDao;
-import com.walker.mode.FileIndex;
+import com.walker.mode.sys.FileIndex;
 import com.walker.service.Config;
 import com.walker.service.FileIndexService;
 import com.walker.util.*;

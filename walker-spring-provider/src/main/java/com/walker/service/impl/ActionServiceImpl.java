@@ -3,7 +3,7 @@ package com.walker.service.impl;
 import com.walker.config.Config;
 import com.walker.mode.Page;
 import com.walker.dao.ActionRepository;
-import com.walker.mode.Action;
+import com.walker.mode.sys.Action;
 import com.walker.service.ActionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

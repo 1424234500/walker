@@ -1,10 +1,10 @@
 package com.walker.socket.server.chat;
 
 
-import com.walker.mode.Msg;
-import com.walker.socket.base.encode.DataEncodeDecodeJson;
-import com.walker.socket.base.handler.HandlerLog;
-import com.walker.socket.base.handler.HandlerWrite;
+import com.walker.socket.model.Msg;
+import com.walker.socket.encode.DataEncodeDecodeJson;
+import com.walker.socket.handler.HandlerLog;
+import com.walker.socket.handler.HandlerWrite;
 import com.walker.socket.server.chat.impl.ServerSocketIO;
 import com.walker.socket.server.chat.impl.ServerSocketNIO;
 import com.walker.socket.server.chat.impl.ServerSocketNetty;

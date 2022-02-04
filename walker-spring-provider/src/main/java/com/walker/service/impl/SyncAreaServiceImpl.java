@@ -4,7 +4,7 @@ package com.walker.service.impl;
 import com.walker.config.MakeConfig;
 import com.walker.dao.ConfigDao;
 import com.walker.dao.RedisDao;
-import com.walker.mode.Area;
+import com.walker.mode.school.Area;
 import com.walker.mode.Key;
 import com.walker.service.AreaService;
 import com.walker.service.Config;

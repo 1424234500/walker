@@ -2,6 +2,7 @@ package com.walker.socket.server.file;
 
 import com.walker.mode.Bean;
 import com.walker.util.FileUtil;
+import com.walker.util.Tools;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -54,6 +55,10 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
 
         String path = request.uri();
         path = path == null || path.length() == 0 ? this.url : path;
+        if(path.endsWith(".html")){
+            sendHtml(ctx, path);
+            return;
+        }
         // 权限控制 只许下载默认目录下面的
         if (! path.startsWith(this.url)) {
             sendError(ctx, FORBIDDEN);
@@ -115,13 +120,11 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
             }
 
             @Override
-            public void operationComplete(ChannelProgressiveFuture future)
-                    throws Exception {
+            public void operationComplete(ChannelProgressiveFuture future)throws Exception {
                 log.info("Transfer complete.");
             }
         });
-        ChannelFuture lastContentFuture = ctx
-                .writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
+        ChannelFuture lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
         //如果不支持keep-Alive，服务器端主动关闭请求
         if (!HttpUtil.isKeepAlive(request)) {
             lastContentFuture.addListener(ChannelFutureListener.CLOSE);
@@ -141,9 +144,31 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
     private static final Pattern INSECURE_URI = Pattern.compile(".*[<>&\"].*");
 
 
-    private static final Pattern ALLOWED_FILE_NAME = Pattern
-            .compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");
+    private static final Pattern ALLOWED_FILE_NAME = Pattern.compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");
 
+    private static void sendHtml(ChannelHandlerContext ctx, String path) {
+        FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK);
+        response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html; charset=UTF-8");
+        String buf = "";
+        String readPath = "404.html";
+        if(!new File(path).isFile()) {
+            if(path.startsWith("/")){
+                path = path.substring(1);
+                if(new File(path).isFile()) {
+                    readPath = path;
+                }
+            }
+        }else{
+            readPath = path;
+        }
+        buf += (FileUtil.readByLines(readPath, null, null));
+        buf = Tools.replace(buf, "replace", path);
+        ByteBuf buffer = Unpooled.copiedBuffer(buf, CharsetUtil.UTF_8);
+        response.content().writeBytes(buffer);
+        buffer.release();
+        ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+
+    }
     private static void sendListing(ChannelHandlerContext ctx, File dir) {
         FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK);
         response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html; charset=UTF-8");

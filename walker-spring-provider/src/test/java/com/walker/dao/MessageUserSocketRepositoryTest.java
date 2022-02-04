@@ -1,8 +1,8 @@
 package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.MessageUser;
-import com.walker.mode.MessageUserPK;
+import com.walker.socket.model.MessageUser;
+import com.walker.socket.model.MessageUserPK;
 import com.walker.util.TimeUtil;
 import com.walker.util.Tools;
 import org.junit.Test;

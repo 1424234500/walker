@@ -4,7 +4,7 @@
 
 <mapper namespace="com.walker.mapper.StudentMapper" >
  <!--
-    <resultMap id="BaseResultMap" type="com.walker.mode.Student" >
+    <resultMap id="BaseResultMap" type="com.walker.mode.school.Student" >
         <id column="ID" property="ID" jdbcType="" />
         <result column="S_MTIME" property="S_MTIME" jdbcType="VARCHAR" />
         <result column="S_ATIME" property="S_ATIME" jdbcType="VARCHAR" />
@@ -57,7 +57,7 @@
 <!--    * @return-->
 <!--    */-->
 <!--    List<Student> findPage(Student obj, Page page);-->
-    <select id="findPage" resultType="com.walker.mode.Student">
+    <select id="findPage" resultType="com.walker.mode.school.Student">
         select
         <include refid="SQL_COLUMN_ALL" />
         from

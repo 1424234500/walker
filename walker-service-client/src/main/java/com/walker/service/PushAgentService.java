@@ -1,7 +1,7 @@
 package com.walker.service;
 
-import com.walker.mode.PushBindModel;
-import com.walker.mode.PushModel;
+import com.walker.mode.sys.PushBindModel;
+import com.walker.mode.sys.PushModel;
 
 import java.util.List;
 

@@ -2,9 +2,9 @@ package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
 import com.walker.mode.Page;
-import com.walker.mode.Student;
-import com.walker.mode.Teacher;
-import com.walker.mode.User;
+import com.walker.mode.school.Student;
+import com.walker.mode.school.Teacher;
+import com.walker.mode.school.User;
 import com.walker.service.StudentService;
 import com.walker.service.TeacherService;
 import com.walker.service.UserService;

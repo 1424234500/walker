@@ -1,7 +1,7 @@
 package com.walker.service;
 
 import com.walker.mode.Page;
-import com.walker.mode.Area;
+import com.walker.mode.school.Area;
 
 import java.util.List;
 

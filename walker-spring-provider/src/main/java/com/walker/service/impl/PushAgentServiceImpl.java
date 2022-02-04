@@ -2,8 +2,8 @@ package com.walker.service.impl;
 
 import com.walker.config.Context;
 import com.walker.dao.JdbcTemplateDao;
-import com.walker.mode.PushBindModel;
-import com.walker.mode.PushModel;
+import com.walker.mode.sys.PushBindModel;
+import com.walker.mode.sys.PushModel;
 import com.walker.service.PushAgentService;
 import com.walker.service.PushService;
 import org.slf4j.Logger;

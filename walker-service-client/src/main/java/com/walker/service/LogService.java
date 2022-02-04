@@ -1,7 +1,7 @@
 package com.walker.service;
 
-import com.walker.mode.LogModel;
-import com.walker.mode.LogSocketModel;
+import com.walker.mode.sys.LogModel;
+import com.walker.mode.sys.LogSocketModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

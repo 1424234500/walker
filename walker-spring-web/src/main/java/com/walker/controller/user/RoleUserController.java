@@ -3,7 +3,7 @@ package com.walker.controller.user;
 
 import com.walker.Response;
 import com.walker.mode.Page;
-import com.walker.mode.RoleUser;
+import com.walker.mode.school.RoleUser;
 import com.walker.service.RoleUserService;
 import com.walker.util.TimeUtil;
 import io.swagger.annotations.Api;

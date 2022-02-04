@@ -1,8 +1,8 @@
 package com.walker.socket.client.chat.impl;
 
-import com.walker.socket.base.encode.NettyDecoder;
-import com.walker.socket.base.encode.NettyEncoder;
-import com.walker.socket.base.util.SocketUtil;
+import com.walker.socket.encode.StringJsonDecoder;
+import com.walker.socket.encode.StringJsonEncoder;
+import com.walker.socket.util.SocketUtil;
 import com.walker.socket.client.chat.frame.Client;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -38,7 +38,7 @@ public class ClientNetty<DATA> extends Client<ChannelHandlerContext, DATA> {
                         p.addLast("ping", new IdleStateHandler(10, 0, 0, TimeUnit.SECONDS));    //5s心跳包
                         //							p.addLast(new LoggingHandler(LogLevel.INFO));
                         //							p.addLast( new ObjectEncoder(),  new ObjectDecoder(ClassResolvers.cacheDisabled(null)))
-                        p.addLast(new NettyEncoder(), new NettyDecoder());
+                        p.addLast(new StringJsonEncoder(), new StringJsonDecoder());
                         p.addLast(new HandlerNetty());
                     }
                 });

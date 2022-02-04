@@ -2,7 +2,7 @@ package com.walker.socket.server.chat.job;
 
 import com.walker.core.scheduler.TaskJob;
 import com.walker.dubbo.DubboMgr;
-import com.walker.mode.LogSocketModel;
+import com.walker.mode.sys.LogSocketModel;
 import com.walker.service.LogService;
 import com.walker.socket.server.chat.plugin.aop.Model;
 import com.walker.socket.server.chat.plugin.aop.ModelCount;

@@ -1,8 +1,8 @@
 package com.walker.socket.client.chat;
 
 
-import com.walker.mode.Msg;
-import com.walker.socket.base.encode.DataEncodeDecodeJson;
+import com.walker.socket.model.Msg;
+import com.walker.socket.encode.DataEncodeDecodeJson;
 import com.walker.socket.client.chat.frame.ClientUI;
 import com.walker.socket.client.chat.impl.*;
 
