@@ -125,7 +125,6 @@ public class ServerSocketNetty<DATA> extends ServerSessionEncode<ChannelHandlerC
      */
     class HandlerNetty extends ChannelInboundHandlerAdapter {
 
-
         @Override
         public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
             super.userEventTriggered(ctx, evt);

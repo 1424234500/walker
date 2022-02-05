@@ -29,6 +29,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  * @version 1.0
  * @date 2014年2月14日
  */
+@ChannelHandler.Sharable
 public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     public Logger log = LoggerFactory.getLogger(getClass());
 

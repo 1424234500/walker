@@ -9,6 +9,10 @@ import com.walker.util.LangUtil;
  */
 public class SystemConfig {
 
+    public static boolean exists(String key){
+        return System.getProperties().contains(key);
+    }
+
     public static <T> T get(String key, T defaultValue) {
         return LangUtil.turn(System.getProperty(key), defaultValue);
     }

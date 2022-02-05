@@ -39,8 +39,10 @@ public class NettyServer {
 					@Override
 					public void initChannel(SocketChannel ch)
 							throws IOException {
+						//LengthFieldBasedFrameDecoder
 						ch.pipeline().addLast(new NettyMessageDecoder(1024 * 1024, 4, 4));
 						ch.pipeline().addLast(new NettyMessageEncoder());
+						ch.pipeline().addLast(new MessageToMessageDecoderLog());
 						ch.pipeline().addLast("readTimeoutHandler",new ReadTimeoutHandler(3));
 						ch.pipeline().addLast(new LoginAuthRespHandler());
 						ch.pipeline().addLast("HeartBeatHandler",new HeartBeatRespHandler());
