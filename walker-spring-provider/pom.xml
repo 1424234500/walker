@@ -5,59 +5,19 @@
 
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.walker</groupId>
+        <artifactId>walker-spring-core</artifactId>
+        <version>0.0.1</version>
     </parent>
 
     <artifactId>walker-spring-provider</artifactId>
-    <name>spring-provider</name>
+    <name>walker-spring-provider</name>
     <description>service impl and dubbo service provider via Spring Boot</description>
     <groupId>com.walker</groupId>
     <version>0.0.1</version>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-        <spring_boot.version>2.0.3.RELEASE</spring_boot.version>
-        <druid.version>1.1.6</druid.version>
-
-        <!--    源码结构
-                project/*
-                    目录脚本 bin    server.sh
-                    目录配置 conf
-                    目录源码 src/main/java
-                                    /resource
-                                        /mapper
-                                        /static
-                                        config.files
-                    目录资源 vue
-
-                打包结构
-                deploy/* <- project/*
-                    目录依赖 lib/        dependency.jar
-                    目录资源 static/     html
-                    目录db   mapper/     mybatis xml
-                    文件配置 config properties xml yml
-                    文件脚本 server.sh
-        -->
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-        <spring_boot.version>2.0.3.RELEASE</spring_boot.version>
-        <sharding.jdbc.version>3.0.0</sharding.jdbc.version>
-        <druid.version>1.1.6</druid.version>
-
-
-        <dir_name_resource>src/main/resources</dir_name_resource>
-        <dir_name_bin>bin</dir_name_bin>
-        <dir_name_conf>conf</dir_name_conf>
-        <dir_name_lib>lib</dir_name_lib>
-        <dir_release>${basedir}/release</dir_release>
-
         <mainClass>com.walker.ApplicationProvider</mainClass>
-
     </properties>
 
     <build>
@@ -245,84 +205,22 @@
         <dependency>
             <groupId>com.walker</groupId>
             <artifactId>walker-spring-core</artifactId>
-            <version>0.0.1</version>
         </dependency>
-
 
         <!-- sharding jdbc依赖 -->
         <dependency>
             <groupId>io.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-            <version>${sharding.jdbc.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>io.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-namespace</artifactId>
-            <version>${sharding.jdbc.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.shardingsphere</groupId>
-                    <artifactId>sharding-jdbc-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>cn.jpush.api</groupId>
             <artifactId>jpush-client</artifactId>
-            <version>3.3.10</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>netty-all</artifactId>
-<!--                    <version>4.1.36</version> -->
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpclient</artifactId>
-<!--                    <version>4.5.9</version>-->
-                </exclusion>
-
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
         </dependency>
 
 

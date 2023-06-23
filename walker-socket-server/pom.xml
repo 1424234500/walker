@@ -12,12 +12,9 @@
 	<groupId>com.walker</groupId>
 	<artifactId>walker-socket-server</artifactId>
 	<version>0.0.1</version>
-	<name>socket-server</name>
+	<name>walker-socket-server</name>
 	<description>netty socket active mq</description>
 	<packaging>jar</packaging>
-
-
-
 
 	<build>
 
@@ -174,19 +171,14 @@
 	<dependencies>
 
 
-
-
-
 		<dependency>
 			<groupId>com.walker</groupId>
 			<artifactId>walker-core</artifactId>
-			<version>0.0.1</version>
 		</dependency>
 
 		<dependency>
             <groupId>com.walker</groupId>
             <artifactId>walker-service-client</artifactId>
-            <version>0.0.1</version>
         </dependency>
 
 	</dependencies>

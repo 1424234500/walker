@@ -5,10 +5,9 @@
 
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.walker</groupId>
+        <artifactId>walker-spring-core</artifactId>
+        <version>0.0.1</version>
     </parent>
 
     <artifactId>walker-spring-web</artifactId>
@@ -18,39 +17,7 @@
     <version>0.0.1</version>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-        <spring_boot.version>2.0.3.RELEASE</spring_boot.version>
-        <druid.version>1.1.6</druid.version>
-
-        <!--    源码结构
-                project/*
-                    目录脚本 bin    server.sh
-                    目录配置 conf
-                    目录源码 src/main/java
-                                    /resource
-                                        /mapper
-                                        /static
-                                        config.files
-                    目录资源 vue
-
-                打包结构
-                deploy/* <- project/*
-                    目录依赖 lib/        dependency.jar
-                    目录资源 static/     html
-                    目录db   mapper/     mybatis xml
-                    文件配置 config properties xml yml
-                    文件脚本 server.sh
-        -->
-        <dir_name_resource>src/main/resources</dir_name_resource>
-        <dir_name_bin>bin</dir_name_bin>
-        <dir_name_conf>conf</dir_name_conf>
-        <dir_name_lib>lib</dir_name_lib>
-        <dir_name_vue>vue/dist</dir_name_vue>
-        <dir_release>${basedir}/release</dir_release>
         <mainClass>com.walker.ApplicationWeb</mainClass>
-
-
     </properties>
 
     <build>
@@ -238,83 +205,46 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.1.1</version>
         </dependency>
 
 <!--        shiro权限控制？自己做控制？-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
-            <version>1.3.2</version>
         </dependency>
-
-
-<!--        <dependency>-->
-<!--            <groupId>org.quartz-scheduler</groupId>-->
-<!--            <artifactId>quartz</artifactId>-->
-<!--            <version>2.3.2</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>slf4j-api</artifactId>-->
-<!--                    <groupId>org.slf4j</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
-
-<!--        <dependency>&lt;!&ndash; 该依赖必加，里面有sping对schedule的支持 &ndash;&gt;-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-context-support</artifactId>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>com.walker</groupId>
             <artifactId>walker-spring-core</artifactId>
-            <version>0.0.1</version>
         </dependency>
 
 
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.4.5</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.3.0</version>
-            <scope>compile</scope>
         </dependency>
 
 <!--        sentinel限流 熔断-->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-core</artifactId>
-            <version>1.6.0</version>
         </dependency>
 <!--        sentinel控制台-->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-transport-simple-http</artifactId>
-            <version>1.6.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>fastjson</artifactId>
-<!--                    <version>1.2.56</version>-->
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
