@@ -163,7 +163,7 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
             readPath = path;
         }
         buf += (FileUtil.readByLines(readPath, null, null));
-        buf = Tools.replace(buf, "replace", path);
+        buf = Tools.replaceLinuxField(buf, "replace", path);
         ByteBuf buffer = Unpooled.copiedBuffer(buf, CharsetUtil.UTF_8);
         response.content().writeBytes(buffer);
         buffer.release();

@@ -10,9 +10,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.walker</groupId>
-	<artifactId>walker-socket-server</artifactId>
+	<artifactId>walker-socket-ipModel</artifactId>
 	<version>0.0.1</version>
-	<name>walker-socket-server</name>
+	<name>walker-socket-ipModel</name>
 	<description>netty socket active mq</description>
 	<packaging>jar</packaging>
 
@@ -44,7 +44,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>${dir_name_lib}</classpathPrefix>
-                            <mainClass>com.walker.socket.server.chat.Launcher</mainClass>  <!-- 指定启动类 -->
+                            <mainClass>com.walker.socket.ipModel.chat.Launcher</mainClass>  <!-- 指定启动类 -->
 						</manifest>
 					</archive>
 				</configuration>

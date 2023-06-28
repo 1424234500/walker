@@ -1,6 +1,8 @@
 package com.walker.system;
 
-import com.walker.util.Constant;
+import com.walker.core.aop.FunArgsReturn;
+import com.walker.mode.Error;
+import com.walker.mode.Response;
 import lombok.Data;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
@@ -12,49 +14,35 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
- * ftp
+ * ftp 连接器
  * 两天持续下载导致连接数满 buffer不足问题分析
  */
 @Data
-public class FtpModel {
-	private final static Logger log = LoggerFactory.getLogger(FtpModel.class);
+public class FtpConnector {
+	private final static Logger log = LoggerFactory.getLogger(FtpConnector.class);
 	private static final int BUFFER_SIZE = 1024 * 1024 * 1;
 
-	public interface Fun<T>{
-		T make(FTPClient ftpClient) throws IOException;
-	}
-
-	Server server;
-	Result result = new Result();
+	IpModel ipModel;
 	int timeout = 5000;
 	int port = 21;
 
 	boolean moreLog = false;
 	AtomicInteger count = new AtomicInteger(0);
 
-	public FtpModel(String ip, String id, String pwd){
-		this.server = new Server(ip, id, pwd);
+	public FtpConnector(IpModel ipModel){
+		this.ipModel = ipModel;
 	}
 
-	@Override
-	public String toString() {
-		return "FtpModel{" +
-				"server=" + server +
-				", result=" + result +
-				", timeout=" + timeout +
-				", port=" + port +
-				'}';
-	}
 
 	public FTPClient getFTPClient() throws Exception {
 		FTPClient ftpClient = null;
 		ftpClient = new FTPClient();
 		ftpClient.setConnectTimeout(timeout);
-		ftpClient.setControlEncoding(server.getEncode());
+		ftpClient.setControlEncoding(ipModel.getEncode());
 
-		ftpClient.connect(server.getIp(), port);
+		ftpClient.connect(ipModel.getIp(), port);
 		actionRes(ftpClient, "connect");
-		ftpClient.login(server.getId(), server.getPwd());
+		ftpClient.login(ipModel.getId(), ipModel.getPwd());
 		actionRes(ftpClient, "login");
 
 		// 设置PassiveMode传输
@@ -78,7 +66,7 @@ public class FtpModel {
 	/**
 	 * 回调环绕执行 操作
 	 */
-	public <T> T doFtpClient(Fun<T> fun)  {
+	public <T> T doFtpClient(FunArgsReturn<FTPClient, T> fun)  {
 		if(fun != null) {
 			FTPClient ftpClient = null;
 			try {
@@ -103,13 +91,13 @@ public class FtpModel {
 			try {
 				ftp.logout();
 			} catch (Exception e) {
-				log.error("ftp logout error " + this.toString() + " " + e.getMessage(), e);
+				log.error("ftp logout error " + this + " " + e.getMessage(), e);
 			}finally{
 				if (ftp.isConnected()) {
 					try {
 						ftp.disconnect();
 					} catch (IOException ioe) {
-						log.error("ftp disconnect error " + this.toString() + " " + ioe.getMessage(), ioe);
+						log.error("ftp disconnect error " + this + " " + ioe.getMessage(), ioe);
 					}
 				}
 			}
@@ -121,38 +109,40 @@ public class FtpModel {
 	 * @param fromPath /home/walker   /home/walker/01.txt
 	 * @param toPath D:/home/walker   D:/home/walker/   D:/home/walker/01.txt
 	 */
-	public Result download(String fromPath, String toPath) {
-		return doFtpClient(new Fun<Result>() {
-			@Override
-			public Result make(FTPClient ftpClient) throws IOException {
-				Result res = new Result();
-				res.setKey("download");
-				res.addInfo("download " + fromPath + " -> " + toPath);
-				OutputStream out = new FileOutputStream(toPath);
-				try {
-					// 跳转到文件目录
+	public Response<Boolean> download(String fromPath, String toPath) {
+		return doFtpClient(ftpClient -> {
+			long st = System.currentTimeMillis();
+			Response<Boolean> result = new Response<>();
+			OutputStream out = null;
+			try {
+				out = new FileOutputStream(toPath);
+				// 跳转到文件目录
 //					ftpClient.cwd(fromPathDir);
 //					actionRes(ftpClient, "cwd");
-					ftpClient.retrieveFile(fromPath, out);
-					actionRes(ftpClient, "retrieveFile");
-					res.setRes(true);
-				}catch (Exception e){
-					res.setIsOk(Constant.ERROR).addInfo(" exception " + e.getMessage());
-				}finally {
-					result.setCost(System.currentTimeMillis() - result.getTimeStart());
-					out.flush();
-					out.close();
+				ftpClient.retrieveFile(fromPath, out);
+				actionRes(ftpClient, "retrieveFile");
+				result.setRes(true);
+			}catch (Exception e){
+				result.setSuccess(false).setError(new Error(Error.LEVEL_ERROR, result.getTip(), e.getMessage()));
+			}finally {
+				result.setCost(System.currentTimeMillis() - st);
+				if(out != null) {
+					try {
+						out.flush();
+						out.close();
+					} catch (IOException e) {
+						log.error(e.getMessage(), e);
+					}
 				}
-				return res;
 			}
+			return result;
 		});
 	}
 
-	public Result upload(String fromPath,String toPath){
+	public Response<Boolean> upload(String fromPath,String toPath){
 		return doFtpClient(ftpClient -> {
-			Result res = new Result();
-			res.setKey("upload");
-			res.addInfo("upload " + fromPath + " -> " + toPath);
+			long st = System.currentTimeMillis();
+			Response<Boolean> result = new Response<>();
 			try {
 				String toPathDir = new File(toPath).getParent();
 				//判断FPT目标文件夹时候存在不存在则创建
@@ -164,41 +154,18 @@ public class FtpModel {
 //				new String (tempName.getBytes("UTF-8"),"ISO-8859-1")
 				ftpClient.storeFile(toPath, in);
 				actionRes(ftpClient, "storeFile");
-				res.setRes(true);
+				result.setRes(true);
 			}catch (Exception e){
-				res.setIsOk(Constant.ERROR).addInfo(" exception " + e.getMessage());
+				result.setSuccess(false).setError(new Error(Error.LEVEL_ERROR, result.getTip(), e.getMessage()));
 			}finally {
-				result.setCost(System.currentTimeMillis() - result.getTimeStart());
+				result.setCost(System.currentTimeMillis() - st);
 			}
-			return res;
+			return result;
 		} );
 	}
 
 
 
-
-
-
-
-	public static void main(String[] argv){
-		String[] argvd = new String[]{"4", "127.0.0.1","root","", "/home/test.txt", "D:\\ttt\\"};
-		for (int i = 0; i < argv.length; i++) {
-			argvd[i] = argv[i];
-		}
-		argv = argvd;
-		String from = argv[4];
-		String downdir = argv[5];
-
-		FtpModel server = new FtpModel(argv[1],argv[2],argv[3]);
-
-		server.setMoreLog(true);
-		Result res = server.upload(downdir + "test.txt", new File(from).getParent() + File.separator + "test.upload.txt");
-		System.out.println("" + res);
-		server.setMoreLog(false);
-        String to = downdir + "tno-" + "-no-" + "-name-" + new File(from).getName();
-        Result resd = server.download(from, to);
-        System.out.println("" + resd);
-	}
 
 
 }

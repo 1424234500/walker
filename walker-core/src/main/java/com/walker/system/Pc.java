@@ -1,9 +1,11 @@
 package com.walker.system;
 
 import com.walker.core.exception.ExceptionUtil;
+import com.walker.mode.Error;
+import com.walker.mode.Response;
+import com.walker.mode.Tuple;
 import com.walker.util.FileUtil;
 import com.walker.util.Tools;
-import com.walker.mode.Tuple;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
@@ -53,7 +55,7 @@ public class Pc {
 	 */
 	public static float getCpu() throws IOException, InterruptedException {
 		float res = 100;
-		String c = doCmdString("top -bn 2 ").getInfo();
+		String c = doCmdString("top -bn 2 ").getRes();
 		c = c.toUpperCase();
 		//编译正则
 		java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("CPU.*\\d+.* ID");
@@ -64,7 +66,7 @@ public class Pc {
 		while(matcher.find()){
 //			Tools.out(matcher.group());
 			String k = matcher.group();
-			String ss[] = k.split(" +");
+			String[] ss = k.split(" +");
 			if(ss.length == 9){
 				resstr = ss[7];
 
@@ -302,24 +304,24 @@ public class Pc {
 	}
 
 
-	public static boolean isLinux() {
+	public static String getOs() {
 		Properties prop = System.getProperties();
-
+		// todo mac
 		String os = prop.getProperty("os.name");
 		if (os != null && os.toLowerCase().indexOf("linux") > -1) {
-			return true;
+			return "linux";
 		} else {
-			return false;
+			return "window";
 		}
 	}
 	public static List<String> getIps()  {
 		List<String> ips = new ArrayList<>();
 		try {
 			String str = "";
-			if (isLinux()) {
-				str = Pc.doCmdString("ifconfig").getInfo();
+			if ("linux".equals(getOs())) {
+				str = Pc.doCmdString("ifconfig").getRes();
 			} else {
-				str = Pc.doCmdString("ipconfig").getInfo();
+				str = Pc.doCmdString("ipconfig").getRes();
 			}
 			java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\d+\\.\\d+\\.\\d+\\.\\d+");
 			java.util.regex.Matcher matcher = pattern.matcher(str);
@@ -338,23 +340,27 @@ public class Pc {
 		return ips;
 	}
 
-	public static Result doCmdString(String command) {
+	public static Response<String> doCmdString(String command) {
 		return doCmdString(command, "");
 	}
 	/**
 	 * runtime方式执行
 	 * @param command
 	 */
-	public static Result doCmdString(String command, String dir) {
-		Result res = new Result();
-		res.setKey(command);
+	public static Response doCmdString(String command, String dir) {
+		long st = System.currentTimeMillis();
+		Response res = new Response();
 		StringBuilder stdout = new StringBuilder();
 		try {
 			Process process = Runtime.getRuntime().exec(command, new String[]{}, new File(dir));
 //			Process process = new ProcessBuilder(Arrays.asList(command.split(" +"))).redirectErrorStream(true).start(); // 标准错误和标准输出合并
-
+			Error error = new Error("", "", "");
 			int code = process.waitFor();
-			res.setIsOk(code); //0是 其他异常code
+			if(code == 0){
+				res.setSuccess(true);
+			}else{
+				error.setCode("" + code);
+			}
 			InputStream inputStream = process.getInputStream();
 			if(inputStream != null){
 				stdout.append(FileUtil.readByLines(inputStream, null, null));
@@ -366,8 +372,8 @@ public class Pc {
 		}catch (Exception e){
 			stdout.append("error exception " + e.getMessage());
 		}finally {
-			res.setCost(System.currentTimeMillis() - res.getTimeStart());
-			res.setInfo(stdout.toString());
+			res.setCost(System.currentTimeMillis() - st);
+			res.setRes(stdout.toString());
 		}
 		return res;
 	}

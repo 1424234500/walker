@@ -5,9 +5,8 @@ package com.walker.core.aop;
  * 参数	泛型定义
  * 返回值	泛型定义
  *
- * @param <A, T>
  */
-public interface FunArgsReturn<A, T>{
-	T make(A obj) ;
+public interface FunArgsReturn<ARG, RES>{
+	RES make(ARG obj);
 }
 

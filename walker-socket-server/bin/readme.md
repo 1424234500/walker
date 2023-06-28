@@ -22,7 +22,7 @@ mvn clean package -Dmaven.test.skip=true
 
 ### 启动
 
-./server.sh
+./ipModel.sh
 
 ### 打包&上传
 

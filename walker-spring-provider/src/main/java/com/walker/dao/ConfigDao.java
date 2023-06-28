@@ -42,20 +42,17 @@ public class ConfigDao {
     public int reload() {
         int res = -1;
 //        String key0, long millisecondsToExpire, long millisecondsToWait, long initDeta, FunArgsReturnBool<String, Map<String, Object
-        res = redisDao.initCacheFromDb(CONF_ID, 24 * 3600, 30, 10 * 60, new FunArgsReturn<String, Map<String, Object>>() {
-            @Override
-            public Map<String, Object> make(String obj) {
-                Map<String, Object> res = new LinkedHashMap<>();
+        res = redisDao.initCacheFromDb(CONF_ID, 24 * 3600, 30, 10 * 60, obj -> {
+            Map<String, Object> res1 = new LinkedHashMap<>();
 
-                List<Map<String, Object>> line = jdbcTemplateDao.find("select ID, VALUE from W_SYS_CONFIG where S_FLAG='1' order by S_MTIME ");
-                for (Map<String, Object> item : line) {
-                    log.debug(item.toString());
-                    res.put(String.valueOf(item.get("ID")), item.get("VALUE"));
-                }
-                log.info(" load cache " + count.addAndGet(1) + " " + CONF_ID + " " + res);    //注意确保单例问题
-
-                return res;
+            List<Map<String, Object>> line = jdbcTemplateDao.find("select ID, VALUE from W_SYS_CONFIG where S_FLAG='1' order by S_MTIME ");
+            for (Map<String, Object> item : line) {
+                log.debug(item.toString());
+                res1.put(String.valueOf(item.get("ID")), item.get("VALUE"));
             }
+            log.info(" load cache " + count.addAndGet(1) + " " + CONF_ID + " " + res1);    //注意确保单例问题
+
+            return res1;
         }).intValue();
 
 

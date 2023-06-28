@@ -19,7 +19,7 @@ public class Tools {
 	private static final Logger log = LoggerFactory.getLogger("Tools");
 
 	public static void main(String[] args) {
-		out(replace("aaa${bbb}, ${bbb}, ${ccc}", "bbb", "hello"));
+		out(replaceLinuxField("aaa${bbb}, ${bbb}, ${ccc}", "bbb", "hello"));
 	}
 
 	/**
@@ -340,8 +340,10 @@ public class Tools {
 
 	/**
 	 * linux变量替换
+	 * eg: replaceLinuxField("aaa${bbb}, ${bbb}, ${ccc}", "bbb", "hello") = "aaahello, hello, ${ccc}"
+	 *
 	 */
-    public static String replace(String buf, String key, String value) {
+    public static String replaceLinuxField(String buf, String key, String value) {
 		return buf.replaceAll("\\$\\{" + key + "\\}", value);
     }
 }

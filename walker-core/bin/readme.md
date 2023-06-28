@@ -22,6 +22,6 @@ sh 免密码配置key
 
 ### 启动 等操作见
 
-./server.sh
+./ipModel.sh
 
 

@@ -29,7 +29,7 @@ npm run build:prod
 方案2 git钩子的方式云端自动打包部署？
 
 ###启动
-./server.sh
+./ipModel.sh
 
 
 

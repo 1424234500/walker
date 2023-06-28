@@ -195,23 +195,23 @@ public class MapListUtil {
     /**
      * 获取Map工厂build模式
      */
-    public static MakeMap getMap() {
-        return new MakeMap();
+    public static MapBuilder getMap() {
+        return new MapBuilder();
     }
 
-    public static MakeMap map() {
-        return new MakeMap();
+    public static MapBuilder map() {
+        return new MapBuilder();
     }
 
     /**
      * 获取ArrayList
      */
-    public static MakeList getList() {
-        return new MakeList();
+    public static ListBuilder getList() {
+        return new ListBuilder();
     }
 
-    public static MakeList array() {
-        return new MakeList();
+    public static ListBuilder array() {
+        return new ListBuilder();
     }
 
     /**

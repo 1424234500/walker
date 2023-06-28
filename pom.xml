@@ -25,7 +25,7 @@
     <properties>
         <!--    源码结构
         project/*
-            目录脚本 bin    server.sh
+            目录脚本 bin    ipModel.sh
             目录配置 conf
             目录源码 src/main/java
                             /resource
@@ -40,7 +40,7 @@
             目录资源 static/     html
             目录db   mapper/     mybatis xml
             文件配置 config properties xml yml
-            文件脚本 server.sh
+            文件脚本 ipModel.sh
 -->
         <!--
     ${basedir} 项目根目录

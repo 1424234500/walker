@@ -1,7 +1,8 @@
 package com.walker.system;
 
 import com.jcraft.jsch.*;
-import com.walker.util.Constant;
+import com.walker.mode.Error;
+import com.walker.mode.Response;
 import com.walker.util.FileUtil;
 import lombok.Data;
 
@@ -14,25 +15,12 @@ import java.util.Properties;
  * 支持 sftp
  */
 @Data
-public class SshJsch {
-	Server server;
-	Result result = new Result();
+public class SshJschConnector {
+	IpModel ipModel;
 	int timeout = 5000;
 
-	public SshJsch(Server server) {
-		this.server = server;
-	}
-
-	public SshJsch(String ip, String id, String pwd) {
-		this.server = new Server(ip, id, pwd);
-	}
-
-	public static void main(String[] argv) {
-		String downdir = "D:\\ttt\\";
-		SshJsch s = new SshJsch("127.0.0.1", "root", "");
-//scp -p root@127.0.0.1:/root/test.txt  D:\ttt\1.txt
-		Result res = s.download("/home/walker/test.txt", downdir + "test.txt");
-		System.out.println("" + res);
+	public SshJschConnector(IpModel ipModel) {
+		this.ipModel = ipModel;
 	}
 
 	/**
@@ -41,9 +29,9 @@ public class SshJsch {
 	 * @param cmd 即将执行的命令
 	 *            命令执行完后返回的结果值
 	 */
-	public String execute(String cmd) {
-		result = new Result();
-		result.setKey(cmd);
+	public Response<String> execute(String cmd) {
+		long st = System.currentTimeMillis();
+		Response<String> result = new Response<>();
 		Session session = null;
 		ChannelExec channelExec = null;
 		try {
@@ -51,11 +39,13 @@ public class SshJsch {
 			channelExec = (ChannelExec) session.openChannel("exec");   //exec
 			channelExec.setCommand(cmd);
 			int status = channelExec.getExitStatus();
+			result.setTip(status + "");
 			channelExec.connect();
 			InputStream inputStream = channelExec.getInputStream();
-			result.setRes(FileUtil.readByLines(inputStream, null, this.server.getEncode()));
+			result.setRes(FileUtil.readByLines(inputStream, null, this.ipModel.getEncode()));
 		} catch (Exception e) {
-			result.setIsOk(Constant.ERROR).addInfo(e.getMessage());
+			result.setSuccess(false);
+			result.setError(new Error(Error.LEVEL_ERROR, result.getTip(), e.getMessage()));
 		} finally {
 			if (channelExec != null && !channelExec.isClosed()) {
 				channelExec.disconnect();
@@ -63,15 +53,14 @@ public class SshJsch {
 			if (session != null && session.isConnected()) {
 				session.disconnect();
 			}
-			result.setCost(System.currentTimeMillis() - result.getTimeStart());
-			server.addValues(result);
+			result.setCost(System.currentTimeMillis() - st);
 		}
-		return result.getRes();
+		return result;
 	}
 
-	public Result upload(String pathFrom, String pathTo) {
-		Result result = new Result();
-		result.setKey("upload " + pathFrom + " - " + pathTo);
+	public Response<Integer> upload(String pathFrom, String pathTo) {
+		long st = System.currentTimeMillis();
+		Response<Integer> result = new Response<>();
 		Session session = null;
 		ChannelSftp channelSftp = null;
 		try {
@@ -82,7 +71,8 @@ public class SshJsch {
 			channelSftp.put(pathFrom, pathTo);
 			result.setRes(1);
 		} catch (Exception e) {
-			result.setIsOk(Constant.ERROR).addInfo(e.getMessage());
+			result.setSuccess(false);
+			result.setError(new Error(Error.LEVEL_ERROR, result.getTip(), e.getMessage()));
 		} finally {
 			if (channelSftp != null && !channelSftp.isClosed()) {
 				channelSftp.disconnect();
@@ -90,14 +80,14 @@ public class SshJsch {
 			if (session != null && session.isConnected()) {
 				session.disconnect();
 			}
-			result.setCost(System.currentTimeMillis() - result.getTimeStart());
+			result.setCost(System.currentTimeMillis() - st);
 		}
 		return result;
 	}
 
-	public Result download(String pathFrom, String pathTo) {
-		Result result = new Result();
-		result.setKey("download " + pathFrom + " - " + pathTo);
+	public Response<Integer> download(String pathFrom, String pathTo) {
+		long st = System.currentTimeMillis();
+		Response<Integer> result = new Response<>();
 		Session session = null;
 		ChannelSftp channelSftp = null;
 		try {
@@ -108,8 +98,8 @@ public class SshJsch {
 			channelSftp.get(pathFrom, pathTo);
 			result.setRes(1);
 		} catch (Exception e) {
-			result.setIsOk(Constant.ERROR).addInfo(e.getMessage());
-			e.printStackTrace();
+			result.setSuccess(false);
+			result.setError(new Error(Error.LEVEL_ERROR, result.getTip(), e.getMessage()));
 		} finally {
 			if (channelSftp != null && !channelSftp.isClosed()) {
 				channelSftp.disconnect();
@@ -117,30 +107,25 @@ public class SshJsch {
 			if (session != null && session.isConnected()) {
 				session.disconnect();
 			}
-			result.setCost(System.currentTimeMillis() - result.getTimeStart());
+			result.setCost(System.currentTimeMillis() - st);
 		}
 		return result;
 	}
+	public Response<String> telnet(String port){
+		String cmd = "timeout 3 telnet " + this.ipModel.getIp() + " " + port;
+		return execute(cmd);
+	}
+
 
 	private Session getSession() throws JSchException {
-		Session session = new JSch().getSession(this.server.getId(), this.server.getIp());
+		Session session = new JSch().getSession(this.ipModel.getId(), this.ipModel.getIp());
 		Properties properties = new Properties();
 		properties.put("StrictHostKeyChecking", "no");  //跳过公钥确认
 		properties.put("PreferredAuthentications", "publickey,keyboard-interactive,password"); //跳过 Kerberos username 身份验证提示
 		session.setConfig(properties);
-		session.setPassword(this.server.getPwd());
+		session.setPassword(this.ipModel.getPwd());
 		session.connect(timeout);
 		return session;
 	}
-
-	@Override
-	public String toString() {
-		return this.server.toSsh(this.result != null ? this.result.toString() : "");
-	}
-
-	public String toIpRes() {
-		return this.server.getIp() + " " + this.server.getName() + " " + (this.result != null ? this.result.toRes() : "");
-	}
-
 
 }

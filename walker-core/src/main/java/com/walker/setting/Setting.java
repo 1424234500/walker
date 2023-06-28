@@ -17,6 +17,7 @@ import java.util.Properties;
  * 配置文件 读写工具
  * 针对某个properties文件的快捷实时存取
  */
+@Deprecated
 public class Setting {
 
 	public static Map<String, Object> getSetting(String filename)  {
@@ -39,7 +40,7 @@ public class Setting {
 	
 	
 	public static String settingFileName = Context.getPathConf( "make.properties" );
-	private static Properties proper ;
+	private static final Properties proper ;
 	static  {
 		proper = new Properties();     
         try{

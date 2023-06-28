@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ssh服务器管理
+ * ssh服务器管理 基本元数据
  */
-public class Server {
+public class IpModel {
 	String group;	//分组 xxx集群
 	String info;	//说明
 
@@ -34,23 +34,16 @@ public class Server {
 		return values;
 	}
 
-	public  Server addValues(Object values) {
+	public IpModel addValues(Object values) {
 		this.values.add(values);
 		return this;
 	}
 
-	public Server(){
+	public IpModel(){
 
 	}
-	public Server(String group, String info, String name, String ip, String id, String pwd, String encode){
-		this(ip, id, pwd);
-		this.group = group;
-		this.info = info;
-		this.encode = encode;
-		this.name = name;
-	}
 
-	public Server(String ip, String id, String pwd){
+	public IpModel(String ip, String id, String pwd){
 		this.ip = ip;
 		this.id = id;
 		this.pwd = pwd;
@@ -60,7 +53,7 @@ public class Server {
 		return info;
 	}
 
-	public Server setInfo(String info) {
+	public IpModel setInfo(String info) {
 		this.info = info;
 		return this;
 	}
@@ -69,7 +62,7 @@ public class Server {
 		return name;
 	}
 
-	public Server setName(String name) {
+	public IpModel setName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -78,7 +71,7 @@ public class Server {
 		return group;
 	}
 
-	public Server setGroup(String group) {
+	public IpModel setGroup(String group) {
 		this.group = group;
 		return this;
 	}
@@ -87,7 +80,7 @@ public class Server {
 		return ip;
 	}
 
-	public Server setIp(String ip) {
+	public IpModel setIp(String ip) {
 		this.ip = ip;
 		return this;
 	}
@@ -96,7 +89,7 @@ public class Server {
 		return id;
 	}
 
-	public Server setId(String id) {
+	public IpModel setId(String id) {
 		this.id = id;
 		return this;
 	}
@@ -105,7 +98,7 @@ public class Server {
 		return pwd;
 	}
 
-	public Server setPwd(String pwd) {
+	public IpModel setPwd(String pwd) {
 		this.pwd = pwd;
 		return this;
 	}
@@ -114,26 +107,12 @@ public class Server {
 		return encode;
 	}
 
-	public Server setEncode(String encode) {
+	public IpModel setEncode(String encode) {
 		this.encode = encode;
 		return this;
 	}
 
 	public String toSsh() {
 		return this.getGroup() + "-" + this.getName() + " ssh " + id + "@" + ip + " ";// + " pwd: " + pwd + " ";
-	}
-	public String toSsh(String cmd ) {
-		return this.getGroup() + "-" + this.getName() + " ssh " + id + "@" + ip + " " + cmd  + " pwd: " + pwd + " ";
-	}
-	@Override
-	public String toString() {
-		return "Server{" +
-				"name='" + name + '\'' +
-				", group='" + group + '\'' +
-				", ip='" + ip + '\'' +
-				", id='" + id + '\'' +
-				", pwd='" + pwd + '\'' +
-				", encode='" + encode + '\'' +
-				'}';
 	}
 }
