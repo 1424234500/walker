@@ -1,7 +1,7 @@
 package com.walker.socket.server.chat.plugin.aop;
 
+import com.walker.core.mode.Bean;
 import com.walker.socket.frame.SocketException;
-import com.walker.mode.Bean;
 import org.apache.log4j.Logger;
 
 public abstract class Aop<MSG>{

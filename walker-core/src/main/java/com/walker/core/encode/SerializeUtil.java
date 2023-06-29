@@ -1,8 +1,8 @@
 package com.walker.core.encode;
 
 import com.mchange.lang.ByteUtils;
-import com.walker.mode.Bean;
-import com.walker.util.Tools;
+import com.walker.core.mode.Bean;
+import com.walker.core.util.Tools;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.walker.common.util;
 
-import com.walker.util.FileUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.Tools;
 import org.junit.Assert;
 import org.junit.Test;
 

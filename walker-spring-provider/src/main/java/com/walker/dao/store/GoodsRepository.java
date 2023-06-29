@@ -1,7 +1,7 @@
 package com.walker.dao.store;
 
-import com.walker.mode.school.Dept;
-import com.walker.mode.store.Goods;
+import com.walker.core.mode.school.Dept;
+import com.walker.core.mode.store.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

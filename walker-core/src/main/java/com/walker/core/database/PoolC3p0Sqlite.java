@@ -3,7 +3,7 @@ package com.walker.core.database;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.walker.core.Context;
 import com.walker.core.cache.ConfigMgr;
-import com.walker.util.FileUtil;
+import com.walker.core.util.FileUtil;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package com.walker.box;
 
 import com.walker.core.encode.IOEncode;
-import com.walker.util.FileUtil;
+import com.walker.core.util.FileUtil;
 
 import java.io.File;
 import java.util.List;

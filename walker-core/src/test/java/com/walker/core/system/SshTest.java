@@ -1,8 +1,6 @@
 package com.walker.core.system;
 
-import com.walker.system.IpModel;
-import com.walker.system.SshJschConnector;
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 import org.junit.Test;
 
 public class SshTest {

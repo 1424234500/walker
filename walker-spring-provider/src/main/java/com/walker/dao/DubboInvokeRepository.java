@@ -1,7 +1,7 @@
 package com.walker.dao;
 
-import com.walker.mode.school.Dept;
-import com.walker.mode.sys.DubboInvoke;
+import com.walker.core.mode.school.Dept;
+import com.walker.core.mode.sys.DubboInvoke;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

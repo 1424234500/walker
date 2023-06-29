@@ -5,17 +5,13 @@ import com.walker.Response;
 import com.walker.core.aop.FunArgsReturn;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.database.SqlUtil;
-import com.walker.mode.Page;
-import com.walker.mode.SqlColumn;
-import com.walker.mode.SqlDatabase;
-import com.walker.mode.SqlTable;
+import com.walker.core.mode.*;
+import com.walker.core.util.LangUtil;
+import com.walker.core.util.RequestUtil;
+import com.walker.core.util.TimeUtil;
 import com.walker.dao.JdbcDao;
 import com.walker.service.BaseService;
 import com.walker.service.CacheService;
-import com.walker.mode.Bean;
-import com.walker.util.LangUtil;
-import com.walker.util.RequestUtil;
-import com.walker.util.TimeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -91,7 +87,7 @@ public class CommonController {
                     colMap.put(str, str);
                 }
                 list = baseService.findPage(page, sql);
-                page.setNum(baseService.count(sql));
+                page.setTotal(baseService.count(sql));
 
                 res.put("data", list);
                 res.put("page", page);

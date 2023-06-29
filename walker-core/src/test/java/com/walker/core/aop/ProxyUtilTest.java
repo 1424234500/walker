@@ -2,8 +2,8 @@ package com.walker.core.aop;
 
 import com.walker.core.route.SubPub;
 import com.walker.core.route.SubPubMapImpl;
-import com.walker.util.ProxyUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.ProxyUtil;
+import com.walker.core.util.Tools;
 import org.junit.Test;
 
 public class ProxyUtilTest {

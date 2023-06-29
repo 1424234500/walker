@@ -1,14 +1,14 @@
 package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.Page;
-import com.walker.mode.school.Student;
-import com.walker.mode.school.Teacher;
-import com.walker.mode.school.User;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Student;
+import com.walker.core.mode.school.Teacher;
+import com.walker.core.mode.school.User;
+import com.walker.core.util.TimeUtil;
 import com.walker.service.StudentService;
 import com.walker.service.TeacherService;
 import com.walker.service.UserService;
-import com.walker.util.TimeUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

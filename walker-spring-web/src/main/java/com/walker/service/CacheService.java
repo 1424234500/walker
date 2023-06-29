@@ -1,7 +1,7 @@
 package com.walker.service;
 
 
-import com.walker.mode.SqlColumn;
+import com.walker.core.mode.SqlColumn;
 import com.walker.dao.JdbcDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

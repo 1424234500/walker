@@ -1,11 +1,10 @@
 package com.walker.service;
 
 
-
 import com.walker.config.MakeConfig;
+import com.walker.core.util.ThreadUtil;
 import com.walker.dao.ConfigDao;
 import com.walker.dao.SentinelLimitDao;
-import com.walker.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

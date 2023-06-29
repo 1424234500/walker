@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.school.Dept;
+import com.walker.core.mode.school.Dept;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

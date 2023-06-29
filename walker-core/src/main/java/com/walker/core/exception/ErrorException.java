@@ -1,7 +1,5 @@
 package com.walker.core.exception;
 
-import com.walker.util.Tools;
-
 /**
  * 场景:
  * 初始化redis连接池
@@ -29,8 +27,5 @@ public class ErrorException extends RuntimeException {
         super(String.valueOf(object));
     }
 
-    public ErrorException(Object... objects) {
-        super(Tools.objects2string(objects));
-    }
 
 }

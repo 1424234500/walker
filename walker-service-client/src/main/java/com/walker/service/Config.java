@@ -1,6 +1,6 @@
 package com.walker.service;
 
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 
 public class Config {
 

@@ -3,9 +3,9 @@ package com.walker.box.coder.mybatis.mvc;
 
 import com.walker.box.coder.CodeFileFtl;
 import com.walker.box.coder.CodeUtil;
-import com.walker.mode.Bean;
-import com.walker.util.TimeUtil;
-import com.walker.util.Tools;
+import com.walker.core.mode.Bean;
+import com.walker.core.util.TimeUtil;
+import com.walker.core.util.Tools;
 import lombok.Data;
 
 import java.io.Serializable;

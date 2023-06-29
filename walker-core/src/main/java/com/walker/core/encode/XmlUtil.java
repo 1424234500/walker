@@ -1,9 +1,9 @@
 package com.walker.core.encode;
 
-import com.walker.mode.Bean;
-import com.walker.mode.BeanLinked;
-import com.walker.util.FileUtil;
-import com.walker.util.Tools;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.BeanLinked;
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.Tools;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Attribute;
 import org.dom4j.Document;

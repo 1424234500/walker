@@ -1,7 +1,7 @@
 package com.walker.core.cache;
 
 import com.walker.core.database.ZooKeeperUtil;
-import com.walker.util.TimeUtil;
+import com.walker.core.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

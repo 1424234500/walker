@@ -1,7 +1,7 @@
 package com.walker.core.database;
 
-import com.walker.mode.Bean;
-import com.walker.util.Tools;
+import com.walker.core.mode.Bean;
+import com.walker.core.util.Tools;
 import org.junit.Test;
 
 import java.util.Map;

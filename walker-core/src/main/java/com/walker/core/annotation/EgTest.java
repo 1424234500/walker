@@ -1,6 +1,6 @@
 package com.walker.core.annotation;
 
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 
 /**
  * 注解使用样例

@@ -2,8 +2,8 @@ package com.walker.box;
 
 
 import com.walker.core.encode.PinyinUtil;
-import com.walker.mode.Bean;
-import com.walker.util.*;
+import com.walker.core.mode.Bean;
+import com.walker.core.util.*;
 
 import java.io.File;
 import java.lang.annotation.Annotation;

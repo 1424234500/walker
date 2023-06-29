@@ -1,8 +1,8 @@
 package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.school.Area;
-import com.walker.mode.Key;
+import com.walker.core.mode.Key;
+import com.walker.core.mode.school.Area;
 import com.walker.service.SyncAreaService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

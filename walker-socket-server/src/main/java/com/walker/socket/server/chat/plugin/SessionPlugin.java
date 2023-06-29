@@ -1,10 +1,10 @@
 package com.walker.socket.server.chat.plugin;
 
-import com.walker.mode.Page;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.BeanLinked;
+import com.walker.core.mode.Page;
 import com.walker.socket.model.Msg;
 import com.walker.socket.server.chat.handler.HandlerSessionArpListImpl;
-import com.walker.mode.Bean;
-import com.walker.mode.BeanLinked;
 
 /**
  * 会话列表

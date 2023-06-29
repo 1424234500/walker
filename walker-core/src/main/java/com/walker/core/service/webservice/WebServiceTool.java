@@ -1,6 +1,6 @@
 package com.walker.core.service.webservice;
 
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

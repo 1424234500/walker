@@ -1,8 +1,8 @@
 package com.walker.demo;
 
-import com.walker.util.FileUtil;
-import com.walker.util.ThreadUtil;
-import com.walker.util.TimeUtil;
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.TimeUtil;
 import lombok.SneakyThrows;
 
 import java.io.IOException;

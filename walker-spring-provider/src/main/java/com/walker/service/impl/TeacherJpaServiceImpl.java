@@ -1,9 +1,9 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Teacher;
 import com.walker.dao.TeacherRepository;
-import com.walker.mode.school.Teacher;
 import com.walker.service.TeacherService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class TeacherJpaServiceImpl implements TeacherService {
     public List<Teacher> finds(Teacher obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<Teacher> res = teacherRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 

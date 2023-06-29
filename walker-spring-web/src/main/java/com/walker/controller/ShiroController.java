@@ -3,7 +3,7 @@ package com.walker.controller;
 
 import com.walker.Response;
 import com.walker.config.ShiroConfig;
-import com.walker.mode.school.User;
+import com.walker.core.mode.school.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

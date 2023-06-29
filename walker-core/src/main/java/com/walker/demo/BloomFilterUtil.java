@@ -2,7 +2,7 @@ package com.walker.demo;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

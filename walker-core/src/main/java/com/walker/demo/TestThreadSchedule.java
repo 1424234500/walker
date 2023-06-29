@@ -1,6 +1,6 @@
 package com.walker.demo;
 
-import com.walker.util.TimeUtil;
+import com.walker.core.util.TimeUtil;
 import lombok.SneakyThrows;
 
 import java.util.List;

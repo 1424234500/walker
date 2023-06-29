@@ -2,12 +2,12 @@ package com.walker.controller.user;
 
 
 import com.walker.Response;
-import com.walker.mode.Page;
-import com.walker.mode.school.Role;
-import com.walker.mode.school.RoleUser;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Role;
+import com.walker.core.mode.school.RoleUser;
+import com.walker.core.util.TimeUtil;
 import com.walker.service.BaseService;
 import com.walker.service.RoleService;
-import com.walker.util.TimeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -121,7 +121,7 @@ public class RoleController {
         String info = "get   role:" + role;
 
         List<Role> list = roleService.finds(role, page);
-        page.setNum(roleService.count(role));
+        page.setTotal(roleService.count(role));
         return Response.makePage(info, page, list);
     }
 

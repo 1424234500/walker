@@ -1,9 +1,9 @@
 package com.walker.core.database;
 
-import com.walker.mode.CacheModelRedis;
-import com.walker.mode.Page;
-import com.walker.util.LangUtil;
 import com.walker.core.encode.SerializeUtil;
+import com.walker.core.mode.CacheModelRedis;
+import com.walker.core.mode.Page;
+import com.walker.core.util.LangUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
@@ -20,7 +20,7 @@ public class RedisUtil {
 		List<CacheModelRedis> list = new ArrayList<>();
 		Set<String> keysSet = jedis.keys(pattern);
 		Iterator<String> keys = keysSet.iterator();
-		page.setNum(keysSet.size());
+		page.setTotal(keysSet.size());
 		for (int i = page.getStart(); i < keysSet.size() && i < page.getStop(); i++) {
 			String key = keys.next();
 			CacheModelRedis res = new CacheModelRedis();

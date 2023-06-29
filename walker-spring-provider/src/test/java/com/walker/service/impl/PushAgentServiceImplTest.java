@@ -1,9 +1,9 @@
 package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.sys.PushBindModel;
-import com.walker.mode.sys.PushModel;
-import com.walker.mode.sys.PushType;
+import com.walker.core.mode.sys.PushBindModel;
+import com.walker.core.mode.sys.PushModel;
+import com.walker.core.mode.sys.PushType;
 import com.walker.service.PushAgentService;
 import org.junit.Assert;
 import org.junit.Test;

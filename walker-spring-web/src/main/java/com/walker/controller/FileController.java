@@ -3,12 +3,12 @@ package com.walker.controller;
 import com.alibaba.fastjson.JSON;
 import com.walker.Response;
 import com.walker.config.Context;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.sys.FileIndex;
+import com.walker.core.util.*;
 import com.walker.dao.JdbcDao;
-import com.walker.mode.sys.FileIndex;
 import com.walker.service.Config;
 import com.walker.service.FileIndexService;
-import com.walker.util.*;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,7 +134,7 @@ public class FileController {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
 
         List<FileIndex> list = fileIndexService.finds(file, page);
-        page.setNum(fileIndexService.count(file));
+        page.setTotal(fileIndexService.count(file));
         return Response.makePage("", page, list);
     }
 

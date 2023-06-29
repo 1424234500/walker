@@ -2,10 +2,10 @@ package com.walker.service.impl;
 
 import com.walker.config.Config;
 import com.walker.core.encode.MD5;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.User;
 import com.walker.dao.RoleUserRepository;
 import com.walker.dao.UserRepository;
-import com.walker.mode.school.User;
 import com.walker.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public List<User> finds(User obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<User> res = userRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 

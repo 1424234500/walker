@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.school.Teacher;
+import com.walker.core.mode.school.Teacher;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

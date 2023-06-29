@@ -1,11 +1,10 @@
 package com.walker.socket.model;
 
-import com.walker.mode.Page;
-import com.walker.mode.sys.DataNormal;
-import com.walker.socket.model.Msg;
-import com.walker.mode.Bean;
-import com.walker.util.LangUtil;
-import com.walker.util.Tools;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.sys.DataNormal;
+import com.walker.core.util.LangUtil;
+import com.walker.core.util.Tools;
 
 /**
  * 构造各种消息格式

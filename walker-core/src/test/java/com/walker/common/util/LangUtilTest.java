@@ -1,8 +1,8 @@
 package com.walker.common.util;
 
-import com.walker.mode.Emp;
-import com.walker.util.LangUtil;
-import com.walker.util.Tools;
+import com.walker.core.mode.Emp;
+import com.walker.core.util.LangUtil;
+import com.walker.core.util.Tools;
 import org.junit.Test;
 
 import java.util.Arrays;

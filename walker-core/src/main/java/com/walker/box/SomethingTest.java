@@ -1,8 +1,8 @@
 package com.walker.box;
 
-import com.walker.util.ThreadUtil;
-import com.walker.util.ThreadUtil.Type;
-import com.walker.util.Tools;
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.ThreadUtil.Type;
+import com.walker.core.util.Tools;
 
 import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;

@@ -1,8 +1,8 @@
 package com.walker.common.util;
 
-import com.walker.mode.Bean;
-import com.walker.util.HttpBuilder;
-import com.walker.util.HttpBuilder.Type;
+import com.walker.core.mode.Bean;
+import com.walker.core.util.HttpBuilder;
+import com.walker.core.util.HttpBuilder.Type;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;

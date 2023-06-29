@@ -1,9 +1,9 @@
 package com.walker.job;
 
+import com.walker.core.util.SpringContextUtil;
 import com.walker.dao.ConfigDao;
 import com.walker.quartz.TaskJob;
 import com.walker.service.MakeTestService;
-import com.walker.util.SpringContextUtil;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.PersistJobDataAfterExecution;
 import org.slf4j.Logger;

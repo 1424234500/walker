@@ -1,9 +1,9 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.sys.FileIndex;
 import com.walker.dao.FileIndexRepository;
-import com.walker.mode.sys.FileIndex;
 import com.walker.service.FileIndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class FileIndexServiceImpl implements FileIndexService {
 	public List<FileIndex> finds(FileIndex obj, Page page) {
 		Pageable pageable = Config.turnTo(page);
 		org.springframework.data.domain.Page<FileIndex> res = fileIndexrRepository.findAll(this.getSpecification(obj), pageable);
-		page.setNum(res.getTotalElements());
+		page.setTotal(res.getTotalElements());
 		return res.getContent();
 	}
 

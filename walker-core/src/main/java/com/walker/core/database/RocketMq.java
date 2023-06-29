@@ -11,7 +11,7 @@ import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.common.message.MessageExt;
 import com.walker.core.aop.TestModelAdapter;
 import com.walker.core.cache.ConfigMgr;
-import com.walker.util.ThreadUtil;
+import com.walker.core.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

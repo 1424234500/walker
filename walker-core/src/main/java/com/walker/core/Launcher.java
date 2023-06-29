@@ -1,7 +1,7 @@
 package com.walker.core;
 
-import com.walker.util.ThreadUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.Tools;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package com.walker.socket.server.chat.plugin.aop;
 
-import com.walker.socket.model.Msg;
+import com.walker.core.mode.Bean;
 import com.walker.socket.frame.SocketException;
-import com.walker.mode.Bean;
+import com.walker.socket.model.Msg;
 
 public class AuthAop extends Aop<Msg> {
 

@@ -1,7 +1,7 @@
 package com.walker.core.service.serviceImpl;
 
 import com.walker.core.service.service.ServiceClass;
-import com.walker.util.ClassUtil;
+import com.walker.core.util.ClassUtil;
 
 import javax.jws.WebService;
 import java.rmi.RemoteException;

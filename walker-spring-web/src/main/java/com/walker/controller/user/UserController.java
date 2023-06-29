@@ -2,11 +2,11 @@ package com.walker.controller.user;
 
 
 import com.walker.Response;
-import com.walker.mode.Page;
-import com.walker.mode.school.User;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.User;
+import com.walker.core.util.TimeUtil;
 import com.walker.service.BaseService;
 import com.walker.service.UserService;
-import com.walker.util.TimeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -140,7 +140,7 @@ public class UserController {
         String info = "get   user:" + user;
 
         List<User> list = userService.finds(user, page);
-        page.setNum(userService.count(user));
+        page.setTotal(userService.count(user));
         return Response.makePage(info, page, list);
     }
 

@@ -3,8 +3,8 @@ package com.walker.controller;
 import com.walker.Response;
 import com.walker.core.database.ZooKeeperUtil;
 import com.walker.core.database.ZookeeperModel;
-import com.walker.mode.Page;
-import com.walker.mode.SqlColumn;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.SqlColumn;
 import com.walker.dao.RedisDao;
 import com.walker.service.RedisService;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +48,7 @@ public class ZookeeperController {
         List<Map<String, String>> list = new ArrayList<>();
 
         List<?> res = zookeeperModel.findPage(url, page);
-        page.setNum(res.size());
+        page.setTotal(res.size());
         return Response.makePage("get zk value", page, res);
     }
 

@@ -1,7 +1,8 @@
 package com.walker.socket.client.http;
+
+import com.walker.core.util.ClassUtil;
 import com.walker.socket.model.HttpJsonRequest;
 import com.walker.socket.model.HttpJsonResponse;
-import com.walker.util.ClassUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 

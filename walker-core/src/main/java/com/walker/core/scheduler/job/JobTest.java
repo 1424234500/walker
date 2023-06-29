@@ -1,7 +1,7 @@
 package com.walker.core.scheduler.job;
 
 import com.walker.core.scheduler.TaskJob;
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 
 public class JobTest extends TaskJob {
 

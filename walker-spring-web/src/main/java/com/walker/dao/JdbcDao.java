@@ -2,7 +2,7 @@ package com.walker.dao;
 
 import com.walker.core.database.BaseDaoAdapter;
 import com.walker.core.database.SqlUtil;
-import com.walker.util.Watch;
+import com.walker.core.util.Watch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

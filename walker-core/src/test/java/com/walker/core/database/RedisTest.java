@@ -1,7 +1,7 @@
 package com.walker.core.database;
 
 import com.walker.core.aop.TestModel;
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 import org.junit.Assert;
 import org.junit.Test;
 

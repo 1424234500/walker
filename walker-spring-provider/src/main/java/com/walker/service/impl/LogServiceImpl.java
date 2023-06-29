@@ -4,19 +4,19 @@ package com.walker.service.impl;
 import com.walker.config.Config;
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
-import com.walker.mode.Page;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.sys.LogModel;
+import com.walker.core.mode.sys.LogSocketModel;
+import com.walker.core.mode.sys.LogTime;
+import com.walker.core.system.Pc;
+import com.walker.core.util.LangUtil;
+import com.walker.core.util.TimeUtil;
 import com.walker.dao.JdbcTemplateDao;
 import com.walker.dao.LogModelRepository;
 import com.walker.dao.LogSocketModelRepository;
 import com.walker.dao.LogTimeRepository;
-import com.walker.mode.sys.LogModel;
-import com.walker.mode.sys.LogSocketModel;
-import com.walker.mode.sys.LogTime;
 import com.walker.service.LogService;
-import com.walker.system.Pc;
-import com.walker.mode.Bean;
-import com.walker.util.LangUtil;
-import com.walker.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,12 +102,7 @@ public class LogServiceImpl implements LogService {
                     if (logTime != null)
                         list.add(logTime);
                 }
-                Object pages = Page.batch(list, Config.getDbsize(), new Page.FunArgsReturn<List<LogTime>, Integer>() {
-                    @Override
-                    public Integer make(List<LogTime> obj, Integer tbj) {
-                        return logTimeRepository.saveAll(obj).size();
-                    }
-                });
+                Object pages = Page.batch(list, Config.getDbsize(), (obj, tbj) -> logTimeRepository.saveAll(obj).size());
                 log.info("batch save static " + CACHE_KEY + " " + list.size() + " pages:" + pages);
             }
         } catch (Exception e) {

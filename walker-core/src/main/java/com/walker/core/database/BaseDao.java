@@ -2,10 +2,10 @@ package com.walker.core.database;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.walker.mode.Page;
-import com.walker.mode.SqlColumn;
-import com.walker.mode.SqlDatabase;
-import com.walker.mode.SqlTable;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.SqlColumn;
+import com.walker.core.mode.SqlDatabase;
+import com.walker.core.mode.SqlTable;
 
 import java.util.List;
 import java.util.Map;

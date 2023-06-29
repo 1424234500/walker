@@ -1,6 +1,5 @@
 package com.walker.socket.model;
-import com.walker.core.annotation.DBSQLString;
-import com.walker.mode.Property;
+import com.walker.core.mode.Property;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

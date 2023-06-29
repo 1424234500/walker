@@ -2,8 +2,8 @@ package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
 import com.walker.box.TaskThreadPie;
-import com.walker.util.ThreadUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.Tools;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

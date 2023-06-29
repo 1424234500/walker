@@ -1,8 +1,8 @@
 package com.walker.common.util;
 
 import com.walker.TestBase;
-import com.walker.util.Excel;
-import com.walker.util.ExcelModel;
+import com.walker.core.util.Excel;
+import com.walker.core.util.ExcelModel;
 import org.junit.Test;
 
 import java.util.Arrays;

@@ -1,10 +1,10 @@
 package com.walker.socket.client.chat.frame;
 
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.TimeUtil;
+import com.walker.core.util.Tools;
 import com.walker.socket.model.MsgBuilder;
-import com.walker.util.FileUtil;
-import com.walker.util.ThreadUtil;
-import com.walker.util.TimeUtil;
-import com.walker.util.Tools;
 
 import javax.swing.*;
 import java.awt.*;

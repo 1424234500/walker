@@ -2,12 +2,12 @@ package com.walker.controller;
 
 
 import com.walker.Response;
-import com.walker.mode.CacheModelRedis;
-import com.walker.mode.Page;
-import com.walker.mode.SqlColumn;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.CacheModelRedis;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.SqlColumn;
 import com.walker.dao.RedisDao;
 import com.walker.service.RedisService;
-import com.walker.mode.Bean;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +48,7 @@ public class RedisController  {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
 
         List<?> res = redisService.getKeyValues(keys);
-        page.setNum(res.size());
+        page.setTotal(res.size());
         return Response.makePage("get redis key value", page, res);
     }
 

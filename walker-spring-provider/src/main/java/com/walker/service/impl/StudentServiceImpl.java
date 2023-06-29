@@ -1,9 +1,9 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Student;
 import com.walker.dao.StudentRepository;
-import com.walker.mode.school.Student;
 import com.walker.service.StudentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> finds(Student obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<Student> res = studentRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 

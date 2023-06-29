@@ -1,7 +1,7 @@
 package com.walker.socket.model;
 
-import com.walker.mode.Bean;
-import com.walker.mode.Key;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.Key;
 
 import java.io.Serializable;
 

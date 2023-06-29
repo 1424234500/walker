@@ -1,7 +1,7 @@
 package com.walker.service;
 
-import com.walker.mode.Page;
-import com.walker.mode.sys.FileIndex;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.sys.FileIndex;
 
 import java.util.List;
 

@@ -1,10 +1,8 @@
 package com.walker.core.database;
 
 import com.walker.core.exception.ErrorException;
-import com.walker.core.exception.ExceptionUtil;
-import com.walker.util.FileUtil;
-import com.walker.mode.Property;
-import com.walker.util.Tools;
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.Tools;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -280,7 +278,6 @@ public class SqlUtil {
      * @param sql
      */
     public static String filter(String sql) {
-        ExceptionUtil.blankThrow(Property.build("sql", sql));
         sql = StringUtils.strip(sql);
         if (sql.endsWith(";")) {
             sql = sql.substring(0, sql.length() - 1);

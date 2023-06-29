@@ -1,12 +1,10 @@
 package com.walker.socket.server.file;
 
-import com.walker.mode.Bean;
-import com.walker.util.FileUtil;
-import com.walker.util.Tools;
+import com.walker.core.mode.Bean;
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.Tools;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.*;
-import io.netty.handler.codec.http.*;
 import io.netty.handler.stream.ChunkedFile;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;

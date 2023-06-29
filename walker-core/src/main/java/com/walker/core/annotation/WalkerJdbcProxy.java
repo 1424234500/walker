@@ -2,8 +2,8 @@ package com.walker.core.annotation;
 
 import com.walker.core.database.BaseDao;
 import com.walker.core.database.SqlUtil;
-import com.walker.mode.Page;
-import com.walker.util.Tools;
+import com.walker.core.mode.Page;
+import com.walker.core.util.Tools;
 
 import java.lang.annotation.AnnotationFormatError;
 import java.lang.invoke.MethodHandles;

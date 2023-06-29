@@ -1,8 +1,8 @@
 package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.Page;
-import com.walker.mode.school.Area;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Area;
 import com.walker.service.AreaService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AreaServiceImplTest extends ApplicationProviderTests {
 
     @Test
     public void finds() {
-        out(areaService.finds(new Area().setNAME("name"), new Page().setNum(3)));
+        out(areaService.finds(new Area().setNAME("name"), new Page().setTotal(3)));
     }
 
     @Test

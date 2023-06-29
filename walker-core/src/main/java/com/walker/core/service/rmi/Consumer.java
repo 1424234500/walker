@@ -2,7 +2,7 @@ package com.walker.core.service.rmi;
 
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.service.service.ServiceClass;
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 
 import java.rmi.Naming;
 

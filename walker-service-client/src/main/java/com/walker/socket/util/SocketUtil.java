@@ -1,7 +1,7 @@
 package com.walker.socket.util;
 
+import com.walker.core.util.LangUtil;
 import com.walker.socket.frame.SocketReadOkError;
-import com.walker.util.LangUtil;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.SneakyThrows;
 

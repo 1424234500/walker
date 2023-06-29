@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.sys.BaseDate;
+import com.walker.core.mode.sys.BaseDate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

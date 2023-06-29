@@ -1,7 +1,7 @@
 package com.walker.service.impl;
 
 import com.walker.ApplicationProviderTests;
-import com.walker.mode.school.Dept;
+import com.walker.core.mode.school.Dept;
 import com.walker.service.DeptService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

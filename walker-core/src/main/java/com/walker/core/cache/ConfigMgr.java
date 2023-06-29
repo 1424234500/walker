@@ -2,14 +2,16 @@ package com.walker.core.cache;
 
 import com.walker.core.Context;
 import com.walker.core.database.MemCache;
-import com.walker.setting.Setting;
-import com.walker.setting.SystemConfig;
-import com.walker.util.FileUtil;
+import com.walker.core.system.SystemConfig;
+import com.walker.core.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**

@@ -1,7 +1,7 @@
 package com.walker.demo;
 
-import com.walker.util.ThreadUtil;
-import com.walker.util.TimeUtil;
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

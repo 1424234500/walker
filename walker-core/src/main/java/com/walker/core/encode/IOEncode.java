@@ -1,7 +1,7 @@
 package com.walker.core.encode;
 
-import com.walker.util.FileUtil;
-import com.walker.util.FileUtil.FunArgsReturn;
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.FileUtil.FunArgsReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

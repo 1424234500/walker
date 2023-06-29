@@ -4,8 +4,8 @@ import com.walker.core.aop.TestAdapter;
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.service.service.ServiceClass;
-import com.walker.util.ClassUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.ClassUtil;
+import com.walker.core.util.Tools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

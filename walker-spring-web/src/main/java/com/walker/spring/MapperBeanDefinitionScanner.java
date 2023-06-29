@@ -1,7 +1,7 @@
 package com.walker.spring;
 
 import com.walker.core.database.BaseDao;
-import com.walker.util.ClassUtil;
+import com.walker.core.util.ClassUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;

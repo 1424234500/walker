@@ -6,8 +6,8 @@
 package com.walker.controller;
 
 import com.walker.Response;
-import com.walker.mode.Page;
-import com.walker.util.ClassUtil;
+import com.walker.core.mode.Page;
+import com.walker.core.util.ClassUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class ClassController {
     ) {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
         List<?> list = ClassUtil.getPackageClassBean(packageName, true);
-        page.setNum(list == null ? -1L : (long)list.size());
+        page.setTotal(list == null ? -1L : (long)list.size());
         return Response.makePage("ok", page, list);
     }
     @ApiOperation(value="查询类详情函数列表")
@@ -51,7 +51,7 @@ public class ClassController {
     ) {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
         List<?> list = ClassUtil.getMethod(className, true, true);
-        page.setNum(list == null ? -1L : (long)list.size());
+        page.setTotal(list == null ? -1L : (long)list.size());
         return Response.makePage("ok", page, list);
     }
     @ApiOperation(value="查询类详情函数列表")

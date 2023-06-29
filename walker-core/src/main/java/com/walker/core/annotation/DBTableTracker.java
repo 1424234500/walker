@@ -1,6 +1,6 @@
 package com.walker.core.annotation;
 
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;

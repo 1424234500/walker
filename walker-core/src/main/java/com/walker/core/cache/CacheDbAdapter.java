@@ -1,7 +1,7 @@
 package com.walker.core.cache;
 
 import com.walker.core.aop.FunArgsReturn;
-import com.walker.util.ThreadUtil;
+import com.walker.core.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

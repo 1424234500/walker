@@ -1,9 +1,9 @@
 package com.walker.core.cache;
 
-import com.walker.mode.CacheModel;
-import com.walker.mode.Page;
-import com.walker.util.LangUtil;
-import com.walker.util.TimeUtil;
+import com.walker.core.mode.CacheModel;
+import com.walker.core.mode.Page;
+import com.walker.core.util.LangUtil;
+import com.walker.core.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,7 +127,7 @@ public abstract class CacheMap extends LockAdapter implements Cache<String> {
     public List<CacheModel> findPage(String args, Page page) {
         List<CacheModel> list = new ArrayList<>();
         Iterator<String> iterator = getMap().keySet().iterator();
-        page.setNum(getMap().size());
+        page.setTotal(getMap().size());
         for(int i = 0; i < getMap().size() && i < page.getStop(); i++){
             String key = iterator.next();
             if(i < page.getStart()) continue;

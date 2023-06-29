@@ -1,9 +1,9 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.sys.Action;
 import com.walker.dao.ActionRepository;
-import com.walker.mode.sys.Action;
 import com.walker.service.ActionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class ActionServiceImpl implements ActionService {
     public List<Action> finds(Action obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<Action> res = actionRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 

@@ -1,7 +1,7 @@
 package com.walker.config;
 
-import com.walker.mode.school.User;
-import com.walker.mode.Bean;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.school.User;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;

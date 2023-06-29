@@ -1,6 +1,6 @@
 package com.walker.core.database;
 
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;

@@ -1,9 +1,9 @@
 package com.walker.mapper;
 
 import com.walker.ApplicationTests;
-import com.walker.mode.Page;
-import com.walker.mode.school.Student;
-import com.walker.util.TimeUtil;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Student;
+import com.walker.core.util.TimeUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -2,11 +2,11 @@ package com.walker.controller.user;
 
 
 import com.walker.Response;
-import com.walker.mode.Page;
-import com.walker.mode.school.Teacher;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Teacher;
+import com.walker.core.util.TimeUtil;
 import com.walker.service.BaseService;
 import com.walker.service.TeacherService;
-import com.walker.util.TimeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -118,7 +118,7 @@ public class TeacherController {
         String info = "get   teacher:" + teacher;
 
         List<Teacher> list = teacherService.finds(teacher, page);
-        page.setNum(teacherService.count(teacher));
+        page.setTotal(teacherService.count(teacher));
         return Response.makePage(info, page, list);
     }
 

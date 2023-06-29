@@ -1,6 +1,6 @@
 package com.walker.config;
 
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

@@ -1,7 +1,7 @@
 package com.walker.core;
 
-import com.walker.util.FileUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.Tools;
 
 import java.io.File;
 import java.nio.ByteBuffer;

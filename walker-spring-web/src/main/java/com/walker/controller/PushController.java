@@ -2,11 +2,11 @@ package com.walker.controller;
 
 
 import com.walker.Response;
-import com.walker.mode.sys.PushBindModel;
-import com.walker.mode.sys.PushModel;
+import com.walker.core.mode.sys.PushBindModel;
+import com.walker.core.mode.sys.PushModel;
+import com.walker.core.util.TimeUtil;
 import com.walker.service.Config;
 import com.walker.service.PushAgentService;
-import com.walker.util.TimeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

@@ -60,17 +60,16 @@ ERROR 表示需要人工介入问题。 严重 程序退出 报警监控
 公用能力 工具务必写入基础模块 避免重复代码
 
 ## walker-core 核心组件  
-基础工具类
-基础算法
-基础功能模块
-不依赖于仍和多余的东西 复用 使用callback暴露回执
+基础工具 组合工具
+基础算法 组合算法
+高可用 高复用 充分利用 future+threadPool callback 设计机制 避免同步异步问题
+统一api对接协议 标准为接入connertor流程
 
-* annotation 自定义注解 
-* mq 参考rocketMq实现简易文件存储mq
-* box 工具箱 拿去即用
-* demo 测试案例 拿去改改使用
-* design 大话设计模式案例改写
-* 
+* box 本地工具
+* core 核心资产 高可用 复用 无需修改 
+* demo 测试案例 做功能模块验证
+* design 大话设计模式案例改写 新增实际案例的抽象模式设计eg也可以放里面
+
 ## walker-service-client  
 数据模型  
 抽象接口  
@@ -89,7 +88,7 @@ socket ipModel 实现
 springboot 基础父项目模板  
 spring系列通用工具 组件 依赖注入 公用  
 
-通用能力  
+spring系列通用能力  
 
 
 ## walker-spring-provider 微服务具体实现 数据处理层

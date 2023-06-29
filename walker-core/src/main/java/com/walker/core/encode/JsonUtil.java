@@ -3,9 +3,9 @@ package com.walker.core.encode;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.walker.mode.Bean;
-import com.walker.mode.BeanLinked;
-import com.walker.util.Tools;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.BeanLinked;
+import com.walker.core.util.Tools;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;

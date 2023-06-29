@@ -1,9 +1,9 @@
 package com.walker.service.impl;
 
 import com.walker.core.database.SqlUtil;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Teacher;
 import com.walker.dao.JdbcTemplateDao;
-import com.walker.mode.school.Teacher;
 import com.walker.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;

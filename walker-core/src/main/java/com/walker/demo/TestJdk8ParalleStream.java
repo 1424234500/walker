@@ -1,9 +1,9 @@
 package com.walker.demo;
 
-import com.walker.mode.Bean;
-import com.walker.util.ThreadUtil;
-import com.walker.util.Tools;
-import com.walker.util.Watch;
+import com.walker.core.mode.Bean;
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.Tools;
+import com.walker.core.util.Watch;
 
 import java.util.ArrayList;
 import java.util.List;

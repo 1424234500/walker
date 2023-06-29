@@ -1,9 +1,9 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.sys.SysConfig;
 import com.walker.dao.SysConfigRepository;
-import com.walker.mode.sys.SysConfig;
 import com.walker.service.SysConfigService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     public List<SysConfig> finds(SysConfig obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<SysConfig> res = configRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 

@@ -1,6 +1,6 @@
 package com.walker.box.coder;
 
-import com.walker.util.FileUtil;
+import com.walker.core.util.FileUtil;
 import lombok.Data;
 
 import java.io.File;

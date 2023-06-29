@@ -2,8 +2,8 @@ package com.walker.core.database;
 
 
 import com.walker.core.encode.PinyinUtil;
-import com.walker.util.FileUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.FileUtil;
+import com.walker.core.util.Tools;
 import org.junit.Test;
 
 import java.util.ArrayList;

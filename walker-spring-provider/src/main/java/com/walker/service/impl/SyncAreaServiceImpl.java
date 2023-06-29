@@ -2,14 +2,14 @@ package com.walker.service.impl;
 
 
 import com.walker.config.MakeConfig;
+import com.walker.core.mode.Key;
+import com.walker.core.mode.school.Area;
+import com.walker.core.util.*;
 import com.walker.dao.ConfigDao;
 import com.walker.dao.RedisDao;
-import com.walker.mode.school.Area;
-import com.walker.mode.Key;
 import com.walker.service.AreaService;
 import com.walker.service.Config;
 import com.walker.service.SyncAreaService;
-import com.walker.util.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

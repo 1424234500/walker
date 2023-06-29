@@ -1,7 +1,7 @@
 package com.walker.box;
 
 
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 
 import java.util.List;
 import java.util.concurrent.*;

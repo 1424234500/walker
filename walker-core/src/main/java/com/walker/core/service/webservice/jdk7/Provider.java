@@ -5,8 +5,8 @@ import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.service.webservice.jdk7.client.ServiceClass.ServiceClassImpl;
 import com.walker.core.service.webservice.jdk7.client.ServiceClass.ServiceClassImplService;
-import com.walker.util.ClassUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.ClassUtil;
+import com.walker.core.util.Tools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

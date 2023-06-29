@@ -1,7 +1,7 @@
 package com.walker;
 
 import com.walker.core.cache.ConfigMgr;
-import com.walker.util.Excel;
+import com.walker.core.util.Excel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

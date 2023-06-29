@@ -1,6 +1,6 @@
 package com.walker;
 
-import com.walker.util.TimeUtil;
+import com.walker.core.util.TimeUtil;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

@@ -1,7 +1,7 @@
 package com.walker.socket.server.chat.job;
 
 import com.walker.core.scheduler.TaskJob;
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 
 public class JobQpsDay extends TaskJob {
 

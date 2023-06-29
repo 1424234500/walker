@@ -3,14 +3,14 @@ package com.walker.controller;
 
 import com.walker.Response;
 import com.walker.core.aop.FunArgsReturn;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.sys.SysConfig;
+import com.walker.core.util.TimeUtil;
 import com.walker.dao.ConfigDao;
 import com.walker.dao.JdbcDao;
-import com.walker.mode.sys.SysConfig;
 import com.walker.service.BaseService;
 import com.walker.service.CacheService;
 import com.walker.service.SysConfigService;
-import com.walker.util.TimeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -156,7 +156,7 @@ public class SysConfigController {
         String info = "get   sysConfig :" + sysConfig;
 
         List<SysConfig> list = sysConfigService.finds(sysConfig, page);
-        page.setNum(sysConfigService.count(sysConfig));
+        page.setTotal(sysConfigService.count(sysConfig));
         return Response.makePage(info, page, list);
     }
 

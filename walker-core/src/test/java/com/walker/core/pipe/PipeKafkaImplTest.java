@@ -1,8 +1,8 @@
 package com.walker.core.pipe;
 
 import com.walker.core.aop.Fun;
-import com.walker.util.ThreadUtil;
-import com.walker.util.Tools;
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.Tools;
 import org.junit.Test;
 
 import java.util.Arrays;

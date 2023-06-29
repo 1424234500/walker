@@ -1,6 +1,6 @@
 package com.walker.dao;
 
-import com.walker.mode.sys.LogSocketModel;
+import com.walker.core.mode.sys.LogSocketModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

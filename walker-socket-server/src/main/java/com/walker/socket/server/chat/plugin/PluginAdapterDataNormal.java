@@ -1,9 +1,9 @@
 package com.walker.socket.server.chat.plugin;
 
-import com.walker.mode.sys.DataNormal;
+import com.walker.core.mode.Bean;
+import com.walker.core.mode.BeanLinked;
+import com.walker.core.mode.sys.DataNormal;
 import com.walker.socket.model.Msg;
-import com.walker.mode.Bean;
-import com.walker.mode.BeanLinked;
 
 public class PluginAdapterDataNormal extends Plugin<DataNormal> {
 

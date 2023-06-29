@@ -1,6 +1,6 @@
 package com.walker.socket.server.http;
 
-import com.walker.util.TimeUtil;
+import com.walker.core.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

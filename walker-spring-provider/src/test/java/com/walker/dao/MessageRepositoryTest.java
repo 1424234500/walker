@@ -1,9 +1,9 @@
 package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
+import com.walker.core.util.TimeUtil;
+import com.walker.core.util.Tools;
 import com.walker.socket.model.Message;
-import com.walker.util.TimeUtil;
-import com.walker.util.Tools;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

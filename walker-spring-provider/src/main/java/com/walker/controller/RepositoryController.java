@@ -2,8 +2,8 @@ package com.walker.controller;
 
 
 import com.walker.Response;
+import com.walker.core.mode.school.Teacher;
 import com.walker.dao.TeacherRepository;
-import com.walker.mode.school.Teacher;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -125,10 +125,10 @@ public class RepositoryController {
         Sort sort = new Sort(Sort.Direction.ASC, "name");
         Pageable pageable = PageRequest.of(nowPage - 1, showNum, sort);
         log.info(pageable.toString());
-        com.walker.mode.Page page1 = new com.walker.mode.Page().setNowpage(nowPage).setShownum(showNum);
+        com.walker.core.mode.Page page1 = new com.walker.core.mode.Page().setNowpage(nowPage).setShownum(showNum);
         List<Teacher> list = teacherRepository.selfFindPage(name, pageable);
         int count = teacherRepository.selfCount(name);
-        page1.setNum(count);
+        page1.setTotal(count);
         log.info(page1.toString());
         return Response.makePage("", page1, list);
     }
@@ -144,12 +144,12 @@ public class RepositoryController {
         Sort sort = new Sort(Sort.Direction.ASC, "name");
         Pageable pageable = PageRequest.of(nowPage - 1, showNum, sort);
         log.info(pageable.toString());
-        com.walker.mode.Page page1 = new com.walker.mode.Page().setNowpage(nowPage).setShownum(showNum);
+        com.walker.core.mode.Page page1 = new com.walker.core.mode.Page().setNowpage(nowPage).setShownum(showNum);
         Page<Teacher> pageOnceJpql = teacherRepository.selfFindPageOnceJpql(name, pageable);
         List<Teacher> list = pageOnceJpql.getContent();
 
         long count = pageOnceJpql.getTotalElements();//teacherRepository.selfCount(name);
-        page1.setNum(count);
+        page1.setTotal(count);
         log.info(page1.toString());
         return Response.makePage("", page1, list);
     }
@@ -165,12 +165,12 @@ public class RepositoryController {
         Sort sort = new Sort(Sort.Direction.ASC, "name");
         Pageable pageable = PageRequest.of(nowPage - 1, showNum, sort);
         log.info(pageable.toString());
-        com.walker.mode.Page page1 = new com.walker.mode.Page().setNowpage(nowPage).setShownum(showNum);
+        com.walker.core.mode.Page page1 = new com.walker.core.mode.Page().setNowpage(nowPage).setShownum(showNum);
         Page<Teacher> pageOnceJpql = teacherRepository.selfFindPageOnceSql(name, pageable);
         List<Teacher> list = pageOnceJpql.getContent();
 
         long count = pageOnceJpql.getTotalElements();//teacherRepository.selfCount(name);
-        page1.setNum(count);
+        page1.setTotal(count);
         log.info(page1.toString());
         return Response.makePage("", page1, list);
     }

@@ -2,9 +2,9 @@ package com.walker.service.impl;
 
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
+import com.walker.core.mode.sys.PushModel;
+import com.walker.core.mode.sys.PushType;
 import com.walker.dao.JdbcTemplateDao;
-import com.walker.mode.sys.PushModel;
-import com.walker.mode.sys.PushType;
 import com.walker.service.PushAgentService;
 import com.walker.service.PushService;
 import org.slf4j.Logger;

@@ -1,9 +1,9 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.RoleUser;
 import com.walker.dao.RoleUserRepository;
-import com.walker.mode.school.RoleUser;
 import com.walker.service.RoleUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class RoleUserServiceImpl implements RoleUserService {
     public List<RoleUser> finds(RoleUser obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<RoleUser> res = roleUserRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 

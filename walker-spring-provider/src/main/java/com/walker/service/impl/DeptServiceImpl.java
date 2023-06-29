@@ -1,12 +1,12 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Dept;
+import com.walker.core.util.TimeUtil;
 import com.walker.dao.DeptRepository;
 import com.walker.dao.RoleUserRepository;
-import com.walker.mode.school.Dept;
 import com.walker.service.DeptService;
-import com.walker.util.TimeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,7 +103,7 @@ public class DeptServiceImpl implements DeptService {
     public List<Dept> finds(Dept obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<Dept> res = deptRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 
@@ -117,7 +117,7 @@ public class DeptServiceImpl implements DeptService {
     public List<Dept> findsRoot(Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<Dept> res = deptRepository.findsRoot(pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 

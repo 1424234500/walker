@@ -1,6 +1,6 @@
 package com.walker.core.encode;
 
-import com.walker.util.Tools;
+import com.walker.core.util.Tools;
 import org.junit.Assert;
 import org.junit.Test;
 

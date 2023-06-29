@@ -1,13 +1,13 @@
 package com.walker.service.impl;
 
 import com.walker.config.Config;
-import com.walker.mode.Page;
+import com.walker.core.mode.Page;
+import com.walker.core.mode.school.Role;
+import com.walker.core.mode.school.RoleUser;
+import com.walker.core.util.TimeUtil;
 import com.walker.dao.RoleRepository;
 import com.walker.dao.RoleUserRepository;
-import com.walker.mode.school.Role;
-import com.walker.mode.school.RoleUser;
 import com.walker.service.RoleService;
-import com.walker.util.TimeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -51,7 +51,7 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> finds(Role obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<Role> res = roleRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 
@@ -59,7 +59,7 @@ public class RoleServiceImpl implements RoleService {
     public List<RoleUser> finds(RoleUser obj, Page page) {
         Pageable pageable = Config.turnTo(page);
         org.springframework.data.domain.Page<RoleUser> res = roleUserRepository.findAll(this.getSpecification(obj), pageable);
-        page.setNum(res.getTotalElements());
+        page.setTotal(res.getTotalElements());
         return res.getContent();
     }
 

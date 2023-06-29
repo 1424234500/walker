@@ -2,8 +2,8 @@ package com.walker.dao;
 
 import com.walker.core.aop.FunArgsReturn;
 import com.walker.core.database.SqlUtil;
-import com.walker.util.LangUtil;
-import com.walker.util.TimeUtil;
+import com.walker.core.util.LangUtil;
+import com.walker.core.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

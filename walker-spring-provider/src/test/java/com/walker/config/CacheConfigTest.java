@@ -1,9 +1,9 @@
 package com.walker.config;
 
+import com.walker.core.mode.school.Teacher;
+import com.walker.core.util.TimeUtil;
+import com.walker.core.util.Tools;
 import com.walker.dao.TeacherRepository;
-import com.walker.mode.school.Teacher;
-import com.walker.util.TimeUtil;
-import com.walker.util.Tools;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

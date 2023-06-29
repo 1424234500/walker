@@ -1,8 +1,8 @@
 package com.walker.service;
 
+import com.walker.core.util.ThreadUtil;
+import com.walker.core.util.Tools;
 import com.walker.dubbo.DubboMgr;
-import com.walker.util.ThreadUtil;
-import com.walker.util.Tools;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

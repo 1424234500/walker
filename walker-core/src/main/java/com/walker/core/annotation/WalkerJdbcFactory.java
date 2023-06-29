@@ -1,7 +1,7 @@
 package com.walker.core.annotation;
 
-import com.walker.util.ProxyUtil;
 import com.walker.core.database.BaseDao;
+import com.walker.core.util.ProxyUtil;
 
 
 /**
