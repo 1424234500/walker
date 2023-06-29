@@ -30,14 +30,28 @@ public class LeeCode {
         }
         return res;
     }
-    private void  reverse(List<Integer> list, ListNode head){
-        if(head == null){
+    private void reverse(List<Integer> list, ListNode head) {
+        if (head == null) {
             return;
         }
-        if(head.next != null){
+        if (head.next != null) {
             reverse(list, head.next);
         }
         list.add(head.val);
+    }
+
+    //    剑指 Offer 24. 反转链表
+    public ListNode reverseList(ListNode head) {
+        ListNode res = null;
+        ListNode n;
+        while (head != null) {
+            n = head.next;
+            head.next = res;
+            res = head;
+            head = n;
+        }
+
+        return res;
     }
 
 //剑指 Offer 09. 用两个栈实现队列
@@ -56,17 +70,19 @@ public class LeeCode {
             if(!B.isEmpty()) return B.removeLast();
             // 若b没了 则 把a全倒序挪动到b
             // 但若a也没了 则没了
-            if(A.isEmpty()) return -1;
+            if (A.isEmpty()) return -1;
 
             // 若b没了 则 把a全倒序挪动到b
-            while(!A.isEmpty())
+            while (!A.isEmpty())
                 B.addLast(A.removeLast());
             return B.removeLast();
         }
     }
 
-
-    public static class Solution {
+    // 数字识别 编译原理实现
+    // https://leetcode.cn/leetbook/read/illustration-of-algorithm/5d6vi6/
+    // todo 数字识别 状态机模式实现
+    public static class SolutionIsNumber {
 
         class MapBuilder<KEY, VALUE> {
             Map<KEY, VALUE> map;
@@ -102,16 +118,84 @@ public class LeeCode {
             for(char c : s.toCharArray()) {
                 if(c >= '0' && c <= '9') t = 'd';
                 else if(c == '+' || c == '-') t = 's';
-                else if(c == 'e' || c == 'E') t = 'e';
-                else if(c == '.' || c == ' ') t = c;
+                else if (c == 'e' || c == 'E') t = 'e';
+                else if (c == '.' || c == ' ') t = c;
                 else t = '?';
-                if(!states[p].containsKey(t)) return false;
-                p = (int)states[p].get(t);
+                if (!states[p].containsKey(t)) return false;
+                p = (int) states[p].get(t);
             }
             return p == 2 || p == 3 || p == 7 || p == 8;
         }
     }
 
+    //剑指 Offer 30. 包含 min 函数的栈
+    static class MinStack {
+        LinkedList<Integer> stack = new LinkedList<>();
+        LinkedList<Integer> stackMin = new LinkedList<>();
+
+        /**
+         * initialize your data structure here.
+         */
+        public MinStack() {
+
+        }
+
+        public void push(int x) {
+            stack.push(x);
+            if (!stackMin.isEmpty()) {
+                x = Math.min(stackMin.peek(), x);
+            }
+            stackMin.push(x);
+        }
+
+        public void pop() {
+            stack.pop();
+            stackMin.pop();
+        }
+
+        public int top() {
+            return stack.peek();
+        }
+
+        public int min() {
+            return stackMin.peek();
+        }
+    }
+
+    //    剑指 Offer 35. 复杂链表的复制
+    static class Node {
+        int val;
+        Node next;
+        Node random;
+
+        public Node(int val) {
+            this.val = val;
+            this.next = null;
+            this.random = null;
+        }
+    }
+
+    class SolutionNodeRandomCopy {
+        public Node copyRandomList(Node head) {
+            if (head == null) {
+                return null;
+            }
+            Map<Node, Node> link = new HashMap<>();
+            Node p = head;
+            while (p != null) {
+                link.put(p, new Node(p.val));
+                p = p.next;
+            }
+            p = head;
+            while (p != null) {
+                Node r = link.get(p);
+                r.random = link.get(p.random);
+                r.next = link.get(p.next);
+                p = p.next;
+            }
+            return link.get(head);
+        }
+    }
 
 
 }

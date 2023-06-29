@@ -65,10 +65,10 @@ ERROR 表示需要人工介入问题。 严重 程序退出 报警监控
 高可用 高复用 充分利用 future+threadPool callback 设计机制 避免同步异步问题
 统一api对接协议 标准为接入connertor流程
 
-* box 本地工具
-* core 核心资产 高可用 复用 无需修改 
-* demo 测试案例 做功能模块验证
-* design 大话设计模式案例改写 新增实际案例的抽象模式设计eg也可以放里面
+* box 本地工具, main 测试
+* core 核心资产 高可用 复用 无需修改, junit 测试
+* demo 测试案例 做功能模块验证, main 测试
+* design 大话设计模式案例改写, main 测试, 新增实际案例的抽象模式设计eg也可以放里面
 
 ## walker-service-client  
 数据模型  
