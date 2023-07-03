@@ -2,7 +2,8 @@ package com.walker.dubbo;
 
 
 import com.alibaba.dubbo.rpc.RpcContext;
-import com.walker.core.aop.ConnectorAdapter;;
+import com.walker.core.aop.ConnectorAdapter;
+import com.walker.core.exception.ErrorUtil;
 import com.walker.service.EchoService;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,7 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * dubbo环境初始化  配置文件加载   上下文提供
  *
  */
-public class DubboMgr extends ConnectorAdapter; {
+public class DubboMgr extends ConnectorAdapter {
     private static Logger log = Logger.getLogger("dubbo");
 
     private String path = "dubbo-service-config.xml";
@@ -32,7 +33,7 @@ public class DubboMgr extends ConnectorAdapter; {
     public static DubboMgr getInstance() {
         return SingletonFactory.instance;
     }
-    public boolean doTest() {
+    public boolean doTest() throws Exception {
         if( DubboMgr.getInstance() == null){
             log.error("dubbo is not started!!!");
             return false;
@@ -51,7 +52,7 @@ public class DubboMgr extends ConnectorAdapter; {
         log.info("dubbo xml : " + path);
         return this;
     }
-    public void start(){
+    public void start()  {
         if(context == null || !context.isActive()) {
             log.warn("dubbo singleton instance construct " + SingletonFactory.class + " path:" + path);
             context = new ClassPathXmlApplicationContext(path.split(","));
@@ -65,7 +66,11 @@ public class DubboMgr extends ConnectorAdapter; {
                 }
             });
 
-            check();
+            try {
+                check();
+            } catch (Exception e) {
+                ErrorUtil.build(e);
+            }
 
         }else{
             log.warn("have started " + context.toString());
@@ -74,21 +79,21 @@ public class DubboMgr extends ConnectorAdapter; {
 
 
 
-    public static <T> T getService(String serviceName){
+    public static <T> T getService(String serviceName)  {
         //rpc cookie?
         String cookie = RpcContext.getContext().getAttachment("index"); // 隐式传参，后面的远程调用都会隐式将这些参数发送到服务器端，类似cookie，用于框架集成，不建议常规业务使用
         T service = (T)getContext().getBean(serviceName);
         log.info("serviceName:" + serviceName + " cookie:" + cookie + " service:" + service);
         return service;
     }
-    public static <T> T getService(Class<T> clz){
+    public static <T> T getService(Class<T> clz) throws Exception {
         String name = clz.getSimpleName();
         return getService(name);
     }
 
 
 
-    public static ClassPathXmlApplicationContext getContext(){
+    public static ClassPathXmlApplicationContext getContext()  {
         DubboMgr dubboMgr = getInstance();
         if(dubboMgr.context == null){
             dubboMgr.start();

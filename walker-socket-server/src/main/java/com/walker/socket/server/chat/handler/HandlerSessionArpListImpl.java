@@ -6,7 +6,6 @@ import com.walker.core.mode.Key;
 import com.walker.core.pipe.Pipe;
 import com.walker.core.pipe.PipeMgr;
 import com.walker.core.pipe.PipeMgr.Type;
-import com.walker.setting.Setting;
 import com.walker.socket.frame.Session;
 import com.walker.socket.handler.HandlerAdapter;
 import com.walker.socket.model.Msg;
@@ -89,7 +88,7 @@ public class HandlerSessionArpListImpl<SOCKET> extends HandlerAdapter<Session<SO
     @SuppressWarnings("unchecked")
     private HandlerSessionArpListImpl(){
     	PluginMgr.getInstance();//初始化任务
-    	pipe.startConsumer(Setting.get("netty_thread_consumer", 1), new Fun<String>() {
+    	pipe.startConsumer(4, new Fun<String>() {
 			public void make(String msg1) {
 				Msg msg = Msg.parse(msg1);
 				ModelCount.getInstance().onWait(msg);

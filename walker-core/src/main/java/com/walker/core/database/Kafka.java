@@ -1,7 +1,7 @@
 package com.walker.core.database;
 
 
-import com.walker.core.aop.ConnectorAdapter;;
+import com.walker.core.aop.ConnectorAdapter;
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
 import org.apache.kafka.clients.admin.AdminClient;
@@ -30,9 +30,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 提供连接 销毁连接
  * 单例
  *
+ * todo fill
  * @author walker
  */
-public class Kafka extends ConnectorAdapter; {
+@Deprecated
+public class Kafka extends ConnectorAdapter {
 	private static final Logger log = LoggerFactory.getLogger(Kafka.class);
 
 	private final Properties properties = new Properties();
@@ -58,17 +60,17 @@ public class Kafka extends ConnectorAdapter; {
 	/**
 	 * 回调环绕执行 kafka 操作
 	 */
-	public static Future<RecordMetadata> doProducer(Fun fun) {
+	public Future<RecordMetadata> doProducer(Fun fun) {
 		Future<RecordMetadata> res = null;
 		if (fun != null) {
-			Producer<String, String> producer = Kafka.getInstance().getProducer();
+			Producer<String, String> producer = getInstance().getProducer();
 			try {
 				res = fun.make(producer);
 			} catch (Exception e) {
 				log.debug(e.getMessage(), e);
 				throw e;
 			} finally {
-				Kafka.getInstance().close(producer);
+				getInstance().close(producer);
 			}
 		} else {
 			log.error("fun is null");
@@ -79,7 +81,7 @@ public class Kafka extends ConnectorAdapter; {
 	/**
 	 * 回调环绕执行 kafka 操作
 	 */
-	public static Future<RecordMetadata> doSendMessage(String topic, String key, String value) {
+	public Future<RecordMetadata> doSendMessage(String topic, String key, String value) {
 		return doProducer(new Fun() {
 			@Override
 			public Future<RecordMetadata> make(Producer<String, String> producer) {
@@ -93,8 +95,8 @@ public class Kafka extends ConnectorAdapter; {
 		});
 	}
 
-	public static Kafka getInstance() {
-		return SingletonFactory.instance;
+	public Kafka getInstance() {
+		return this;
 	}
 
 	public Kafka setProperties(String key, String value) {
@@ -162,7 +164,7 @@ public class Kafka extends ConnectorAdapter; {
 	/**
 	 * 从缓存获取并初始化
 	 */
-	public boolean doInit() {
+	public Boolean init() {
 		Cache<String> cache = ConfigMgr.getInstance();
 //		ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG	//静态配置常量key
 //		公用
@@ -189,7 +191,6 @@ public class Kafka extends ConnectorAdapter; {
 
 
 		log.info("kafka init ----------------------- " + cc++);
-		check();
 		log.info(this.toString());
 		if (cc > 1) {
 			log.error("----------------------------");
@@ -199,16 +200,6 @@ public class Kafka extends ConnectorAdapter; {
 		return true;
 	}
 
-	@Override
-	public boolean doUninit() {
-		log.warn("uninit");
-		return super.doUninit();
-	}
-
-	@Override
-	public boolean doTest() {
-		return getProducer() != null;
-	}
 
 	public String toString() {
 		return "kafka " + properties.toString();
@@ -348,17 +339,5 @@ public class Kafka extends ConnectorAdapter; {
 	public interface Fun {
 		Future<RecordMetadata> make(Producer<String, String> producer);
 	}
-
-	//单例
-	private static class SingletonFactory {
-		static Kafka instance;
-
-		static {
-			log.warn("singleton instance construct " + SingletonFactory.class);
-			instance = new Kafka();
-			instance.init();
-		}
-	}
-
 
 }	

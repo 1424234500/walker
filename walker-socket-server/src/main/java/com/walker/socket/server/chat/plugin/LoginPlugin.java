@@ -43,7 +43,7 @@ public class LoginPlugin extends Plugin<LoginPlugin.Data> {
         Session<?, Msg> session = getSession(msg.getFromSocketKey(), "");
         Session<?, Msg> sessionId = getSession("", data.userid);
         if(session == null) {
-            throw new ErrorException("该用户已掉线", data);
+            throw new ErrorException("该用户已掉线" + data);
         }else {
             //查表? token 验证机制 公钥 私钥
             if(sessionId == null) { 	//初次登录

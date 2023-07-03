@@ -1,6 +1,6 @@
 package com.walker.core.service.webservice.jdk7;
 
-import com.walker.core.aop.Call;
+import com.walker.core.aop.ConnectorAdapter;
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.service.webservice.jdk7.client.ServiceClass.ServiceClassImpl;
@@ -25,7 +25,7 @@ import java.util.Map;
  * d,修改xxxxService.java中的 static区域的 url改变动态化地址ip
  * e,调用
  */
-public class Provider implements Call {
+public class Provider extends ConnectorAdapter {
     private static final Logger log = LoggerFactory.getLogger(Provider.class);
     private static final Map<String, Object> map;
 
@@ -40,12 +40,15 @@ public class Provider implements Call {
         return "";
     }
 
-    /**
-     * 初始化服务
-     * 验证测试
-     */
+
+
     @Override
-    public void call() {
+    public String info() {
+        return null;
+    }
+
+    @Override
+    public Boolean check() throws Exception {
         log.info("** 初始化 WebService provider ---------------------- ");
         Cache<String> cache = ConfigMgr.getInstance();
         int port = cache.get("port_webservice", 8090);
@@ -88,7 +91,6 @@ public class Provider implements Call {
         }
 
         log.info("--! 测试完毕 ------------------- ");
+        return super.check();
     }
-
-
 }

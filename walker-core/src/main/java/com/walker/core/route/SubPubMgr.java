@@ -1,6 +1,6 @@
 package com.walker.core.route;
 
-import com.walker.core.aop.ConnectorAdapter;;
+import com.walker.core.aop.ConnectorAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 发布订阅控制器 
  *
  */
-public class SubPubMgr extends ConnectorAdapter;{
+public class SubPubMgr extends ConnectorAdapter{
 	private static Logger log = LoggerFactory.getLogger("subpub");
 
 	private static ConcurrentHashMap<String, SubPub<?,?>> index = new ConcurrentHashMap<>();

@@ -1,7 +1,7 @@
 package com.walker.core.scheduler;
 
 
-import com.walker.core.aop.ConnectorAdapter;;
+import com.walker.core.aop.ConnectorAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +12,7 @@ enum Type {
 /**
  * 管理器
  */
-public class SchedulerMgr extends ConnectorAdapter; {
+public class SchedulerMgr extends ConnectorAdapter {
     private static final Logger log = LoggerFactory.getLogger(SchedulerMgr.class);
 
     private static Scheduler scheduler = null;

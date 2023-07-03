@@ -1,6 +1,5 @@
 package com.walker.core;
 
-import org.apache.log4j.PropertyConfigurator;
 
 import java.io.File;
 import java.net.URL;
@@ -84,7 +83,7 @@ public class Context {
 		}
 		for(String dir : dirScanConf){
 			if(new File(dir).isDirectory() && new File(dir + File.separator + "log4j.properties").isFile()){
-				PropertyConfigurator.configure(dir + File.separator + "log4j.properties");
+//				PropertyConfigurator.configure(dir + File.separator + "log4j.properties");
 				System.out.println("log at " + dir + File.separator + "log4j.properties");
 				dirConf = new File(dir).getAbsolutePath();
 			}

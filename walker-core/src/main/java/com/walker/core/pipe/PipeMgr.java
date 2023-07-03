@@ -1,6 +1,6 @@
 package com.walker.core.pipe;
 
-import com.walker.core.aop.ConnectorAdapter;;
+import com.walker.core.aop.ConnectorAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  * 管道控制器 
  *
  */
-public class PipeMgr extends ConnectorAdapter;{
+public class PipeMgr extends ConnectorAdapter{
 	private static Logger log = LoggerFactory.getLogger("pipe");
 
 	private PipeMgr() {}

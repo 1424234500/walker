@@ -171,7 +171,7 @@ public class MakeTestService {
      * @param pCost     cost系数    0,2 -> 0,200
      * @param t         曲线周期T 3600s
      */
-    public Object makeLogOneLine(String plugin, int pCount, int pCost, Long t) {
+    public Object makeLogOneLine(String plugin, int pCount, int pCost, Long t)  {
         Bean res = new Bean();
 
 //        时序投影到周期 映射到0~2pi

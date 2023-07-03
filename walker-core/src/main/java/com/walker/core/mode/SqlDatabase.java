@@ -1,7 +1,6 @@
 package com.walker.core.mode;
 
 
-import com.google.common.collect.Table;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -23,7 +22,7 @@ public class SqlDatabase implements Serializable {
 	/**
 	 * 表列表
 	 */
-	List<Table> databaseTables = new ArrayList<>();
+	List<SqlTable> databaseTables = new ArrayList<>();
 
 }
 

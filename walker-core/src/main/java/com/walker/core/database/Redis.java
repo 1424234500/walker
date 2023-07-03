@@ -10,7 +10,7 @@ import redis.clients.jedis.*;
  * redis 普通模式
  * 接入工具模型
  * CacheLockerBase
- * is a ConnectorAdapter;, cache, cacheDb, locker, lockerHelp
+ * is a ConnectorAdapter, cache, cacheDb, locker, lockerHelp
  * <p>
  * eg: *test
  */

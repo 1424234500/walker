@@ -1,7 +1,8 @@
 package com.walker.core.util;
 
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -9,7 +10,7 @@ import java.util.*;
  * 常见需求 对象属性连接处理
  */
 public class ListConnectUtil {
-	private static final Logger log = Logger.getLogger(ListConnectUtil.class);
+	protected static Logger log = LoggerFactory.getLogger(ListConnectUtil.class);
 
 
 	/**
@@ -78,16 +79,15 @@ public class ListConnectUtil {
 			}
 		} catch (Exception e) {
 			info.append("\n error " + e.getMessage());
-			log.error(info, e);
+			log.error(info.toString(), e);
 		} finally {
 			if (info.indexOf("error") > 0) {
-				log.error(info);
+				log.error(info.toString());
 			} else if (info.indexOf("warn") > 0) {
-				log.warn(info);
+				log.warn(info.toString());
 			} else {
-				log.info(info);
+				log.info(info.toString());
 			}
-			System.out.println(info);
 		}
 		return list;
 	}

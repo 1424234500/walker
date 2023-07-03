@@ -20,7 +20,9 @@ import org.slf4j.LoggerFactory;
 public abstract class ConnectorAdapter  {
 	protected Logger log = LoggerFactory.getLogger("test");
 
-	public abstract String info();
+	public String info(){
+		return getClass().toString();
+	}
 
 	/**
 	 * 可重复执行 检查连接器状态 是否正常

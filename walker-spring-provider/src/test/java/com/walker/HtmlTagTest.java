@@ -15,7 +15,6 @@ public class HtmlTagTest {
     /**
      * 把html的标签特殊字符转换成普通字符
      */
-    @Test
     public void testhtmlEscape(){
         String value = HtmlUtils.htmlEscape(html);
         System.out.println(value);

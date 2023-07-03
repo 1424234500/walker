@@ -8,6 +8,6 @@ package com.walker.core.aop;
  * @param <A>
  */
 public interface Fun<A>{ 
-	public void make(A obj) ;
+	void make(A obj) ;
 }
 

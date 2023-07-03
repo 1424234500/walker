@@ -5,7 +5,6 @@ import com.walker.core.database.ZooKeeperUtil;
 import com.walker.core.database.ZookeeperConnector;
 import com.walker.core.mode.Page;
 import com.walker.core.mode.SqlColumn;
-import com.walker.dao.RedisDao;
 import com.walker.service.RedisService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -27,8 +26,6 @@ public class ZookeeperController {
 
     @Autowired
     RedisService redisService;
-    @Autowired
-    RedisDao redisDao;
 
     ZookeeperConnector zookeeperConnector = new ZookeeperConnector().setConnectString("localhost:8096").setSessionTimeout(10000);
 

@@ -8,8 +8,8 @@ import org.junit.Test;
 public class RedisTest {
 
     @Test
-    public void testConf(){
-        Connector connector = Redis.getInstance();
+    public void testConf() throws Exception {
+        Redis connector = Redis.getInstance();
         connector.init();
         connector.check();
         connector.uninit();

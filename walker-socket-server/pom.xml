@@ -20,20 +20,6 @@
 
 
 		<plugins>
-			<!-- 配置jdk编译版本 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-					<encoding>UTF-8</encoding>
-					<verbose>false</verbose>
-				</configuration>
-			</plugin>
-
-
 			<!-- 打包配置启动类 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

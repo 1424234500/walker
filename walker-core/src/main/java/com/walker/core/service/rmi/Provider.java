@@ -1,6 +1,6 @@
 package com.walker.core.service.rmi;
 
-import com.walker.core.aop.ConnectorAdapter;;
+import com.walker.core.aop.ConnectorAdapter;
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.service.service.ServiceClass;
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Rmi 远程调用提供者 服务端 提供服务
  */
-public class Provider extends ConnectorAdapter; {
+public class Provider extends ConnectorAdapter {
 	private static final Logger log = LoggerFactory.getLogger(Provider.class);
 	private static final Map<String, Remote> map;
 

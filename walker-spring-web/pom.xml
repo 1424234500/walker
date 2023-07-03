@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>com.walker</groupId>
-        <artifactId>walker-spring-core</artifactId>
+        <artifactId>walker</artifactId>
         <version>0.0.1</version>
     </parent>
 
     <artifactId>walker-spring-web</artifactId>
-    <name>spring-web</name>
+    <name>walker-spring-web</name>
     <description> j2ee project, webUser,role,dpet,controll </description>
     <groupId>com.walker</groupId>
     <version>0.0.1</version>
@@ -246,6 +246,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+
     </dependencies>
 
 

@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>com.walker</groupId>
-        <artifactId>walker-spring-core</artifactId>
+        <artifactId>walker</artifactId>
         <version>0.0.1</version>
     </parent>
 
@@ -201,7 +201,6 @@
     </build>
 
     <dependencies>
-
         <dependency>
             <groupId>com.walker</groupId>
             <artifactId>walker-spring-core</artifactId>
@@ -221,6 +220,10 @@
         <dependency>
             <groupId>cn.jpush.api</groupId>
             <artifactId>jpush-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
 
 
