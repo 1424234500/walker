@@ -2,7 +2,7 @@ package com.walker.controller;
 
 import com.walker.Response;
 import com.walker.core.database.ZooKeeperUtil;
-import com.walker.core.database.ZookeeperModel;
+import com.walker.core.database.ZookeeperConnector;
 import com.walker.core.mode.Page;
 import com.walker.core.mode.SqlColumn;
 import com.walker.dao.RedisDao;
@@ -30,7 +30,7 @@ public class ZookeeperController {
     @Autowired
     RedisDao redisDao;
 
-    ZookeeperModel zookeeperModel = new ZookeeperModel().setConnectString("localhost:8096").setSessionTimeout(10000);
+    ZookeeperConnector zookeeperConnector = new ZookeeperConnector().setConnectString("localhost:8096").setSessionTimeout(10000);
 
 
     @ApiOperation(value = "节点列表查询", notes = "")
@@ -47,7 +47,7 @@ public class ZookeeperController {
 
         List<Map<String, String>> list = new ArrayList<>();
 
-        List<?> res = zookeeperModel.findPage(url, page);
+        List<?> res = zookeeperConnector.findPage(url, page);
         page.setTotal(res.size());
         return Response.makePage("get zk value", page, res);
     }
@@ -62,7 +62,7 @@ public class ZookeeperController {
         long res = 0;
         for(String id : Arrays.asList(ids.split(","))){
             try {
-                res += zookeeperModel.doZooKeeper(zk -> ZooKeeperUtil.delete(zk, false, new HashSet<String>(Arrays.asList(ids.split(",")))));
+                res += zookeeperConnector.doZooKeeper(zk -> ZooKeeperUtil.delete(zk, false, new HashSet<String>(Arrays.asList(ids.split(",")))));
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
             }
@@ -86,7 +86,7 @@ public class ZookeeperController {
         }
 
         String finalUrl = url;
-        return Response.makeTrue("save zk " + url + " " + data, zookeeperModel.doZooKeeper(zk -> ZooKeeperUtil.createOrUpdateVersion(zk, false, finalUrl, data)));
+        return Response.makeTrue("save zk " + url + " " + data, zookeeperConnector.doZooKeeper(zk -> ZooKeeperUtil.createOrUpdateVersion(zk, false, finalUrl, data)));
     }
 
 
@@ -95,7 +95,7 @@ public class ZookeeperController {
     @RequestMapping(value = "/getColsMap.do", method = RequestMethod.GET)
     public Response getColsMap(
     ) {
-        List<SqlColumn> colMap = zookeeperModel.getCols();
+        List<SqlColumn> colMap = zookeeperConnector.getCols();
         Map<String, Object> res = new HashMap<>();
         res.put("colMap", colMap);
         res.put("colKey", colMap.stream().map(item -> item.getColumnName()).collect(Collectors.toList()));

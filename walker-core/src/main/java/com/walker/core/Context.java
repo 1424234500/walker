@@ -28,6 +28,7 @@ import java.util.*;
  * @author walker
  *
  */
+@Deprecated
 public class Context {
 	static String dirConf = "";
 

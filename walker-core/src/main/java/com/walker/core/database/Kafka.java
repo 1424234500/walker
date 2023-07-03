@@ -1,7 +1,7 @@
 package com.walker.core.database;
 
 
-import com.walker.core.aop.TestAdapter;
+import com.walker.core.aop.ConnectorAdapter;;
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
 import org.apache.kafka.clients.admin.AdminClient;
@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author walker
  */
-public class Kafka extends TestAdapter {
+public class Kafka extends ConnectorAdapter; {
 	private static final Logger log = LoggerFactory.getLogger(Kafka.class);
 
 	private final Properties properties = new Properties();
@@ -189,7 +189,7 @@ public class Kafka extends TestAdapter {
 
 
 		log.info("kafka init ----------------------- " + cc++);
-		test();
+		check();
 		log.info(this.toString());
 		if (cc > 1) {
 			log.error("----------------------------");

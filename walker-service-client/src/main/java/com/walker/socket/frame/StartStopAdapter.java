@@ -2,7 +2,7 @@ package com.walker.socket.frame;
 
 import com.walker.core.system.Pc;
 import com.walker.core.util.TimeUtil;
-import com.walker.demo.FutureTaskThread;
+import com.walker.demo.thread.FutureTaskThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -43,7 +43,7 @@ public class MemCache extends LockHelpReent {
     }
 
     @Override
-    public Boolean doTest() throws Exception {
+    public Boolean check() throws Exception {
         put("hello", "world");
         String res = get("hello", "1");
         log.info("test res " + res);
@@ -51,15 +51,15 @@ public class MemCache extends LockHelpReent {
     }
 
     @Override
-    public Boolean doInit() throws Exception {
-        return super.doInit();
+    public Boolean init() throws Exception {
+        return super.init();
     }
 
     @Override
-    public Boolean doUninit() throws Exception {
+    public Boolean uninit() throws Exception {
         map.clear();
         mapIndex.clear();
-        return super.doUninit();
+        return super.uninit();
     }
 
     public Integer getSize() {

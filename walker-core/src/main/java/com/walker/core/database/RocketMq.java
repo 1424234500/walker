@@ -9,7 +9,7 @@ import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.common.message.MessageExt;
-import com.walker.core.aop.TestModelAdapter;
+import com.walker.core.aop.ConnectorAdapter;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.util.ThreadUtil;
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * <version>3.5.8</version>
  * </dependency>
  */
-public class RocketMq extends TestModelAdapter {
+public class RocketMq extends ConnectorAdapter {
     private final static Logger log = LoggerFactory.getLogger(RocketMq.class);
 
     private DefaultMQProducer producer;
@@ -104,23 +104,23 @@ public class RocketMq extends TestModelAdapter {
     }
 
     @Override
-    public Boolean doTest() throws Exception {
+    public Boolean check() throws Exception {
         String res = this.doProducer(DefaultMQProducer::toString);
         log.info("test res " + res);
-        return super.doTest();
+        return super.check();
     }
 
     @Override
-    public Boolean doInit() throws Exception {
-        return super.doInit();
+    public Boolean init() throws Exception {
+        return super.init();
     }
 
     @Override
-    public Boolean doUninit() throws Exception {
+    public Boolean uninit() throws Exception {
         if (this.producer != null) {
             this.producer.shutdown();
         }
-        return super.doUninit();
+        return super.uninit();
     }
 
     /**

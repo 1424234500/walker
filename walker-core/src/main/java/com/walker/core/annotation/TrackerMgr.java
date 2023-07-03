@@ -1,6 +1,6 @@
 package com.walker.core.annotation;
 
-import com.walker.core.aop.TestAdapter;
+import com.walker.core.aop.ConnectorAdapter;;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  * 负责初始化各种注解配置
  */
 
-public class TrackerMgr extends TestAdapter {
+public class TrackerMgr extends ConnectorAdapter; {
     static public Logger log = LoggerFactory.getLogger("Annotation");
 
     /**

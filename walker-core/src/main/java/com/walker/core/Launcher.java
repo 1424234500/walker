@@ -23,69 +23,9 @@ public class Launcher {
 		String root = Context.getPathConf();
 		Tools.out(root);
 		Tools.formatOut( new File(root).list());
-
-//		test1();
-//		testAnd();
-		testSplit();
-		testArgs();
-		testArgs(null);
-		testNull();
-
 		Tools.out("-----------------end-------------------");
 		ThreadUtil.sleep(10 * 1000);
 	}
 
-	void testArgs(Object...objects){
-		Tools.out("null?", objects == null);
-		if(objects != null)
-		Tools.out("length", objects.length);
-	}
-	void testNull(){
-
-		Object obj = null;
-		System.out.println(String.valueOf(obj));
-		try {
-			System.out.println(obj.toString());
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-	}
-	public void testSplit() {
-		Tools.out(",a,b".split(",")[1]);
-	}
-	public void testAnd() {
-		int max = 10;
-		
-		for(int i = 0; i < max; i++) {
-			byte c = (byte) i;
-			Tools.out(c);
-			List<Object> list = new ArrayList<>();
-			for(int j = 0; j < 8; j++) {
-				list.add(c & j);
-			}
-			Tools.out(list);
-			
-		}
-		
-		
-		
-	}
-	public void test1() {
-
-		int a = 1;
-		Integer b = new Integer(1);
-		Integer c = a;
-		int d = b;
-		fun(a, b, c, d, b.intValue());
-	}
-	public void fun(Object...methodArgs) {
-		Class<?>[] args = new Class[methodArgs.length];
-		for (int i = 0; i < methodArgs.length; ++i) {
-			args[i] = methodArgs[i].getClass();
-			Tools.out(args[i]);
-		}
-		
-	
-	}
 
 }

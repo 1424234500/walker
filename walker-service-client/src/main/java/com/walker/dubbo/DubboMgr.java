@@ -2,7 +2,7 @@ package com.walker.dubbo;
 
 
 import com.alibaba.dubbo.rpc.RpcContext;
-import com.walker.core.aop.TestAdapter;
+import com.walker.core.aop.ConnectorAdapter;;
 import com.walker.service.EchoService;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,7 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * dubbo环境初始化  配置文件加载   上下文提供
  *
  */
-public class DubboMgr extends TestAdapter {
+public class DubboMgr extends ConnectorAdapter; {
     private static Logger log = Logger.getLogger("dubbo");
 
     private String path = "dubbo-service-config.xml";
@@ -65,7 +65,7 @@ public class DubboMgr extends TestAdapter {
                 }
             });
 
-            test();
+            check();
 
         }else{
             log.warn("have started " + context.toString());

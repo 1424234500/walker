@@ -1,7 +1,7 @@
 package com.walker.core.database;
 
 import com.walker.core.aop.FunArgsReturn;
-import com.walker.core.aop.TestModelAdapter;
+import com.walker.core.aop.ConnectorAdapter;
 import com.walker.core.cache.ConfigMgr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.util.Set;
  * 接入工具模型
  * eg: *test
  */
-public class RedisCluster extends TestModelAdapter {
+public class RedisCluster extends ConnectorAdapter {
 	private final static Logger log = LoggerFactory.getLogger(RedisCluster.class);
 	protected String host = "localhost:7000,localhost:7001,localhost:7002,localhost:7003,localhost:7004,localhost:7005"; //redis.clients.jedis.Protocol.DEFAULT_HOST
 	protected Integer maxTotal = 100;
@@ -43,26 +43,26 @@ public class RedisCluster extends TestModelAdapter {
 	}
 
 	@Override
-	public Boolean doTest() throws Exception {
+	public Boolean check() throws Exception {
 		String res = this.doJedis(jedisCluster -> {
 			jedisCluster.set("test hello", "world");
 			return jedisCluster.get("test hello");
 		});
 		log.info("test res " + res);
-		return super.doTest();
+		return super.check();
 	}
 
 	@Override
-	public Boolean doInit() throws Exception {
+	public Boolean init() throws Exception {
 		this.doJedis(null);
-		return super.doInit();
+		return super.init();
 	}
 
 	@Override
-	public Boolean doUninit() throws Exception {
+	public Boolean uninit() throws Exception {
 		if (this.jedisCluster != null)
 			this.jedisCluster.close();
-		return super.doUninit();
+		return super.uninit();
 	}
 
 	/**

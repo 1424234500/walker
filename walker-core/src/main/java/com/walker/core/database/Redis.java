@@ -10,7 +10,7 @@ import redis.clients.jedis.*;
  * redis 普通模式
  * 接入工具模型
  * CacheLockerBase
- * is a TestAdapter, cache, cacheDb, locker, lockerHelp
+ * is a ConnectorAdapter;, cache, cacheDb, locker, lockerHelp
  * <p>
  * eg: *test
  */
@@ -39,26 +39,26 @@ public class Redis extends LockHelpRedis {
     }
 
     @Override
-    public Boolean doTest() throws Exception {
+    public Boolean check() throws Exception {
         String res = this.doJedis(jedis -> {
             jedis.set("test hello", "world");
             return jedis.get("test hello");
         });
         log.info("test res " + res);
-        return super.doTest();
+        return super.check();
     }
 
     @Override
-    public Boolean doInit() throws Exception {
+    public Boolean init() throws Exception {
         this.doJedis(null);
-        return super.doInit();
+        return super.init();
     }
 
     @Override
-    public Boolean doUninit() throws Exception {
+    public Boolean uninit() throws Exception {
         if (this.jedisPool != null)
             this.jedisPool.close();
-        return super.doUninit();
+        return super.uninit();
     }
 
     /**

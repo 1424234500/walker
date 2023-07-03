@@ -76,8 +76,8 @@ ERROR 表示需要人工介入问题。 严重 程序退出 报警监控
 抽象基础父类  
 导出jar用于外部系统接入使用规范  
   
-## walker-socket-ipModel  
-socket ipModel 实现  
+## walker-socket-server  
+socket server 实现  
 提供长连接服务  
 
 集群部署 长连接负载（f5/nginx）于不同server上面  

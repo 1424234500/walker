@@ -1,7 +1,7 @@
 package com.walker.core.database;
 
 import com.walker.core.aop.FunArgsReturn;
-import com.walker.core.aop.TestModelAdapter;
+import com.walker.core.aop.ConnectorAdapter;
 import com.walker.core.cache.ConfigMgr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import java.util.Set;
  * 接入工具模型
  * eg: *test
  */
-public class RedisSentinel extends TestModelAdapter {
+public class RedisSentinel extends ConnectorAdapter {
 	private final static Logger log = LoggerFactory.getLogger(RedisSentinel.class);
 	protected String host = Protocol.DEFAULT_HOST + ":" + Protocol.DEFAULT_PORT + "," + Protocol.DEFAULT_HOST + ":" + Protocol.DEFAULT_SENTINEL_PORT;
 	protected Integer maxTotal = 100;
@@ -45,26 +45,26 @@ public class RedisSentinel extends TestModelAdapter {
 	}
 
 	@Override
-	public Boolean doTest() throws Exception {
+	public Boolean check() throws Exception {
 		String res = this.doJedis(jedis -> {
 			jedis.set("test hello", "world");
 			return jedis.get("test hello");
 		});
 		log.info("test res " + res);
-		return super.doTest();
+		return super.check();
 	}
 
 	@Override
-	public Boolean doInit() throws Exception {
+	public Boolean init() throws Exception {
 		this.doJedis(null);
-		return super.doInit();
+		return super.init();
 	}
 
 	@Override
-	public Boolean doUninit() throws Exception {
+	public Boolean uninit() throws Exception {
 		if (this.jedisSentinelPool != null)
 			this.jedisSentinelPool.close();
-		return super.doUninit();
+		return super.uninit();
 	}
 
 	/**

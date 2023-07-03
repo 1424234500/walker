@@ -1,6 +1,6 @@
 package com.walker.core.database;
 
-import com.walker.core.aop.TestModel;
+import com.walker.core.aop.Connector;
 import com.walker.core.util.Tools;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,10 +9,10 @@ public class RedisTest {
 
     @Test
     public void testConf(){
-        TestModel testModel = Redis.getInstance();
-        testModel.init();
-        testModel.test();
-        testModel.uninit();
+        Connector connector = Redis.getInstance();
+        connector.init();
+        connector.check();
+        connector.uninit();
     }
     @Test
     public void testModel(){
