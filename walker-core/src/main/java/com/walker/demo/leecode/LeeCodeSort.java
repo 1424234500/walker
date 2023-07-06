@@ -14,23 +14,22 @@ public class LeeCodeSort {
     // 冒泡 选择 跳过 过于简单
 
     /**
-     * 快速排序
+     * 快速排序 https://leetcode.cn/leetbook/read/illustration-of-algorithm/p57uhr/
+     * @param right 为实际可取坐标 length - 1
      */
-    int[] sort(int[] arr){
-        sort(arr, 0, arr.length - 1);
-        return arr;
-    }
-    void sort(int[] arr, int left, int right){
+    int[] sortQuick(int[] arr, int left, int right){
         if(left >= right){
-            return;
+            return arr;
         }
         // 双边界反复横跳
         int l = left;
         int r = right;
         while (l < r){
+            // 右边的都比烧饼大 直到某数小于烧饼 则待交换 r最小等于l
             while(l < r && arr[left] <= arr[r]){
                 r--;
             }
+            // 左边的都比烧饼小 直到某数大于烧饼 则待交换 l最大等于r
             while(l < r && arr[left] >= arr[l]){
                 // 第一个一定相等 所以 烧饼不会参与交换
                 l++;
@@ -40,15 +39,61 @@ public class LeeCodeSort {
         // 烧饼交换到交界地
         swap(arr, l, left);
 
-        sort(arr, left, l - 1);
-        sort(arr, l + 1, right);
+        sortQuick(arr, left, l - 1);
+        sortQuick(arr, l + 1, right);
+        return arr;
     }
     void swap(int[] nums, int i, int j) {
+        if(i == j){
+            return;
+        }
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
     }
 
+
+    /**
+     * 归并排序 https://leetcode.cn/leetbook/read/illustration-of-algorithm/p5l0js/
+     * 采用copy数组 更直观算法
+     * @param right 为 length-1
+     */
+    int[] sortMerge(int[] arr, int left, int right){
+        // 终止条件
+        if(left >= right){
+            return new int[]{arr[left]};
+        }
+        if(left == right - 1){
+            if(arr[left] <= arr[right]){
+                return new int[]{arr[left], arr[right]};
+            }else{
+                return new int[]{arr[right], arr[left]};
+            }
+        }
+        // 中值计算
+        // 0 1 2 3 4 -> 2 -> 0,1,2   3,4
+        // 0 1 2 3   -> 1 -> 0,1     2,3
+        int t = (left + right) / 2;
+
+        // 二分区间 各自排序
+        int[] arrLeft = sortMerge(arr, left, t);
+        int[] arrRight = sortMerge(arr, t + 1, right);
+
+        // 合并区间
+        int[] res = new int[right - left + 1];
+        for(int i = 0, j = 0, k = 0; k < res.length ; k++){
+            if(i >= arrLeft.length){
+                res[k] = arrRight[j++];
+            }else if(j >= arrRight.length){
+                res[k] = arrLeft[i++];
+            }else if(arrLeft[i] <= arrRight[j] ){
+                res[k] = arrLeft[i++];
+            }else{
+                res[k] = arrRight[j++];
+            }
+        }
+        return res;
+    }
 
 
     public static void out(int[] arr){
@@ -59,7 +104,10 @@ public class LeeCodeSort {
         System.out.println(s);
     }
     public static void main(String[] args) {
-        out((new LeeCodeSort().sort(new int[]{2, 4, 1, 0, 3, 5})));
+        int[] arr = new int[]{2, 4, 1, 0, 3, 5};
+        out((new LeeCodeSort().sortQuick(arr, 0, arr.length -1)));
+        arr = new int[]{2, 4, 1, 0, 3, 5, 9};
+        out((new LeeCodeSort().sortMerge(arr, 0, arr.length - 1)));
     }
 
     /**
@@ -71,8 +119,7 @@ public class LeeCodeSort {
 //            int[] res = new int[k];
 //            System.arraycopy(arr, 0, res, 0, k);
 //            return res;
-
-            return Arrays.copyOf(sort(arr), k);
+            return Arrays.copyOf(sortQuick(arr, 0, arr.length - 1), k);
         }
     }
 
@@ -84,7 +131,7 @@ public class LeeCodeSort {
      */
     class SolutionminNumber {
         public String minNumber(int[] nums) {
-            sort(nums);
+            sortQuick(nums, 0, nums.length - 1);
             String s = "";
             for (int num : nums) {
                 s += num;
