@@ -1,7 +1,10 @@
 package com.walker.demo.leecode;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * https://leetcode.cn/leetbook/read/illustration-of-algorithm/pxal47/
@@ -17,7 +20,7 @@ public class LeeCodeSort {
      * 快速排序 https://leetcode.cn/leetbook/read/illustration-of-algorithm/p57uhr/
      * @param right 为实际可取坐标 length - 1
      */
-    int[] sortQuick(int[] arr, int left, int right){
+    static int[] sortQuick(int[] arr, int left, int right){
         if(left >= right){
             return arr;
         }
@@ -43,7 +46,7 @@ public class LeeCodeSort {
         sortQuick(arr, l + 1, right);
         return arr;
     }
-    void swap(int[] nums, int i, int j) {
+    static void swap(int[] nums, int i, int j) {
         if(i == j){
             return;
         }
@@ -58,7 +61,7 @@ public class LeeCodeSort {
      * 采用copy数组 更直观算法
      * @param right 为 length-1
      */
-    int[] sortMerge(int[] arr, int left, int right){
+    static int[] sortMerge(int[] arr, int left, int right){
         // 终止条件
         if(left >= right){
             return new int[]{arr[left]};
@@ -140,5 +143,80 @@ public class LeeCodeSort {
         }
     }
 
+    /**
+     *剑指 Offer 41. 数据流中的中位数
+     * 如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。
+     * 如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。
+     *
+     * 设计一个支持以下两种操作的数据结构：
+     *
+     * void addNum(int num) - 从数据流中添加一个整数到数据结构中。
+     * double findMedian() - 返回目前所有元素的中位数。
+     *
+     */
+    static class MedianFinder {
+        List<Integer> data = new ArrayList<>();
+        /** initialize your data structure here. */
+        public MedianFinder() {
 
+        }
+
+        public void addNum(int num) {
+            int i = 0;
+            for (; i < data.size(); i++) {
+                if(data.get(i) < num){
+                    break;
+                }
+            }
+            data.add(i, num);
+        }
+
+        public double findMedian() {
+            if(data.size() == 0){
+                return 0;
+            }
+            return data.size() % 2 == 1
+                    ? data.get(data.size() / 2)
+                    : (data.get(data.size() / 2 - 1) + data.get(data.size() / 2)) / 2f
+                    ;
+        }
+
+        public static void main(String[] args) {
+            MedianFinder medianFinder = new MedianFinder();
+            medianFinder.addNum(1);
+            medianFinder.addNum(2);
+            medianFinder.findMedian();
+        }
+    }
+
+    /**
+     * 剑指 Offer 61. 扑克牌中的顺子
+     * 从若干副扑克牌中随机抽 5 张牌，判断是不是一个顺子，即这5张牌是不是连续的。
+     * 2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。
+     */
+    static class SolutionisStraight {
+        public boolean isStraight(int[] nums) {
+            nums = sortMerge(nums, 0, nums.length - 1);
+            int zeroNum = 0;
+            for (zeroNum = 0; zeroNum < nums.length; zeroNum++) {
+                if(nums[zeroNum] != 0){
+                    break;
+                }
+            }
+            // 重复则不是顺子
+            for (int i = zeroNum; i < nums.length; i++) {
+                if(i + 1 < nums.length && nums[i] == nums[i + 1]){
+                    return false;
+                }
+            }
+
+            // 阶梯计数 最大差值 不能大于补位的数量
+            return zeroNum >= nums[nums.length - 1] - nums[zeroNum] - (nums.length - zeroNum - 1);
+        }
+
+        public static void main(String[] args) {
+            int[] arr = new int[]{1, 2, 4, 5, 6};
+            new SolutionisStraight().isStraight(arr);
+        }
+    }
 }
