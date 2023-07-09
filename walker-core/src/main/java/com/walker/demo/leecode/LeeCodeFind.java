@@ -1,7 +1,9 @@
 package com.walker.demo.leecode;
 
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  */
@@ -111,4 +113,111 @@ class SolutionminArray {
         return numbers[i];
     }
 }
+
+
+    // 剑指 Offer 50. 第一个只出现一次的字符
+    // 在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
+    static class SolutionfirstUniqChar {
+        public char firstUniqChar(String s) {
+            int[] map = new int['z' - 'a' + 1];
+            for (int i = 0; i < map.length; i++) {
+                map[i] = Integer.MAX_VALUE;
+            }
+            // 第一个位置 意味着是 'a' 里面的值为 s 中的坐标
+            for (int i = 0; i < s.length(); i++) {
+                int id = s.charAt(i) - 'a';
+                if (map[id] == Integer.MAX_VALUE - 1) {
+                    // 已经标记重复了
+                } else if (map[id] == Integer.MAX_VALUE) {
+                    // 第一次出现 记录
+                    map[id] = i;
+                } else if (map[id] >= 0) {
+                    // 第二次出现 标记重复
+                    map[id] = Integer.MAX_VALUE - 1;
+                }
+            }
+            // 取出最小的i值
+            Arrays.sort(map);
+            return map[0] >= Integer.MAX_VALUE - 1 ? ' ' : s.charAt(map[0]);
+        }
+    }
+
+    //    剑指 Offer 53 - I. 在排序数组中查找数字 I
+//    统计一个数字在排序数组中出现的次数。
+//    输入: nums = [5,7,7,8,8,10], target = 8
+//    输出: 2
+    static class Solutionsearch {
+        public static void main(String[] args) {
+            new Solutionsearch().search(new int[]{5, 7, 7, 8, 8, 10}, 8);
+        }
+
+        public int search(int[] nums, int target) {
+            // 折半查找 比t小的 比t大的 ?
+            // 简单做法 折半查找n 查到之后 前后遍历(前后折半遍历)
+            int i = search(nums, 0, nums.length - 1, target);
+            if (i < 0) {
+                return 0;
+            }
+            int res = 0;
+            for (int j = i; j < nums.length; j++) {
+                if (nums[j] == target) {
+                    res++;
+                }
+            }
+            for (int j = i - 1; j >= 0; j--) {
+                if (nums[j] == target) {
+                    res++;
+                }
+            }
+            return res;
+        }
+
+        public int search(int[] nums, int left, int right, int target) {
+            if (left > right || right >= nums.length || left < 0) {
+                return -1;
+            }
+            int n = (left + right) / 2;
+            if (nums[n] == target) {
+                return n;
+            }
+            if (left == right) {
+                return -1;
+            }
+            if (nums[nums.length - 1] > nums[0]) {
+                if (nums[n] < target) {
+                    return search(nums, n + 1, right, target);
+                } else {
+                    return search(nums, left, n - 1, target);
+                }
+            } else {
+                if (nums[n] > target) {
+                    return search(nums, n + 1, right, target);
+                } else {
+                    return search(nums, left, n - 1, target);
+                }
+            }
+        }
+
+    }
+
+
+    //    剑指 Offer 53 - II. 0～n-1 中缺失的数字
+//    一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。
+//    输入: [0,1,2,3,4,5,6,7,9]
+//    输出: 8
+    class SolutionmissingNumber {
+        public int missingNumber(int[] nums) {
+            // i 位置必须为i 否则异常
+            int i = 0, j = nums.length - 1;
+            while (i <= j) {
+                int m = (i + j) / 2;
+                // 中值为i则 右边区间
+                if (nums[m] == m) i = m + 1;
+                else j = m - 1;
+            }
+            return i;
+        }
+
+
+    }
 }
