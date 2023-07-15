@@ -174,4 +174,100 @@ public class LeeCodeStayBack {
         }
     }
 
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
+    /**
+     * 剑指 Offer 26. 树的子结构
+     * 输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构)
+     * B是A的子结构， 即 A中有出现和B相同的结构和节点值。
+     */
+    static class SolutionisSubStructure {
+        public static void main(String[] args) {
+            TreeNode a = new TreeNode(1);
+            TreeNode a1 = new TreeNode(0);
+            TreeNode a2 = new TreeNode(1);
+            TreeNode a3 = new TreeNode(-4);
+            TreeNode a4 = new TreeNode(-3);
+            a.left = a1;
+            a.right = a2;
+            a1.left = a3;
+            a1.right = a4;
+            TreeNode b = new TreeNode(1);
+            TreeNode b1 = new TreeNode(-4);
+            b.left = b1;
+
+            new SolutionisSubStructure().isSubStructure(a, b);
+
+        }
+
+        public boolean isSubStructure(TreeNode A, TreeNode B) {
+            if (B == null) {
+                return false;
+            } else if (A == null) {
+                return false;
+            }
+            if (dfs(A, B)) {
+                return true;
+            }
+
+            if (A.left != null && isSubStructure(A.left, B)) {
+                return true;
+            }
+            return A.right != null && isSubStructure(A.right, B);
+        }
+
+        public boolean dfs(TreeNode A, TreeNode B) {
+            if (A == null) {
+                return false;
+            }
+            if (A.val == B.val) {
+                boolean t = true;
+                if (B.left != null) {
+                    t = t && dfs(A.left, B.left);
+                }
+                if (B.right != null) {
+                    t = t && dfs(A.right, B.right);
+                }
+                return t;
+            }
+            return false;
+        }
+    }
+
+//    剑指 Offer 27. 二叉树的镜像
+//    请完成一个函数，输入一个二叉树，该函数输出它的镜像。
+
+    /**
+     *
+     */
+    class Solution {
+        public TreeNode mirrorTree(TreeNode root) {
+            if (root == null) {
+                return null;
+            }
+            TreeNode res = new TreeNode(root.val);
+            dfs(res, root);
+            return res;
+        }
+
+        public void dfs(TreeNode A, TreeNode B) {
+            if (B.left != null) {
+                A.right = new TreeNode(B.left.val);
+                dfs(A.right, B.left);
+            }
+            if (B.right != null) {
+                A.left = new TreeNode(B.right.val);
+                dfs(A.left, B.right);
+            }
+        }
+    }
+
 }
