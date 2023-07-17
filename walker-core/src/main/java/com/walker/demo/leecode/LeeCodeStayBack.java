@@ -1,9 +1,7 @@
 package com.walker.demo.leecode;
 
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -31,7 +29,9 @@ public class LeeCodeStayBack {
                     , new char[]{'A', 'D', 'E', 'E'}
             }, "ABCCED");
         }
+
         String word;
+
         public boolean exist(char[][] board, String word) {
             this.word = word;
             Map<Character, Integer> map1 = new HashMap<>();
@@ -242,13 +242,147 @@ public class LeeCodeStayBack {
         }
     }
 
-//    剑指 Offer 27. 二叉树的镜像
-//    请完成一个函数，输入一个二叉树，该函数输出它的镜像。
+    //    剑指 Offer 28. 对称的二叉树
+//   请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
+//例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+    static class SolutionisSymmetric {
+        public boolean isSymmetric(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
+            return dfs(root.left, root.right);
+        }
 
-    /**
-     *
-     */
-    class Solution {
+        public boolean dfs(TreeNode a, TreeNode b) {
+            if (a == null && b == null) {
+                return true;
+            } else if (a != null && b != null && a.val == b.val) {
+                return dfs(a.left, b.right) && dfs(a.right, b.left);
+            } else {
+                return false;
+            }
+
+        }
+    }
+
+    //    剑指 Offer 32 - I. 从上到下打印二叉树
+//    从上到下打印出二叉树的每个节点，同一层的节点按照从左到右的顺序打印。
+    static class SolutionlevelOrder {
+        public int[] levelOrder(TreeNode root) {
+            if (root == null) {
+                return new int[0];
+            }
+            List<Integer> res = new ArrayList<>();
+            List<TreeNode> cs = new ArrayList<>();
+            cs.add(root);
+            bfs(cs, res);
+            int[] r = new int[res.size()];
+            for (int i = 0; i < res.size(); i++) {
+                r[i] = res.get(i);
+            }
+            return r;
+        }
+
+        public void bfs(List<TreeNode> cs, List<Integer> res) {
+            int t = cs.size();
+            if (t <= 0) {
+                return;
+            }
+            for (int i = 0; i < t; i++) {
+                TreeNode n = cs.remove(0);
+                if (n != null) {
+                    res.add(n.val);
+                    cs.add(n.left);
+                    cs.add(n.right);
+                }
+            }
+            bfs(cs, res);
+        }
+    }
+
+    //    剑指 Offer 32 - II. 从上到下打印二叉树 II
+//    从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。
+    static class SolutionlevelOrder2 {
+        public List<List<Integer>> levelOrder(TreeNode root) {
+            if (root == null) {
+                return new ArrayList<>();
+            }
+            List<List<Integer>> res = new ArrayList<>();
+            List<TreeNode> cs = new ArrayList<>();
+            cs.add(root);
+            bfs(cs, res);
+            return res;
+        }
+
+        public void bfs(List<TreeNode> cs, List<List<Integer>> res) {
+            int t = cs.size();
+            if (t <= 0) {
+                return;
+            }
+            List<Integer> rest = new ArrayList<>();
+            for (int i = 0; i < t; i++) {
+                TreeNode n = cs.remove(0);
+                if (n != null) {
+                    rest.add(n.val);
+                    if (n.left != null) {
+                        cs.add(n.left);
+                    }
+                    if (n.right != null) {
+                        cs.add(n.right);
+                    }
+                }
+            }
+            res.add(rest);
+            bfs(cs, res);
+        }
+    }
+
+    //    剑指 Offer 32 - III. 从上到下打印二叉树 III
+//   请实现一个函数按照之字形顺序打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右到左的顺序打印，第三行再按照从左到右的顺序打印，其他行以此类推。
+    static class SolutionlevelOrder3 {
+        int kk = 0;
+
+        public List<List<Integer>> levelOrder(TreeNode root) {
+            if (root == null) {
+                return new ArrayList<>();
+            }
+            List<List<Integer>> res = new ArrayList<>();
+            List<TreeNode> cs = new ArrayList<>();
+            cs.add(root);
+            bfs(cs, res);
+            return res;
+        }
+
+        public void bfs(List<TreeNode> cs, List<List<Integer>> res) {
+            int t = cs.size();
+            if (t <= 0) {
+                return;
+            }
+            kk++;
+            List<Integer> rest = new ArrayList<>();
+            for (int i = 0; i < t; i++) {
+                TreeNode n = cs.remove(0);
+                if (n != null) {
+                    rest.add(n.val);
+                    if (n.left != null) {
+                        cs.add(n.left);
+                    }
+                    if (n.right != null) {
+                        cs.add(n.right);
+                    }
+                }
+            }
+            if (kk % 2 == 0) {
+                Collections.reverse(rest);
+            }
+            res.add(rest);
+            bfs(cs, res);
+        }
+    }
+
+    //    剑指 Offer 27. 二叉树的镜像
+//    请完成一个函数，输入一个二叉树，该函数输出它的镜像。
+    class SolutionmirrorTree {
         public TreeNode mirrorTree(TreeNode root) {
             if (root == null) {
                 return null;
@@ -269,5 +403,42 @@ public class LeeCodeStayBack {
             }
         }
     }
+
+    class SolutionpathSum {
+        public List<List<Integer>> pathSum(TreeNode root, int target) {
+            if (root == null) {
+                return new ArrayList<>();
+            }
+            List<List<Integer>> res = new ArrayList<>();
+            List<Integer> route = new ArrayList<>();
+
+            dfs(root, route, res, target);
+
+            return res;
+        }
+
+        public void dfs(TreeNode node, List<Integer> route, List<List<Integer>> res, int target) {
+            route.add(node.val);
+            if (node.left == null && node.right == null) {
+                // 叶子节点 和校验
+                int r = 0;
+                for (Integer integer : route) {
+                    r += integer;
+                }
+                if (r == target) {
+                    res.add(new ArrayList<>(route));
+                }
+            } else {
+                if (node.left != null) {
+                    dfs(node.left, route, res, target);
+                }
+                if (node.right != null) {
+                    dfs(node.right, route, res, target);
+                }
+            }
+            route.remove(route.size() - 1);
+        }
+    }
+
 
 }
