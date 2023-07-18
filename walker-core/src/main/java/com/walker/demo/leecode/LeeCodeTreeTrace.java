@@ -6,7 +6,7 @@ import java.util.*;
 /**
  *
  */
-public class LeeCodeStayBack {
+public class LeeCodeTreeTrace {
 
 //  剑指 Offer 12. 矩阵中的路径
 //   给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
@@ -440,5 +440,133 @@ public class LeeCodeStayBack {
         }
     }
 
+
+    public static class Node {
+        int val;
+        Node left;
+        Node right;
+
+        Node(int x) {
+            val = x;
+        }
+    }
+
+    //    剑指 Offer 36. 二叉搜索树与双向链表 what???
+//    输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。
+    static class SolutiontreeToDoublyList {
+        Node pre, head;
+
+        public Node treeToDoublyList(Node root) {
+            if (root == null) {
+                return null;
+            }
+            dfs(root);
+            head.left = pre;
+            pre.right = head;
+            return head;
+
+        }
+
+        public void dfs(Node a) {
+            if (a.left != null) {
+                dfs(a.left);
+            }
+            if (pre == null) {
+                head = a;
+            } else {
+                pre.right = a;
+            }
+            a.left = pre;
+            pre = a;
+
+            if (a.right != null) {
+                dfs(a.right);
+            }
+        }
+    }
+
+//    剑指 Offer 37. 序列化二叉树
+//    请实现两个函数，分别用来序列化和反序列化二叉树。
+//
+//    你需要设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。
+
+    public static class Codec {
+        List<String> list = new LinkedList<>();
+
+        public static void main(String[] args) {
+            TreeNode a = new TreeNode(1);
+            TreeNode a1 = new TreeNode(2);
+            TreeNode a2 = new TreeNode(3);
+            TreeNode a3 = new TreeNode(4);
+            TreeNode a4 = new TreeNode(5);
+            a.left = a1;
+            a.right = a2;
+            a1.left = a3;
+            a1.right = a4;
+            new Codec().deserialize(new Codec().serialize(a));
+        }
+
+        // Encodes a tree to a single string.
+        public String serialize(TreeNode root) {
+            if (root == null) {
+                return "";
+            }
+            serialize(root, "T");
+            // HEAD,T_1,TL_2,TLL_4,TLR_5,TR_3
+            String res = "HEAD";
+            for (String s : list) {
+                res += "," + s;
+            }
+            return res;
+        }
+
+        public void serialize(TreeNode node, String ibit) {
+            list.add(ibit + "_" + node.val);
+            if (node.left != null) {
+                serialize(node.left, ibit + "L");
+            }
+            if (node.right != null) {
+                serialize(node.right, ibit + "R");
+            }
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(String data) {
+            if (data == null || data.length() == 0) {
+                return null;
+            }
+//            HEAD,T_1,TL_2,TLL_4,TLR_5,TR_3
+            Map<String, TreeNode> line = new HashMap<>();
+            for (String s : data.split(", *")) {
+                if (s.equals("HEAD")) {
+                    continue;
+                }
+                String[] ss = s.split("_");
+                String route = ss[0];
+                Integer val = Integer.valueOf(ss[1]);
+                line.put(route, new TreeNode(val));
+            }
+            TreeNode res = null;
+            for (String route : line.keySet()) {
+                TreeNode cur = line.get(route);
+                if (route.equals("T")) {
+                    // head 无parent
+                    res = cur;
+                } else {
+                    String routeParent = route.substring(0, route.length() - 1);
+                    TreeNode p = line.get(routeParent);
+                    if (p != null) {
+                        if (route.charAt(route.length() - 1) == 'L') {
+                            p.left = cur;
+                        } else {
+                            p.right = cur;
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
+    }
 
 }
