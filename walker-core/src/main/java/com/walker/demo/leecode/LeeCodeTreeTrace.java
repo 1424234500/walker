@@ -569,4 +569,128 @@ public class LeeCodeTreeTrace {
 
     }
 
+    //    输入一个字符串，打印出该字符串中字符的所有排列。
+//    你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+//    输入：s = "abc"
+//    输出：["abc","acb","bac","bca","cab","cba"]
+    static class Solutionpermutation {
+        List<Character> list = new LinkedList<>();
+
+        public String[] permutation(String s) {
+            if (s == null || s.length() == 0) {
+                return new String[0];
+            }
+
+            char[] cs = s.toCharArray();
+            for (char c : cs) {
+                list.add(c);
+            }
+            //类似 古典概率数学问题的 任意组合
+            List<String> res = fs(list.size());
+
+//                //模拟概率命中方案 超时
+//                int i = 0;
+//                while (i++ < 100){
+//                    String s1 = "";
+//                    List<Character> t = new LinkedList<>(list);
+//                    while (t.size() > 0){
+//                        s1 += t.remove(Math.floor(Math.random() * t.size()));
+//                    }
+//                    res.add(s1);
+//                }
+            res = new ArrayList<>(new HashSet<>(res));
+
+            return res.toArray(new String[0]);
+        }
+
+        private List<String> fs(int i) {
+            char ci = list.get(i - 1);
+
+            if (i == 1) {
+                return Arrays.asList("" + ci);
+            }
+
+            List<String> fi = fs(i - 1);
+
+            // 增加第i个字符 则把以前的字符组合集合每个再按次序组合追加一个字符
+            List<String> fn = new LinkedList<>();
+            for (String s : fi) {
+                for (int j = 0; j < s.length(); j++) {
+                    fn.add(s.substring(0, j) + ci + s.substring(j));
+                }
+                fn.add(s + ci);
+            }
+            return fn;
+        }
+    }
+
+
+//    剑指 Offer 54. 二叉搜索树的第 k 大节点
+//    给定一棵二叉搜索树，请找出其中第 k 大的节点的值。
+//    输入: root = [5,3,6,2,4,null,null,1], k = 3
+//            5
+//            / \
+//            3   6
+//            / \
+//            2   4
+//            /
+//            1
+//    输出: 4
+//
+
+    static class SolutionkthLargest {
+        int k = -2;
+        Integer res = null;
+
+        public static void main(String[] args) {
+            TreeNode a = new TreeNode(3);
+            TreeNode a1 = new TreeNode(1);
+            TreeNode a2 = new TreeNode(4);
+            TreeNode a4 = new TreeNode(2);
+            a.left = a1;
+            a.right = a2;
+            a1.right = a4;
+            new SolutionkthLargest().kthLargest(a, 1);
+        }
+
+        public int kthLargest(TreeNode root, int k) {
+            if (root == null) {
+                return -1;
+            }
+            this.k = k;
+            //倒中序遍历第n个元素？
+            dfs(root);
+
+            return res;
+        }
+
+        public boolean dfs(TreeNode a) {
+            if (a.right != null) {
+                if (dfs(a.right)) {
+                    return true;
+                }
+            }
+            k--;
+            if (k <= 0) {
+                res = a.val;
+                return true;
+            }
+
+            if (a.left != null) {
+                return dfs(a.left);
+            }
+            return false;
+        }
+    }
+//    剑指 Offer 55 - I. 二叉树的深度
+//    输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
+
+    static class SolutionmaxDepth {
+        public int maxDepth(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+        }
+    }
 }
