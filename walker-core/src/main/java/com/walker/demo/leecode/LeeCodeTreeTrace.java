@@ -693,4 +693,113 @@ public class LeeCodeTreeTrace {
             return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
         }
     }
+
+    static class SolutionlowestCommonAncestor {
+        public static void main(String[] args) {
+            TreeNode a = new TreeNode(6);
+            TreeNode a1 = new TreeNode(2);
+            TreeNode a2 = new TreeNode(8);
+            TreeNode a3 = new TreeNode(0);
+            TreeNode a4 = new TreeNode(4);
+            a.left = a1;
+            a.right = a2;
+            a1.left = a3;
+            a1.right = a4;
+            new SolutionlowestCommonAncestor().lowestCommonAncestor(a, a1, a2);
+
+
+        }
+
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            if (root == null) {
+                return null;
+            }
+            //HLLR
+            String pp = route(root, p, "");
+            //HLRLR
+            String qq = route(root, q, "");
+            String route = "";
+            for (int i = 0; i < Math.min(pp.length(), qq.length()); i++) {
+                if (qq.charAt(i) != pp.charAt(i)) {
+                    break;
+                }
+                route = qq.substring(0, i + 1);
+            }
+            return trace(root, route);
+        }
+
+        public TreeNode trace(TreeNode node, String route) {
+            if (route.length() == 0) {
+                return node;
+            }
+            if (route.charAt(0) == 'L') {
+                return trace(node.left, route.substring(1));
+            } else {
+                return trace(node.right, route.substring(1));
+            }
+        }
+
+        public String route(TreeNode node, TreeNode p, String ibit) {
+            if (node == null || p == null) {
+                return "";
+            }
+            if (node == p) {
+                return ibit;
+            }
+
+            String res = route(node.left, p, ibit + "L");
+            if (res.length() > 0) {
+                return res;
+            }
+            res = route(node.right, p, ibit + "R");
+            if (res.length() > 0) {
+                return res;
+            }
+            return "";
+        }
+    }
+
+    //    剑指 Offer 55 - II. 平衡二叉树
+//    输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
+    class SolutionisBalanced {
+        public int maxDepth(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+        }
+
+        public boolean isBalanced(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
+            return Math.abs(maxDepth(root.left) - maxDepth(root.right)) <= 1
+                    && isBalanced(root.left)
+                    && isBalanced(root.right);
+        }
+    }
+
+//    给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+//    百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+//    例如，给定如下二叉搜索树:  root = [6,2,8,0,4,7,9,null,null,3,5]
+//    输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+//    输出: 6
+//    解释: 节点 2 和节点 8 的最近公共祖先是 6。
+
+    //    剑指 Offer 64. 求 1 + 2 + … + n
+//    求 1+2+...+n ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+    class SolutionsumNums {
+        public int sumNums(int n) {
+//        if(n == 0){
+//            return 0;
+//        }
+//        return sumNums(n-1) + n;
+
+            // what fuck???
+            int x = n;
+            boolean flag = (n > 0) && ((x += sumNums(n - 1)) > 0);//利用“与”逻辑的特性，如果第一个表达式错误，就不进行第二个表达式判断
+            return x;
+        }
+    }
+
 }
