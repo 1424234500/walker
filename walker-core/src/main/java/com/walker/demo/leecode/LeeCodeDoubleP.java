@@ -146,4 +146,96 @@ public class LeeCodeDoubleP {
         }
 
     }
+
+    //    剑指 Offer 25. 合并两个排序的链表
+//    输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+//    示例1：
+//    输入：1->2->4, 1->3->4
+//    输出：1->1->2->3->4->4
+    static class SolutionmergeTwoLists {
+        public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+            ListNode res = new ListNode(0);
+            ListNode p = res;
+            while (l1 != null && l2 != null) {
+                if (l1.val <= l2.val) {
+                    p.next = l1;
+                    l1 = l1.next;
+                } else {
+                    p.next = l2;
+                    l2 = l2.next;
+                }
+                p = p.next;
+            }
+            if (l1 == null) {
+                p.next = l2;
+            } else {
+                p.next = l1;
+            }
+
+            return res.next;
+        }
+    }
+
+    //    剑指 Offer 52. 两个链表的第一个公共节点
+//    输入两个链表，找出它们的第一个公共节点。
+    class SolutiongetIntersectionNode {
+        ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+            ListNode A = headA, B = headB;
+            while (A != B) {
+                A = A != null ? A.next : headB;
+                B = B != null ? B.next : headA;
+            }
+            return A;
+        }
+    }
+
+    //    剑指 Offer 57. 和为 s 的两个数字
+//    输入一个递增排序的数组和一个数字s，在数组中查找两个数，使得它们的和正好是s。如果有多对数字的和等于s，则输出任意一对即可。
+//    示例 1：
+//    输入：nums = [2,7,11,15], target = 9
+//    输出：[2,7] 或者 [7,2]
+    class SolutiontwoSum {
+        public int[] twoSum(int[] nums, int target) {
+            int right = nums.length - 1;
+            for (; right >= 0; right--) {
+                if (nums[right] < target) {
+                    break;
+                }
+            }
+            while (right > 0) {
+                for (int i = 0; i < right; i++) {
+                    if (nums[i] + nums[right] > target) {
+                        break;
+                    } else if (nums[i] + nums[right] == target) {
+                        return new int[]{nums[i], nums[right]};
+                    }
+                }
+                right--;
+            }
+            return null;
+        }
+    }
+
+    //    剑指 Offer 58 - I. 翻转单词顺序
+//    输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入字符串"I am a student. "，则输出"student. a am I"。
+//    输入: "the sky is blue"
+//    输出: "blue is sky the"
+    class Solution {
+        public String reverseWords(String s) {
+            s = s.replaceAll("  +", " ");
+            int i = 0, j = 0;
+            String res = "";
+            while (j < s.length()) {
+                if (s.charAt(j) == ' ') {
+                    res = s.substring(i, j) + " " + res;
+                    i = j + 1;
+                }
+                j++;
+                if (j == s.length() && j > i) {
+                    res = s.substring(i, j) + " " + res;
+                }
+            }
+            return res.trim();
+        }
+    }
 }
