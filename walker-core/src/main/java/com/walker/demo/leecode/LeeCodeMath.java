@@ -1,7 +1,9 @@
 package com.walker.demo.leecode;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -129,4 +131,99 @@ public class LeeCodeMath {
             }
         }
     }
+
+//    剑指 Offer 57 - II. 和为 s 的连续正数序列
+//    输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
+//    序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。
+//    示例 1：
+//    输入：target = 9
+//    输出：[[2,3,4],[4,5]]
+//    示例 2：
+//    输入：target = 15
+//    输出：[[1,2,3,4,5],[4,5,6],[7,8]]
+
+    static class SolutionfindContinuousSequence {
+        public static void main(String[] args) {
+            new SolutionfindContinuousSequence().findContinuousSequence(15);
+        }
+
+        public int[][] findContinuousSequence(int target) {
+            List<int[]> res = new ArrayList<>();
+//            for(int i = target - 1; i >= 2 ; i--){
+//                int t = target / i;
+//                List<Integer> list = new ArrayList<>();
+//                int sum = 0;
+//                int lt = t - (i - 1) / 2;
+//                int rt = t + (i) / 2;
+//                for(int j = lt; j <= rt && j > 0; j++){
+//                    sum += j;
+//                    list.add(j);
+//                }
+//                if(sum == target){
+//                    res.add(list);
+//                }
+//
+//            }
+
+//            滑动窗口
+            int left = 1;
+            int right = 1;
+            int sum = 0;
+            while (right < target && left < target) {
+                if (sum == target) {
+                    int[] a = new int[right - left];
+                    for (int i = left; i < right; i++) {
+                        a[i - left] = i;
+                    }
+                    res.add(a);
+                    sum -= left;
+                    left++;
+                } else if (sum > target) {
+                    sum -= left;
+                    left++;
+                } else {
+                    sum += right;
+                    right++;
+                }
+            }
+
+            return res.toArray(new int[0][]);
+        }
+    }
+
+    //    剑指 Offer 62. 圆圈中最后剩下的数字
+//    0,1,···,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字（删除后从下一个数字开始计数）。求出这个圆圈里剩下的最后一个数字。
+//    例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。
+//    示例 1：
+//    输入: n = 5, m = 3
+//    输出: 3
+    class SolutionlastRemaining {
+        public int lastRemaining(int n, int m) {
+            // 等价问题 m+1次删除什么数字 todo？？？
+//            f(n)
+//            =(f(n−1)+t)%n
+//            =(f(n−1)+m%n)%n
+//            =(f(n−1)+m)%n
+
+            int x = 0;
+            for (int i = 2; i <= n; i++) {
+                x = (x + m) % i;
+            }
+            return x;
+        }
+    }
+
+    //    剑指 Offer 66. 构建乘积数组
+//    给定一个数组 A[0,1,…,n-1]，请构建一个数组 B[0,1,…,n-1]，其中 B[i] 的值是数组 A 中除了下标 i 以外的元素的积, 即 B[i]=A[0]×A[1]×…×A[i-1]×A[i+1]×…×A[n-1]。不能使用除法。
+//    示例:
+//    输入: [1,2,3,4,5]
+//    输出: [120,60,40,30,24]
+    class SolutionconstructArr {
+        public int[] constructArr(int[] a) {
+
+            return null;
+        }
+    }
+
+
 }

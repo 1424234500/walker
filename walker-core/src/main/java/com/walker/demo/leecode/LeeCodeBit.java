@@ -1,8 +1,6 @@
 package com.walker.demo.leecode;
 
 
-import java.util.*;
-
 /**
  */
 public class LeeCodeBit {
@@ -35,35 +33,87 @@ public class LeeCodeBit {
     // 输入：nums = [1,2,10,4,1,4,3,3]
     // 输出：[2,10] 或 [10,2]
 
+    //    剑指 Offer 56 - II. 数组中数字出现的次数 II
+//    在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。
+//    输入：nums = [9,1,7,9,7,9,7]
+//    输出：1
+    static class SolutionsingleNumber {
+        public static void main(String[] args) {
+            new SolutionsingleNumber().singleNumber(new int[]{3, 4, 3, 3});
+            new SolutionsingleNumber().singleNumber(new int[]{9, 1, 7, 9, 7, 9, 7});
+        }
+
+        public int singleNumber(int[] nums) {
+//        考虑数字的二进制形式，对于出现三次的数字，各 二进制位 出现的次数都是
+//        3 的倍数。
+//        因此，统计所有数字的各二进制位中
+//        1 的出现次数，并对
+//        3 求余，结果则为只出现一次的数字。
+//        方法二：遍历统计
+//        此方法相对容易理解，但效率较低，总体推荐方法一。
+//        建立一个长度为 32 的数组    counts ，通过以上方法可记录所有数字的各二进制位的
+//        1 的出现次数之和。
+            int[] arr = new int[32];
+            for (int i = 0; i < nums.length; i++) {
+                for (int j = 0; j < 32; j++) {
+                    // 每一位 bit 计数
+                    arr[j] += nums[i] & 1;
+                    nums[i] = nums[i] >>> 1;
+                }
+            }
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = arr[i] % 3;
+            }
+            int res = 0;
+            for (int i = arr.length - 1; i >= 0; i--) {
+                res = res * 2 + arr[i];
+            }
+
+            return res;
+        }
+    }
+
     class SolutionsingleNumbers {
         // 疑惑 异或 what？？？？
         public int[] singleNumbers(int[] nums) {
             int x = 0, y = 0, n = 0, m = 1;
-            for(int num : nums)               // 1. 遍历异或
+            for (int num : nums)               // 1. 遍历异或
                 n ^= num;
-            while((n & m) == 0)               // 2. 循环左移，计算 m
+            while ((n & m) == 0)               // 2. 循环左移，计算 m
                 m <<= 1;
-            for(int num: nums) {              // 3. 遍历 nums 分组
-                if((num & m) != 0) x ^= num;  // 4. 当 num & m != 0
+            for (int num : nums) {              // 3. 遍历 nums 分组
+                if ((num & m) != 0) x ^= num;  // 4. 当 num & m != 0
                 else y ^= num;                // 4. 当 num & m == 0
             }
-            return new int[] {x, y};          // 5. 返回出现一次的数字
-        }
-    }
+            return new int[]{x, y};          // 5. 返回出现一次的数字
 
-//    剑指 Offer 56 - II. 数组中数字出现的次数 II
-//    在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。
-//    输入：nums = [9,1,7,9,7,9,7]
-//    输出：1
-class SolutionsingleNumber {
-    public int singleNumber(int[] nums) {
-        int x = 0;
-        for (int i = 0; i < nums.length; i++) {
-            x = x ^ nums[i];
+
+//            int arr[] = new int[32];
+//            for (int i = 0; i < nums.length; i++) {
+//                for(int j = 0; j < 32; j++){
+//                    // 每一位 bit 计数
+//                    arr[j] += nums[i] & 1;
+//                    nums[i] = nums[i] >>> 1;
+//                }
+//            }
+//            for (int i = 0; i < arr.length; i++) {
+//                arr[i] = arr[i] % 2;
+//            }
+//            int res = 0;
+//            for (int i = arr.length - 1; i >= 0; i--) {
+//                res = res * 2 + arr[i];
+//            }
+//            int i = 0;
+//            int[] res1 = new int[2];
+//            for (int num : nums) {
+//                if((num & res) == num){
+//                    res1[i++] = num;
+//                }
+//            }
+//
+//            return res1;
         }
-        return x;
     }
-}
 
 
 //    剑指 Offer 65. 不用加减乘除做加法
