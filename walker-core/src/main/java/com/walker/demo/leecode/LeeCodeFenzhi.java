@@ -2,6 +2,7 @@ package com.walker.demo.leecode;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -110,4 +111,44 @@ public class LeeCodeFenzhi {
             return res;
         }
     }
+
+    //    剑指 Offer 33. 二叉搜索树的后序遍历序列
+//    输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 true，否则返回 false。假设输入的数组的任意两个数字都互不相同。
+//    输入: [1,6,3,2,5] todo
+//    输出: false
+    class SolutionverifyPostorder {
+        public boolean verifyPostorder(int[] postorder) {
+            LinkedList<Integer> stack = new LinkedList<>();
+            int root = Integer.MAX_VALUE;
+            for (int i = postorder.length - 1; i >= 0; i--) {
+                if (postorder[i] > root) return false;
+                while (!stack.isEmpty() && stack.peek() > postorder[i])
+                    root = stack.pop();
+                stack.add(postorder[i]);
+            }
+            return true;
+
+        }
+    }
+
+    //
+//    剑指 Offer 51. 数组中的逆序对
+//    在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
+//    输入: [7,5,6,4]
+//    输出: 5 -> 7,5  7,6  7,4  5,4  6,4 todo
+    class SolutionreversePairs {
+        public int reversePairs(int[] nums) {
+            int res = 0;
+            for (int i = 0; i < nums.length; i++) {
+                for (int j = i + 1; j < nums.length; j++) {
+                    if (nums[i] > nums[j]) {
+                        res++;
+                    }
+                }
+            }
+            return res;
+        }
+    }
+
+
 }
