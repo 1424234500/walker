@@ -141,9 +141,38 @@ public class LeeCodeDp {
 //    解释: 路径物
     class SolutionmaxValue {
         public int maxValue(int[][] grid) {
-            return maxValue(grid, 0, 0);
+//            return maxValue(grid, 0, 0);
+
+//            直接修改原数组，为当前节点最大值
+            int i = 0;
+            int j = 0;
+            // 当前节点取决 于左边 上边 的值
+            while (true) {
+                int up = i <= 0 ? 0 : grid[i - 1][j];
+                int left = j <= 0 ? 0 : grid[i][j - 1];
+
+                grid[i][j] = grid[i][j] + Math.max(left, up);
+
+                //从左到右 从上到下
+                if (i == grid.length - 1) {
+                    if (j == grid[i].length - 1) {
+                        break;
+                    } else {
+                        j++;
+                    }
+                } else {
+                    if (j == grid[i].length - 1) {
+                        i++;
+                        j = 0;
+                    } else {
+                        j++;
+                    }
+                }
+            }
+            return grid[i][j];
         }
 
+        // 传统思路递归 穷举所有 超时
         public int maxValue(int[][] grid, int i, int j) {
             int res = grid[i][j];
             if (i >= grid.length - 1) {
@@ -162,5 +191,112 @@ public class LeeCodeDp {
         }
     }
 
+    //    剑指 Offer 48. 最长不含重复字符的子字符串
+//    请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
+//    输入: "abcabcbb"
+//    输出: 3
+//    解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+    class SolutionlengthOfLongestSubstring {
+        public int lengthOfLongestSubstring(String s) {
+            int res = 0;
+//        双指针 队列 滑动窗口思路
+            int left = 0;
+            int right = 0;
+            while (right < s.length()) {
+                if (right > left && s.substring(left, right).contains("" + s.charAt(right))) {
+                    left++;
+                } else {
+                    right++;
+                }
+                res = Math.max(res, right - left);
+            }
+            return res;
+        }
+    }
+
+    //    剑指 Offer 49. 丑数
+//    我们把只包含质因子 2、3 和 5 的数称作丑数（Ugly Number）。求按从小到大的顺序的第 n 个丑数。
+//    输入: n = 10
+//    输出: 12
+//    解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。
+    class SolutionnthUglyNumber {
+        public int nthUglyNumber(int n) {
+            int[] dp = new int[n];
+            dp[0] = 1;
+
+            int a = 0;
+            int b = 0;
+            int c = 0;
+
+            for (int i = 1; i < dp.length; i++) {
+                int aa = dp[a] * 2;
+                int bb = dp[b] * 3;
+                int cc = dp[c] * 5;
+                int min = Math.min(Math.min(aa, bb), cc);
+//            对指针都++; 而非else if
+                if (min == aa) {
+                    a++;
+                }
+                if (min == bb) {
+                    b++;
+                }
+                if (min == cc) {
+                    c++;
+                }
+                dp[i] = min;
+            }
+            return dp[n - 1];
+        }
+    }
+
+
+    //    剑指 Offer 60. n 个骰子的点数
+//    把n个骰子扔在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
+//    你需要用一个浮点数数组返回答案，其中第 i 个元素代表这 n 个骰子所能掷出的点数集合中第 i 小的那个的概率。
+//    输入: 1 ~ 6
+//    输出: [0.16667,0.16667,0.16667,0.16667,0.16667,0.16667]
+//    输入: 2 ~ 12 11bit-> n ~ 6n 5n+1bit
+//    输出: [0.02778,0.05556,0.08333,0.11111,0.13889,0.16667,0.13889,0.11111,0.08333,0.05556,0.02778]
+    class SolutiondicesProbability {
+        public double[] dicesProbability(int n) {
+            if (n == 1) {
+                return new double[]{1.0D / 6, 1.0D / 6, 1.0D / 6, 1.0D / 6, 1.0D / 6, 1.0D / 6};
+            }
+            double[] last = dicesProbability(n - 1);
+            double[] res = new double[n * 5 + 1];
+            for (int i = 0; i < last.length; i++) {
+                for (int j = i; j < i + 6; j++) {
+                    res[j] += last[i] / 6;
+                }
+            }
+            return res;
+        }
+    }
+
+    //    剑指 Offer 63. 股票的最大利润
+//    假设把某股票的价格按照时间先后顺序存储在数组中，
+//    请问买卖该股票一次可能获得的最大利润是多少？
+//    输入: [7,1,5,3,6,4]
+//    输出: 5
+//    解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+//    注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
+    class SolutionmaxProfit {
+        public int maxProfit(int[] prices) {
+            int res = 0;
+//        双指针 滑动窗口思路
+            int left = 0;
+            int right = 0;
+            while (right < prices.length) {
+                res = Math.max(res, prices[right] - prices[left]);
+                // 滑动条件 破发
+                if (prices[right] < prices[left]) {
+                    left = right;
+                } else {
+                    right++;
+                }
+            }
+            return res;
+        }
+    }
 
 }
