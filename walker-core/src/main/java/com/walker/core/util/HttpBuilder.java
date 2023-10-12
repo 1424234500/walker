@@ -1,6 +1,7 @@
 package com.walker.core.util;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
@@ -30,6 +31,7 @@ public class HttpBuilder {
     private String decode;
     private Map<?, ?> headers;
 
+    private HttpHost proxy;
     private int requestTimeout = 0;
     private int connectTimeout = 0;
     private int socketTimeout = 0;
@@ -162,7 +164,7 @@ public class HttpBuilder {
     }
 
     private void makeData() throws Exception {
-        timeout = HttpUtil.makeTimeoutConfig(requestTimeout, connectTimeout, socketTimeout);
+        timeout = HttpUtil.makeTimeoutConfig(requestTimeout, connectTimeout, socketTimeout, proxy);
 
         switch (this.type) {
             case DELETE:
@@ -210,4 +212,8 @@ public class HttpBuilder {
         PUT, GET, POST, DELETE,
     }
 
+    public HttpBuilder setProxy(HttpHost proxy) {
+        this.proxy = proxy;
+        return this;
+    }
 }

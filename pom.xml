@@ -66,17 +66,27 @@ ${project.xxx} 当前pom文件的任意节点的内容
     <dependencyManagement>
         <dependencies>
 
-            <dependency>
-                <groupId>com.walker</groupId>
-                <artifactId>walker-core</artifactId>
-                <version>0.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.walker</groupId>
-                <artifactId>walker-spring-core</artifactId>
-                <version>0.0.1</version>
-            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>com.walker</groupId>-->
+            <!--                <artifactId>walker-core</artifactId>-->
+            <!--                <version>0.0.1</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.walker</groupId>-->
+            <!--                <artifactId>walker-spring-core</artifactId>-->
+            <!--                <version>0.0.1</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.walker</groupId>-->
+            <!--                <artifactId>walker-core</artifactId>-->
+            <!--                <version>0.0.1</version>-->
+            <!--            </dependency>-->
 
+            <!--            <dependency>-->
+            <!--                <groupId>com.walker</groupId>-->
+            <!--                <artifactId>walker-service-client</artifactId>-->
+            <!--                <version>0.0.1</version>-->
+            <!--            </dependency>-->
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>javax.persistence-api</artifactId>
@@ -184,9 +194,6 @@ ${project.xxx} 当前pom文件的任意节点的内容
                 <artifactId>guava</artifactId>
                 <version>29.0-jre</version>
             </dependency>
-
-
-
 
 
             <!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
@@ -308,8 +315,6 @@ ${project.xxx} 当前pom文件的任意节点的内容
             </dependency>
 
 
-
-
             <dependency>
                 <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
@@ -353,7 +358,6 @@ ${project.xxx} 当前pom文件的任意节点的内容
                 <artifactId>jboss-marshalling-serial</artifactId>
                 <version>1.4.10.Final</version>
             </dependency>
-
 
 
             <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
@@ -419,17 +423,6 @@ ${project.xxx} 当前pom文件的任意节点的内容
                 <version>0.6.9</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.walker</groupId>
-                <artifactId>walker-core</artifactId>
-                <version>0.0.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.walker</groupId>
-                <artifactId>walker-service-client</artifactId>
-                <version>0.0.1</version>
-            </dependency>
 
 
             <!-- sharding jdbc依赖 -->
@@ -537,16 +530,16 @@ ${project.xxx} 当前pom文件的任意节点的内容
                         <groupId>*</groupId>
                         <artifactId>*</artifactId>
                     </exclusion>
-<!--                    <exclusion>-->
-<!--                        <groupId>io.netty</groupId>-->
-<!--                        <artifactId>netty-all</artifactId>-->
-<!--                        &lt;!&ndash;                    <version>4.1.36</version> &ndash;&gt;-->
-<!--                    </exclusion>-->
-<!--                    <exclusion>-->
-<!--                        <groupId>org.apache.httpcomponents</groupId>-->
-<!--                        <artifactId>httpclient</artifactId>-->
-<!--                        &lt;!&ndash;                    <version>4.5.9</version>&ndash;&gt;-->
-<!--                    </exclusion>-->
+                    <!--                    <exclusion>-->
+                    <!--                        <groupId>io.netty</groupId>-->
+                    <!--                        <artifactId>netty-all</artifactId>-->
+                    <!--                        &lt;!&ndash;                    <version>4.1.36</version> &ndash;&gt;-->
+                    <!--                    </exclusion>-->
+                    <!--                    <exclusion>-->
+                    <!--                        <groupId>org.apache.httpcomponents</groupId>-->
+                    <!--                        <artifactId>httpclient</artifactId>-->
+                    <!--                        &lt;!&ndash;                    <version>4.5.9</version>&ndash;&gt;-->
+                    <!--                    </exclusion>-->
                 </exclusions>
             </dependency>
 
@@ -671,6 +664,31 @@ ${project.xxx} 当前pom文件的任意节点的内容
                 <artifactId>spring-boot-test</artifactId>
                 <version>2.0.3.RELEASE</version>
             </dependency>
+
+            <!-- Java Native Access -->
+            <!-- https://github.com/java-native-access/jna -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>5.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna-jpms</artifactId>
+                <version>5.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna-platform</artifactId>
+                <version>5.7.0</version>
+            </dependency>
+            <!-- jna-platform 引用了 jna, 所以引入该包即可 -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna-platform-jpms</artifactId>
+                <version>5.13.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

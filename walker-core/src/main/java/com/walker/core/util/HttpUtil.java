@@ -1,10 +1,7 @@
 package com.walker.core.util;
 
 import com.alibaba.fastjson.JSON;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpMessage;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
+import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -68,12 +65,13 @@ public class HttpUtil {
 		mapClient = new HashMap<String, HttpClient>();
 	}
 
-	public static RequestConfig makeTimeoutConfig(int requestTimeout, int connectTimeout, int socketTimeout) {
+	public static RequestConfig makeTimeoutConfig(int requestTimeout, int connectTimeout, int socketTimeout, HttpHost proxy) {
 		RequestConfig config = null;
 		if (requestTimeout > 0 || connectTimeout > 0 || socketTimeout > 0) {
 			RequestConfig.
 //			Builder builder = RequestConfig.custom();
 					Builder builder = RequestConfig.copy(RequestConfig.DEFAULT);
+			builder.setProxy(proxy);
 			if (requestTimeout > 0) {
 				builder.setConnectionRequestTimeout(requestTimeout); // 从连接池中获取连接的超时时间
 			}
@@ -157,7 +155,7 @@ public class HttpUtil {
 //		httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,2000);//数据传输时间
 //
 //		4.3
-		RequestConfig config = makeTimeoutConfig(HttpUtil.timeout_mill_request, HttpUtil.timeout_mill_connect, HttpUtil.timeout_mill_socket);
+		RequestConfig config = makeTimeoutConfig(HttpUtil.timeout_mill_request, HttpUtil.timeout_mill_connect, HttpUtil.timeout_mill_socket, null);
 		HttpClientBuilder builder = HttpClientBuilder.create();
 		builder.setDefaultRequestConfig(config);
 		HttpClient client = builder.build();

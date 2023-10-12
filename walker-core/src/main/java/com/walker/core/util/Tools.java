@@ -176,6 +176,18 @@ public class Tools {
 		}
 	}
 
+	public static <T> T nvl(T v, T def) {
+		if (v == null) {
+			return def;
+		}
+		if (v instanceof String) {
+			if (((String) v).length() == 0) {
+				return def;
+			}
+		}
+		return v;
+	}
+
 	public static <T> void formatOut(Collection<T> list) {
 		int i = 0;
 		for (T obj : list) {
@@ -184,14 +196,14 @@ public class Tools {
 	}
 
 	public static String strings2string(String[] strs) {
-		StringBuilder res = new StringBuilder("[ ");
+		StringBuilder res = new StringBuilder("[");
 		for (String str : strs) {
 			res.append(str + ", ");
 		}
 		if (strs != null && strs.length > 0) {
 			res.substring(0, res.length() - 2);
 		}
-		res.append(" ]");
+		res.append("]");
 
 		return res.toString();
 	}
@@ -270,6 +282,14 @@ public class Tools {
 	 * (12, " ", 6, 0)
 	 * priorOrNext 1标识 在后面填充  0表示前面留空
 	 */
+	public static String fillStringBy(String str, String by, int tolen) {
+		return fillStringBy(str, by, tolen, 0);
+	}
+
+	public static String fillStringByRe(String str, String by, int tolen) {
+		return fillStringBy(str, by, tolen, 1);
+	}
+
 	public static String fillStringBy(String str, String by, int tolen, int priorOrNext) {
 		if (str.length() > tolen) {
 			str = str.substring(0, tolen);
