@@ -4,6 +4,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.walker.core.Context;
 import com.walker.core.cache.ConfigMgr;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ import java.sql.SQLException;
  *
  */
 @Data
+@Accessors(chain = true)
 public class PoolC3p0Mysql extends Pool {
     private final static Logger log = LoggerFactory.getLogger(PoolC3p0Mysql.class);
     String driver;

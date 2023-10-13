@@ -1,9 +1,9 @@
 package com.walker.controller;
 
 
-import com.walker.Response;
 import com.walker.core.aop.FunArgsReturn;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.sys.SysConfig;
 import com.walker.core.util.TimeUtil;
 import com.walker.dao.ConfigDao;
@@ -33,7 +33,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/sysConfig")
 public class SysConfigController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     @Qualifier("baseService")
@@ -68,7 +68,7 @@ public class SysConfigController {
         }else{
             res = configDao.reload();
         }
-        return Response.makeTrue(id.length() > 0 ? "reload " + id : "reload all", res);
+        return new Response().setTip(id.length() > 0 ? "reload " + id : "reload all").setRes(res);
     }
     @ApiOperation(value = "刷新配置单项缓存 或 更新所有配置缓存", notes = "now")
     @ResponseBody
@@ -82,7 +82,7 @@ public class SysConfigController {
         } else{
             res = "no key ?";
         }
-        return Response.make(res.length() > 0, id, res);
+        return new Response().setSuccess(res.length() > 0).setRes(res);
     }
 
     @ApiOperation(value = "保存配置", notes = "通用存储")
@@ -109,8 +109,7 @@ public class SysConfigController {
             }
         });
 //        List<SysConfig> res = sysConfigService.saveAll(Arrays.asList(sysConfig));
-        return Response.makeTrue("", res);
-    }
+        return new Response().setTip("").setRes(res);    }
 
     @ApiOperation(value = "删除配置及其缓存", notes = "delete参数 restful 路径 PathVariable ")
     @ResponseBody
@@ -119,9 +118,9 @@ public class SysConfigController {
             @RequestParam(value = "ID", required = false, defaultValue = "") String id
     ) throws Exception {
         if(id.length() == 0){
-            return Response.makeFalse("null ? args");
+            return new Response().setSuccess(false).setTip("null ? args");
         }
-        String ids[] = id.split(",");
+        String[] ids = id.split(",");
         Integer res = configDao.set(id, new FunArgsReturn<String, Integer>() {
             @Override
             public Integer make(String obj) {
@@ -129,7 +128,7 @@ public class SysConfigController {
             }
         });
 //        Object res = sysConfigService.deleteAll(Arrays.asList(ids));
-        return Response.makeFalse( "", res);
+        return new Response().setSuccess(false).setTip( "").setRes(res);
     }
     @ApiOperation(value = "分页查询任务列表", notes = "")
     @ResponseBody
@@ -157,7 +156,7 @@ public class SysConfigController {
 
         List<SysConfig> list = sysConfigService.finds(sysConfig, page);
         page.setTotal(sysConfigService.count(sysConfig));
-        return Response.makePage(info, page, list);
+        return new Response().setTotal(page.getTotal()).setRes(list).setTip(info);
     }
 
 

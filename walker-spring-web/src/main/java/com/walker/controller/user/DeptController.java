@@ -1,8 +1,8 @@
 package com.walker.controller.user;
 
 
-import com.walker.Response;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.school.Dept;
 import com.walker.core.util.TimeUtil;
 import com.walker.service.BaseService;
@@ -30,7 +30,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/dept")
 public class  DeptController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     @Qualifier("baseService")
     private BaseService baseService;
@@ -61,9 +61,9 @@ public class  DeptController {
         dept.setP_ID(pid);
 //        dept.setPATH(path);
 
-        String info = "post dept:" +dept.toString();
+        String info = "post dept:" + dept;
         List<Dept> res = deptService.saveAll(Arrays.asList(dept));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "delete 删除", notes = "delete参数 restful 路径 PathVariable ")
@@ -74,9 +74,9 @@ public class  DeptController {
     ) {
         String info = "delete ids:" + ids;
         if(ids == null || ids.length() <= 0)
-            return Response.makeFalse("args is null ?");
+            return new Response().setSuccess(false).setTip("args is null ?");
         Object res = deptService.deleteAll(Arrays.asList(ids.split(",")));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "get 获取", notes = "")
@@ -87,10 +87,7 @@ public class  DeptController {
     ) {
         String info = "get id:" + id;
         Dept model = deptService.get(new Dept().setID(id));
-        if(model != null)
-            return Response.makeTrue(info, model);
-        else
-            return Response.makeFalse(info);
+        return new Response().setTip(info).setRes(model).setSuccess(model != null);
     }
 
     @ApiOperation(value = "get findPage 分页查询", notes = "")
@@ -114,8 +111,7 @@ public class  DeptController {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
         if(pidNull.equalsIgnoreCase("true")){
             List<Dept> list = deptService.findsRoot(page);
-
-            return Response.makePage("", page, list);
+            return new Response().setRes(list);
         }
 
         Dept dept = new Dept();
@@ -129,8 +125,7 @@ public class  DeptController {
         String info = "get   dept:" + dept;
 
         List<Dept> list = deptService.finds(dept, page);
-        page.setTotal(deptService.count(dept));
-        return Response.makePage(info, page, list);
+        return new Response().setTotal(deptService.count(dept)).setRes(list).setTip(info);
     }
 
 

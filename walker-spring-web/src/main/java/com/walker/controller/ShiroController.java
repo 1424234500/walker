@@ -1,8 +1,8 @@
 package com.walker.controller;
 
 
-import com.walker.Response;
 import com.walker.config.ShiroConfig;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.school.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -62,7 +62,7 @@ Parameter Types
 @Controller
 @RequestMapping("/shiro")
 public class ShiroController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     ShiroConfig shiroConfig;
@@ -84,7 +84,7 @@ public class ShiroController {
         Map<String, Object> res = new HashMap<>();
         res.put("USER", user);
         res.put("TOKEN", token);
-        return Response.make(token.length() > 0 , token.length() > 0 ? "登录成功" : "登录失败 " + username , res);
+        return new Response().setSuccess(token.length() > 0).setTip(token.length() > 0 ? "登录成功" : "登录失败 " + username).setRes(res);
     }
 
 

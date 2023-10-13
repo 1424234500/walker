@@ -1,92 +1,67 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.walker</groupId>
     <artifactId>walker</artifactId>
-    <version>0.0.1</version>
-    <name>walker</name>
-    <description>walker's project parent</description>
     <packaging>pom</packaging>
-
-
+    <version>1.0-SNAPSHOT</version>
     <modules>
         <module>walker-core</module>
         <module>walker-service-client</module>
-        <module>walker-socket-server</module>
+        <module>walker-service-server</module>
         <module>walker-spring-core</module>
         <module>walker-spring-provider</module>
         <module>walker-spring-web</module>
-        <!--        <module>walker-test</module>-->
     </modules>
 
-
     <properties>
-        <!--    源码结构
-        project/*
-            目录脚本 bin    server.sh
-            目录配置 conf
-            目录源码 src/main/java
-                            /resource
-                                /mapper
-                                /static
-                                config.files
-            目录资源 vue
-
-        打包结构
-        deploy/* <- project/*
-            目录依赖 lib/        dependency.jar
-            目录资源 static/     html
-            目录db   mapper/     mybatis xml
-            文件配置 config properties xml yml
-            文件脚本 server.sh
-${basedir} 项目根目录
-${project.build.directory} 构建目录，缺省为target
-${project.build.outputDirectory} 构建过程输出目录，缺省为target/classes
-${project.build.finalName} 产出物名称，缺省为${project.artifactId}-${project.version}
-${project.packaging} 打包类型，缺省为jar
-${project.xxx} 当前pom文件的任意节点的内容
-      -->
-
-        <dir_name_bin>bin</dir_name_bin>
-        <dir_name_conf>conf</dir_name_conf>
-        <dir_name_lib>lib</dir_name_lib>
-        <dir_release>${basedir}/release</dir_release>
-        <dir_name_resource>src/main/resources</dir_name_resource>
-
-        <dir_name_vue>vue/dist</dir_name_vue>
-
-        <!-- 这里一般有 maven 的默认配置，修改即可 -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+
+<!--
+
+    ${basedir} 项目根目录
+    ${project.build.directory} 构建目录，缺省为target
+    ${project.build.outputDirectory} 构建过程输出目录，缺省为target/classes
+    ${project.build.finalName} 产出物名称，缺省为${project.artifactId}-${project.version}
+    ${project.packaging} 打包类型，缺省为jar
+    ${project.xxx} 当前pom文件的任意节点的内容
+
+-->
+
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.walker</groupId>
+                <artifactId>walker-core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.walker</groupId>
+                <artifactId>walker-service-client</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.walker</groupId>
+                <artifactId>walker-service-server</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.walker</groupId>
+                <artifactId>walker-spring-core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.walker</groupId>
+                <artifactId>walker-spring-provider</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
 
-            <!--            <dependency>-->
-            <!--                <groupId>com.walker</groupId>-->
-            <!--                <artifactId>walker-core</artifactId>-->
-            <!--                <version>0.0.1</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.walker</groupId>-->
-            <!--                <artifactId>walker-spring-core</artifactId>-->
-            <!--                <version>0.0.1</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.walker</groupId>-->
-            <!--                <artifactId>walker-core</artifactId>-->
-            <!--                <version>0.0.1</version>-->
-            <!--            </dependency>-->
-
-            <!--            <dependency>-->
-            <!--                <groupId>com.walker</groupId>-->
-            <!--                <artifactId>walker-service-client</artifactId>-->
-            <!--                <version>0.0.1</version>-->
-            <!--            </dependency>-->
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>javax.persistence-api</artifactId>
@@ -436,7 +411,17 @@ ${project.xxx} 当前pom文件的任意节点的内容
                 <artifactId>sharding-jdbc-spring-namespace</artifactId>
                 <version>3.0.0</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>2.1.9.RELEASE</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-user-jpa -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-user-jpa</artifactId>
+                <version>2.0.3.RELEASE</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -456,17 +441,17 @@ ${project.xxx} 当前pom文件的任意节点的内容
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+                <artifactId>spring-boot-starter-user-redis-reactive</artifactId>
                 <version>2.4.0</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <artifactId>spring-boot-starter-user-redis</artifactId>
                 <version>2.4.0</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-redis</artifactId>
+                <groupId>org.springframework.user</groupId>
+                <artifactId>spring-user-redis</artifactId>
                 <version>2.4.0</version>
             </dependency>
             <dependency>
@@ -546,18 +531,18 @@ ${project.xxx} 当前pom文件的任意节点的内容
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <artifactId>spring-boot-starter-user-jpa</artifactId>
                 <version>2.0.3.RELEASE</version>
             </dependency>
             <!--        间接依赖netty部分版本依赖包-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <artifactId>spring-boot-starter-user-redis</artifactId>
                 <version>2.0.3.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+                <artifactId>spring-boot-starter-user-redis-reactive</artifactId>
                 <version>2.0.3.RELEASE</version>
             </dependency>
             <dependency>
@@ -567,8 +552,8 @@ ${project.xxx} 当前pom文件的任意节点的内容
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-redis</artifactId>
+                <groupId>org.springframework.user</groupId>
+                <artifactId>spring-user-redis</artifactId>
                 <version>2.0.3.RELEASE</version>
             </dependency>
             <dependency>
@@ -617,8 +602,6 @@ ${project.xxx} 当前pom文件的任意节点的内容
                 <version>5.1.8.RELEASE</version>
 
             </dependency>
-
-
             <dependency>
                 <groupId>io.lettuce</groupId>
                 <artifactId>lettuce-core</artifactId>
@@ -655,9 +638,13 @@ ${project.xxx} 当前pom文件的任意节点的内容
                 <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
                 <version>3.0.0</version>
-
             </dependency>
-
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>4.3.10.RELEASE</version>
+                <scope>compile</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -665,32 +652,13 @@ ${project.xxx} 当前pom文件的任意节点的内容
                 <version>2.0.3.RELEASE</version>
             </dependency>
 
-            <!-- Java Native Access -->
-            <!-- https://github.com/java-native-access/jna -->
-            <dependency>
-                <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna</artifactId>
-                <version>5.7.0</version>
-            </dependency>
-            <dependency>
-                <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna-jpms</artifactId>
-                <version>5.13.0</version>
-            </dependency>
             <dependency>
                 <groupId>net.java.dev.jna</groupId>
                 <artifactId>jna-platform</artifactId>
                 <version>5.7.0</version>
             </dependency>
-            <!-- jna-platform 引用了 jna, 所以引入该包即可 -->
-            <dependency>
-                <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna-platform-jpms</artifactId>
-                <version>5.13.0</version>
-            </dependency>
 
         </dependencies>
     </dependencyManagement>
-
 
 </project>

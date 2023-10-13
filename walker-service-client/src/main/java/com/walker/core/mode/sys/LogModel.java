@@ -80,8 +80,8 @@ public class LogModel implements Cloneable, Serializable {
 	public static LogModel getDefaultModel(){
 		LogModel logModel = new LogModel()
 				.setS_MTIME(TimeUtil.getTimeYmdHmss())
-				.setIS_EXCEPTION(Config.FALSE)
-				.setIS_OK(Config.TRUE)
+				.setIS_EXCEPTION("0")
+				.setIS_OK("1")
 				.setIP_PORT_FROM(Pc.getIps().toString())
 				.setIP_PORT_TO(Pc.getIps().toString())
 				;
@@ -100,7 +100,7 @@ public class LogModel implements Cloneable, Serializable {
 			setCOST(System.currentTimeMillis() - start);
 		}
 		if(getEXCEPTION() != null && getEXCEPTION().length() != 0){
-			setIS_EXCEPTION(Config.TRUE);
+			setIS_EXCEPTION("1");
 		}
 		if(getIP_PORT_FROM() == null || getIP_PORT_FROM().length() == 0){
 			setIP_PORT_FROM(Pc.getIps().toString());

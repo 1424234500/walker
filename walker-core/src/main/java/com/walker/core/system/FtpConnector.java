@@ -2,8 +2,9 @@ package com.walker.core.system;
 
 import com.walker.core.aop.FunArgsReturn;
 import com.walker.core.mode.Error;
-import com.walker.core.mode.Response;
+import com.walker.core.mode.ResponseO;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 两天持续下载导致连接数满 buffer不足问题分析
  */
 @Data
+@Accessors(chain = true)
 public class FtpConnector {
 	private final static Logger log = LoggerFactory.getLogger(FtpConnector.class);
 	private static final int BUFFER_SIZE = 1024 * 1024 * 1;
@@ -109,10 +111,10 @@ public class FtpConnector {
 	 * @param fromPath /home/walker   /home/walker/01.txt
 	 * @param toPath D:/home/walker   D:/home/walker/   D:/home/walker/01.txt
 	 */
-	public Response<Boolean> download(String fromPath, String toPath) {
+	public ResponseO<Boolean> download(String fromPath, String toPath) {
 		return doFtpClient(ftpClient -> {
 			long st = System.currentTimeMillis();
-			Response<Boolean> result = new Response<>();
+			ResponseO<Boolean> result = new ResponseO<>();
 			OutputStream out = null;
 			try {
 				out = new FileOutputStream(toPath);
@@ -139,10 +141,10 @@ public class FtpConnector {
 		});
 	}
 
-	public Response<Boolean> upload(String fromPath,String toPath){
+	public ResponseO<Boolean> upload(String fromPath,String toPath){
 		return doFtpClient(ftpClient -> {
 			long st = System.currentTimeMillis();
-			Response<Boolean> result = new Response<>();
+			ResponseO<Boolean> result = new ResponseO<>();
 			try {
 				String toPathDir = new File(toPath).getParent();
 				//判断FPT目标文件夹时候存在不存在则创建
@@ -158,7 +160,7 @@ public class FtpConnector {
 			}catch (Exception e){
 				result.setSuccess(false).setError(new Error(Error.LEVEL_ERROR, result.getTip(), e.getMessage()));
 			}finally {
-				result.setCost(System.currentTimeMillis() - st);
+				result.setCost();
 			}
 			return result;
 		} );

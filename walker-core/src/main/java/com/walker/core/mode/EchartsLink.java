@@ -3,13 +3,13 @@ package com.walker.core.mode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Generated
 class EchartsLink {
     String source = "0";
     String target = "1";

@@ -2,8 +2,10 @@ package com.walker.core.mode;
 
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class CacheModelZk extends CacheModel {
 	int CHILD_SIZE;
 	static {

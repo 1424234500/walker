@@ -5,8 +5,8 @@
 
 package com.walker.controller;
 
-import com.walker.Response;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.util.ClassUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping({"/class"})
 public class ClassController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @ApiOperation(value="缓存列表分页查询list")
     @ResponseBody
@@ -38,7 +38,7 @@ public class ClassController {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
         List<?> list = ClassUtil.getPackageClassBean(packageName, true);
         page.setTotal(list == null ? -1L : (long)list.size());
-        return Response.makePage("ok", page, list);
+        return new Response().setTotal(page.getTotal()).setRes(list).setTip("ok");
     }
     @ApiOperation(value="查询类详情函数列表")
     @ResponseBody
@@ -52,7 +52,7 @@ public class ClassController {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
         List<?> list = ClassUtil.getMethod(className, true, true);
         page.setTotal(list == null ? -1L : (long)list.size());
-        return Response.makePage("ok", page, list);
+        return new Response().setTotal(page.getTotal()).setRes(list).setTip("ok");
     }
     @ApiOperation(value="查询类详情函数列表")
     @ResponseBody
@@ -71,10 +71,11 @@ public class ClassController {
             } else {
                 res = ClassUtil.doPackage(packageName, new ArrayList<>());
             }
-            return Response.makeTrue(String.valueOf(res), res);
+            return new Response().setRes(res);
+
 
         } catch (Exception var10) {
-            return Response.makeFalse(var10.toString());
+            return new Response().setSuccess(false).setTip(var10.toString());
         }
     }
     @ApiOperation(value="执行一段代码")
@@ -94,9 +95,10 @@ public class ClassController {
         args = args.replace("  ", " ");
         List<String> list = Arrays.asList(args.split(splitArr));
         if (list.size() > 0) {
-            return Response.makeTrue("", ClassUtil.doCode(list));
+            return new Response().setRes(ClassUtil.doCode(list)).setTip("ok");
+
         } else {
-            return Response.makeFalse("do_args: eg.Integer in = 0; Bean bean = new Bean();bean.set(\"int\", in)");
+            return new Response().setSuccess(false).setTip("do_args: eg.Integer in = 0; Bean bean = new Bean();bean.set(\"int\", in)");
         }
 
     }

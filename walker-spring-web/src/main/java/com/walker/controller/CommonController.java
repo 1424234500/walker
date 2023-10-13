@@ -1,17 +1,16 @@
 package com.walker.controller;
 
 
-import com.walker.Response;
 import com.walker.core.aop.FunArgsReturn;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.database.SqlUtil;
 import com.walker.core.mode.*;
 import com.walker.core.util.LangUtil;
-import com.walker.core.util.RequestUtil;
 import com.walker.core.util.TimeUtil;
 import com.walker.dao.JdbcDao;
 import com.walker.service.BaseService;
 import com.walker.service.CacheService;
+import com.walker.spring.util.SpringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -36,7 +35,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/common")
 public class CommonController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     @Qualifier("baseService")
@@ -102,7 +101,7 @@ public class CommonController {
         }catch (Exception e){
             res.put("info", e.getMessage());
         }
-        return Response.makeTrue(sql, res);
+        return new Response().setTip(sql).setRes(res);
     }
 
 
@@ -118,7 +117,7 @@ public class CommonController {
         Map<String, Object> res = new HashMap<>();
         res.put("colMap", colMap);
         res.put("colKey", colMap.stream().map(item -> item.getColumnName()).collect(Collectors.toList()));
-        return Response.makeTrue(tableName, res);
+        return new Response().setTip(tableName).setRes(res);
     }
 
 
@@ -134,7 +133,7 @@ public class CommonController {
                 return jdbcDao.getTables(database);
             }
         });
-        return Response.makeTrue("", res);
+        return new Response().setTip("").setRes(res);
     }
 
     @ApiOperation(value = "获取数据库/用户列表", notes = "")
@@ -147,8 +146,7 @@ public class CommonController {
                 return jdbcDao.getDatabasesOrUsers();
             }
         });
-        return Response.makeTrue("", res);
-    }
+        return new Response().setTip("").setRes(res);    }
 
     public static final String KEY_DB = "_DATABASE_";
     public static final String KEY_TABLE = "_TABLE_NAME_";
@@ -157,11 +155,11 @@ public class CommonController {
     @ResponseBody
     @RequestMapping(value = "/save.do", method = RequestMethod.POST)
     public Response save(HttpServletRequest request) {
-        Bean bean = RequestUtil.getRequestBean(request);
+        Bean bean = SpringUtil.getRequestBean(request);
         String database = bean.get(KEY_DB, "");
         String tableName = bean.get(KEY_TABLE, "");
         if(tableName.length() <= 0){
-            return Response.makeFalse(KEY_TABLE + "为空");
+            return new Response().setSuccess(false).setTip(KEY_TABLE + "为空");
         }
         this.delet(request);    //先删除再插入
         bean.remove(KEY_TABLE);
@@ -201,28 +199,28 @@ public class CommonController {
             }
         }
         if(args.size() <= 0){
-            return Response.makeFalse("没有参数");
+            return new Response().setSuccess(false).setTip("没有参数");
         }else {
             sb.setLength(sb.length() - 1);
         }
         sb.append(") values(").append(SqlUtil.makePosition("?", args.size())).append(")");
-        log.info("make sql " + sb.toString());
+        log.info("make sql " + sb);
         int res = jdbcDao.executeSql(sb.toString(), args.toArray());
-        return Response.makeTrue((info.length() > 0 ? "WARING 不存在的键值" + info + " \n" : "") + SqlUtil.makeSql(sb.toString(), args.toArray()), res);
+        return new Response().setTip((info.length() > 0 ? "WARING 不存在的键值" + info + " \n" : "") + SqlUtil.makeSql(sb.toString(), args.toArray())).setRes(res);
     }
 
     @ApiOperation(value = "delete 删除", notes = "delete参数 restful 路径 PathVariable ")
     @ResponseBody
     @RequestMapping(value = "/delet.do", method = RequestMethod.GET)
     public Response delet(HttpServletRequest request) {
-        Bean bean = RequestUtil.getRequestBean(request);
+        Bean bean = SpringUtil.getRequestBean(request);
         bean.remove("nowPage");
         bean.remove("showNum");
         bean.remove("order");
         String database = bean.get(KEY_DB, "");
         String tableName = bean.get(KEY_TABLE, "");
         if(tableName.length() <= 0){
-            return Response.makeFalse(KEY_TABLE + "为空");
+            return new Response().setSuccess(false).setTip(KEY_TABLE + "为空");
         }
         bean.remove(KEY_TABLE);
         bean.remove(KEY_DB);
@@ -242,13 +240,13 @@ public class CommonController {
 //            args.add(bean.get(key));
 //        }
 //        if(args.size() <= 0){
-//            return Response.makeFalse("没有参数");
+//            return new Response().setSuccess(false).setTip("没有参数");
 //        }else {
 //            sb.setLength(sb.length() - 1);
 //        }
-        log.info("make sql " + sb.toString());
+        log.info("make sql " + sb);
         int res = jdbcDao.executeSql(sb.toString(), args.toArray());
-        return Response.makeTrue((info.length() > 0 ? "WARING 不存在的键值" + info + " \n" : "") + SqlUtil.makeSql(sb.toString(), args.toArray()), res);
+        return new Response().setTip((info.length() > 0 ? "WARING 不存在的键值" + info + " \n" : "") + SqlUtil.makeSql(sb.toString(), args.toArray())).setRes( res);
     }
 
     @ApiOperation(value = "get findPage 分页查询", notes = "")
@@ -261,14 +259,14 @@ public class CommonController {
                 .setOrder(request.getParameter("order"));
 
 
-        Bean bean = RequestUtil.getRequestBean(request);
+        Bean bean = SpringUtil.getRequestBean(request);
         bean.remove("nowPage");
         bean.remove("showNum");
         bean.remove("order");
         String database = bean.get(KEY_DB, "");
         String tableName = bean.get(KEY_TABLE, "");
         if(tableName.length() <= 0){
-            return Response.makeFalse(KEY_TABLE + "为空");
+            return new Response().setSuccess(false).setTip(KEY_TABLE + "为空");
         }
         bean.remove(KEY_TABLE);
         bean.remove(KEY_DB);
@@ -295,9 +293,9 @@ public class CommonController {
         }else {
             sb.setLength(sb.length() - 1);
         }
-        log.info("make sql " + sb.toString());
+        log.info("make sql " + sb);
         List<?> res = jdbcDao.findPage(page, sb.toString(), args.toArray());
-        return Response.makePage((info.length() > 0 ? "WARING 不存在的键值" + info + " \n" + " \n" : "") + SqlUtil.makeSql(sb.toString(), args.toArray()), page, res);
+        return new Response().setTip(((info.length() > 0 ? "WARING 不存在的键值" + info + " \n" + " \n" : "") + SqlUtil.makeSql(sb.toString(), args.toArray()))).setTotal(page.getTotal()).setRes(res);
     }
 
 

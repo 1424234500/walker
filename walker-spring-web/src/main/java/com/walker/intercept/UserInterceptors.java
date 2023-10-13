@@ -1,13 +1,13 @@
 package com.walker.intercept;
 
-import com.walker.config.Context;
 import com.walker.config.ShiroConfig;
 import com.walker.core.cache.Cache;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.mode.school.User;
-import com.walker.core.util.RequestUtil;
 import com.walker.service.LogService;
 import com.walker.service.LoginService;
+import com.walker.spring.config.Context;
+import com.walker.spring.util.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +30,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public class UserInterceptors implements HandlerInterceptor{
-	private Logger log = LoggerFactory.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	private Cache<String> cache = ConfigMgr.getInstance();
+	private final Cache<String> cache = ConfigMgr.getInstance();
 	@Autowired
 	private LoginService loginService;
 	@Autowired
@@ -93,9 +93,9 @@ public class UserInterceptors implements HandlerInterceptor{
 			String contextPath = request.getContextPath();
 			String url = requestUri.substring(contextPath.length());  //[/student/listm]
 			log.info("ipport:" + request.getRemoteAddr() + ":" + request.getRemotePort() + " " + url + " token:" + tokenObj + " go login 401");
-			RequestUtil.echoErr(response,  HttpServletResponse.SC_UNAUTHORIZED, token);
-//			RequestUtil.echo401(response, token);
-//			RequestUtil.sendRedirect(response, "/");
+			SpringUtil.echoErr(response,  HttpServletResponse.SC_UNAUTHORIZED, token);
+//			SpringUtil.echo401(response, token);
+//			SpringUtil.sendRedirect(response, "/");
 	    	return false;
 	    }
 

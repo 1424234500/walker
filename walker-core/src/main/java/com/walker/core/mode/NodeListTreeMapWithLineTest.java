@@ -2,6 +2,7 @@ package com.walker.core.mode;
 
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.TreeMap;
  *              数据节点优先级 依赖compare
  */
 @Data
+@Accessors(chain = true)
 public class NodeListTreeMapWithLineTest<DATA> {
     static int size = 6;
 
@@ -48,7 +50,10 @@ public class NodeListTreeMapWithLineTest<DATA> {
 
             @Override
             public EchartsNode makeEchartsNode(BeanLinked data) {
-                return new EchartsNode(data == null ? null : data.get("name", ""), data == null ? null : data.get(key, ""), 50);
+                return new EchartsNode()
+                        .setName(data == null ? null : data.get("name", ""))
+                        .setId( data == null ? null : data.get(key, ""))
+                        .setSymbolSize(50);
             }
 
             @Override

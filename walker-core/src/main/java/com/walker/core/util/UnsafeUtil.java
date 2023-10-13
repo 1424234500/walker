@@ -120,7 +120,7 @@ public class UnsafeUtil {
      */
     private void testCas() throws NoSuchFieldException {
         Emp data = new Emp();
-        data.setId(1L);
+        data.setId("1");
         Field id = data.getClass().getDeclaredField("id");
         long l = unsafe.objectFieldOffset(id);
         id.setAccessible(true);
@@ -194,7 +194,7 @@ public class UnsafeUtil {
 
 //调用allocateInstance函数避免了在我们不需要构造函数的时候却调用它
         Emp data = (Emp) unsafe.allocateInstance(Emp.class);
-        data.setId(1L);
+        data.setId("1");
         data.setName("unsafe");
         System.out.println(data);
 

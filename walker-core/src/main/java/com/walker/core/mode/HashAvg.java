@@ -1,5 +1,8 @@
 package com.walker.core.mode;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -7,6 +10,8 @@ import java.util.TreeMap;
 /**
  * 一致性hash
  */
+@Data
+@Accessors(chain = true)
 public class HashAvg {
     //虚拟节点
     int numVirtualNode = 32; // 物理节点至虚拟节点的复制倍数
@@ -106,12 +111,4 @@ public class HashAvg {
         }
     }
 
-    public int getNumVirtualNode() {
-        return numVirtualNode;
-    }
-
-    public HashAvg setNumVirtualNode(int numVirtualNode) {
-        this.numVirtualNode = numVirtualNode;
-        return this;
-    }
 }

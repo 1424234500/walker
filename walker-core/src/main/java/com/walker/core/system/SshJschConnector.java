@@ -2,9 +2,10 @@ package com.walker.core.system;
 
 import com.jcraft.jsch.*;
 import com.walker.core.mode.Error;
-import com.walker.core.mode.Response;
+import com.walker.core.mode.ResponseO;
 import com.walker.core.util.FileUtil;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -15,6 +16,7 @@ import java.util.Properties;
  * 支持 sftp
  */
 @Data
+@Accessors(chain = true)
 public class SshJschConnector {
 	IpModel ipModel;
 	int timeout = 5000;
@@ -29,9 +31,9 @@ public class SshJschConnector {
 	 * @param cmd 即将执行的命令
 	 *            命令执行完后返回的结果值
 	 */
-	public Response<String> execute(String cmd) {
+	public ResponseO<String> execute(String cmd) {
 		long st = System.currentTimeMillis();
-		Response<String> result = new Response<>();
+		ResponseO<String> result = new ResponseO<>();
 		Session session = null;
 		ChannelExec channelExec = null;
 		try {
@@ -58,9 +60,9 @@ public class SshJschConnector {
 		return result;
 	}
 
-	public Response<Integer> upload(String pathFrom, String pathTo) {
+	public ResponseO<Integer> upload(String pathFrom, String pathTo) {
 		long st = System.currentTimeMillis();
-		Response<Integer> result = new Response<>();
+		ResponseO<Integer> result = new ResponseO<>();
 		Session session = null;
 		ChannelSftp channelSftp = null;
 		try {
@@ -85,9 +87,9 @@ public class SshJschConnector {
 		return result;
 	}
 
-	public Response<Integer> download(String pathFrom, String pathTo) {
+	public ResponseO<Integer> download(String pathFrom, String pathTo) {
 		long st = System.currentTimeMillis();
-		Response<Integer> result = new Response<>();
+		ResponseO<Integer> result = new ResponseO<>();
 		Session session = null;
 		ChannelSftp channelSftp = null;
 		try {
@@ -111,7 +113,7 @@ public class SshJschConnector {
 		}
 		return result;
 	}
-	public Response<String> telnet(String port){
+	public ResponseO<String> telnet(String port){
 		String cmd = "timeout 3 telnet " + this.ipModel.getIp() + " " + port;
 		return execute(cmd);
 	}

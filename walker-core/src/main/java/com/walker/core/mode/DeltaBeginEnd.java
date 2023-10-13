@@ -2,6 +2,8 @@ package com.walker.core.mode;
 
 
 import com.walker.core.util.Tools;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,6 +18,8 @@ import java.util.List;
  *         return 01:00~01:20, 02:00~08:55, 10:00~12:55
  *
  */
+@Data
+@Accessors(chain = true)
 public class DeltaBeginEnd<T> {
     T begin;
     T end;
@@ -54,13 +58,4 @@ public class DeltaBeginEnd<T> {
         return "[" + begin + ", " + end + "}";
     }
 
-    public DeltaBeginEnd<T> setBegin(T begin) {
-        this.begin = begin;
-        return this;
-    }
-
-    public DeltaBeginEnd<T> setEnd(T end) {
-        this.end = end;
-        return this;
-    }
 }

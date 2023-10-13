@@ -1,11 +1,7 @@
 package com.walker.controller;
 
 
-import com.walker.Response;
-import com.walker.core.mode.Bean;
-import com.walker.core.mode.CacheModelRedis;
-import com.walker.core.mode.Page;
-import com.walker.core.mode.SqlColumn;
+import com.walker.core.mode.*;
 import com.walker.dao.RedisDao;
 import com.walker.service.RedisService;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +23,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping({"/redis"})
 public class RedisController  {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     RedisService redisService;
@@ -49,7 +45,7 @@ public class RedisController  {
 
         List<?> res = redisService.getKeyValues(keys);
         page.setTotal(res.size());
-        return Response.makePage("get redis key value", page, res);
+        return new Response().setTip("get redis key value").setTotal(page.getTotal()).setRes(res);
     }
 
     @ApiOperation(value = "删除redis", notes = "")
@@ -63,7 +59,7 @@ public class RedisController  {
 //        cache-getColumnsByTableName::[, S_GOODS]
         long res = redisService.delKeys(Arrays.asList(ids));
 
-        return Response.makeTrue("rm locks " + ids, res);
+        return new Response().setTip("rm locks " + ids).setRes(res);
     }
     @ApiOperation(value = "添加redis数据", notes = "")
     @ResponseBody
@@ -78,7 +74,7 @@ public class RedisController  {
         Bean args = new Bean().put("KEY", KEY).put("TYPE", TYPE).put("TTL", TTL).put("VALUE", VALUE);
 //        long res = redisService.addLocks(KEY, VALUE);
         Bean res = redisDao.setKeyInfo(args);
-        return Response.makeTrue("add locks " + KEY + " " + VALUE, res);
+        return new Response().setTip("add locks " + KEY + " " + VALUE).setRes(res);
     }
 
 
@@ -91,7 +87,7 @@ public class RedisController  {
         Map<String, Object> res = new HashMap<>();
         res.put("colMap", colMap);
         res.put("colKey", colMap.stream().map(item -> item.getColumnName()).collect(Collectors.toList()));
-        return Response.makeTrue("redis key value", res);
+        return new Response().setTip("redis key value").setRes(res);
     }
 
 

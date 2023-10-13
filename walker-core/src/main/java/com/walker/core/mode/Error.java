@@ -1,10 +1,15 @@
 package com.walker.core.mode;
 
+import lombok.Getter;
+
+//@Data
+//@Accessors(chain = true)
+@Getter
 public class Error {
     /**
      * 错误级别 参考 log
      */
-    String level;
+    final String level;
     /**
      * 如参数异常 须修改参数后重试
      */
@@ -23,41 +28,15 @@ public class Error {
     /**
      * 错误码
      */
-    String code = "";
+    final String code;
     /**
      * 错误信息
      */
-    String msg = "";
-
+    final String msg;
 
     public Error(String level, String code, String msg) {
         this.level = level;
         this.code = code;
-        this.msg = msg;
-    }
-
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
         this.msg = msg;
     }
 }

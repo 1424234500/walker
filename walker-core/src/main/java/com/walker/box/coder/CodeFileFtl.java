@@ -2,10 +2,12 @@ package com.walker.box.coder;
 
 import com.walker.core.util.FileUtil;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.File;
 
 @Data
+@Accessors(chain = true)
 public class CodeFileFtl {
     String ftlName = "MvcModel.java.ftl";
     String fileDir = "D:\\cph\\workspace\\saas-demo1\\tmd-domain\\src\\main\\java";

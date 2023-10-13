@@ -1,14 +1,15 @@
 package com.walker.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.walker.Response;
-import com.walker.config.Context;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.sys.FileIndex;
 import com.walker.core.util.*;
 import com.walker.dao.JdbcDao;
 import com.walker.service.Config;
 import com.walker.service.FileIndexService;
+import com.walker.spring.config.Context;
+import com.walker.spring.util.SpringUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +33,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/file")
 public class FileController {
-    private org.slf4j.Logger log = LoggerFactory.getLogger(getClass());
+    private final org.slf4j.Logger log = LoggerFactory.getLogger(getClass());
 
     static int cacheSize = 4096;
 
@@ -71,8 +73,7 @@ public class FileController {
         file.setOWNER(owner);
 
         List<FileIndex> res = fileIndexService.saveAll(Arrays.asList(file));
-        return Response.makeTrue("", res);
-    }
+        return new Response().setTip("").setRes(res);    }
 
     @ApiOperation(value = "根据crc id删除文件", notes = "只能删除文件")
     @ResponseBody
@@ -87,7 +88,7 @@ public class FileController {
             FileUtil.delete(fileIndex.getPATH());
             FileUtil.delete(getUploadPathTempDir(fileIndex.getEXT(), fileIndex.getCHECKSUM()));   //删除该文件的缓存目录
         }
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "get 获取", notes = "")
@@ -98,7 +99,7 @@ public class FileController {
     ) {
         String info = "get id:" + id;
         FileIndex model = fileIndexService.get(new FileIndex().setID(id));
-        return Response.makeTrue(info, model);
+        return new Response().setTip(info).setRes(model).setSuccess(model != null);
     }
 
     @ApiOperation(value = "get findPage 分页查询", notes = "")
@@ -135,7 +136,7 @@ public class FileController {
 
         List<FileIndex> list = fileIndexService.finds(file, page);
         page.setTotal(fileIndexService.count(file));
-        return Response.makePage("", page, list);
+        return new Response().setTotal(page.getTotal()).setRes(list);
     }
 
 
@@ -147,7 +148,7 @@ public class FileController {
         Map<String, Object> res = new HashMap<>();
         res.put("colMap", colMap);
         res.put("colKey", colMap.keySet());
-        return Response.makeTrue("file", res);
+        return new Response().setTip("file").setRes(res);
     }
 
     @ApiOperation(value = "文件上传下载分页查询", notes = "")
@@ -165,7 +166,7 @@ public class FileController {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
         FileIndex obj = new FileIndex().setID(id).setNAME(name);
         List<FileIndex> res = fileIndexService.finds(obj, page);
-        return Response.makePage("", page, res);
+        return new Response().setTotal(page.getTotal()).setRes(res);
     }
 
     @ApiOperation(value = "删除文件或文件夹 同步更新索引", notes = "")
@@ -176,7 +177,7 @@ public class FileController {
     ) {
         int count = 0;
         String info = "";
-        List<String> pathList = Arrays.asList(paths.split(","));
+        String[] pathList = paths.split(",");
         for (String path : pathList) {
             if (path.length() > 0) {
                 if (path.startsWith(Config.getUploadDir())) {
@@ -191,7 +192,7 @@ public class FileController {
                 info = "路径为null,";
             }
         }
-        return Response.make(info.length() == 0, info, count);
+        return new Response().setSuccess(info.length() == 0).setRes(count).setTip(info);
     }
 
     @ApiOperation(value = "修改文件", notes = "")
@@ -221,7 +222,7 @@ public class FileController {
             info = "路径为null";
         }
 
-        return Response.make(info.length() == 0, info, count);
+        return new Response().setSuccess(info.length() == 0).setRes(count).setTip(info);
     }
 
     /**
@@ -244,7 +245,7 @@ public class FileController {
                              @RequestParam(value = "SIZE", required = false, defaultValue = "") String size
 
     ) throws IOException {
-        Watch w = new Watch(new Object[]{"download"});
+        Watch w = new Watch("download");
         w.put(id);
         w.put(path);
 
@@ -257,7 +258,7 @@ public class FileController {
             path = fileIndex == null ? path : fileIndex.getPATH();
         } else if (path.length() > 0) {
             path = path.startsWith(Config.getDownloadDir()) ? path : Config.getUploadDir() + File.separator + path;
-            path = new String(path.getBytes("iso-8859-1"), "utf-8");
+            path = new String(path.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             List<FileIndex> list = fileIndexService.findsAllByPath(Arrays.asList(path));
             if (list.size() > 0) {
                 fileIndex = list.get(0);
@@ -298,7 +299,7 @@ public class FileController {
         w.put("info", info);
         if (!res) {
             w.res();
-            String s = JSON.toJSONString(Response.makeFalse(w.toPrettyString()).toString());
+            String s = JSON.toJSONString(new Response().setSuccess(false).setTip(w.toPrettyString()).toString());
             response.getWriter().println(s);
             log.error(w.toString());
 //            response.flushBuffer();
@@ -306,7 +307,7 @@ public class FileController {
             String name = fileIndex == null ? FileUtil.getFileName(path) : fileIndex.getNAME();
 
             File file = new File(path);
-            RequestUtil.setHeaderDownFile(request, response, name);
+            SpringUtil.setHeaderDownFile(request, response, name);
             InputStream inputStream = new FileInputStream(file);
             OutputStream outputStream = response.getOutputStream();
             try {
@@ -317,7 +318,7 @@ public class FileController {
             }
             w.cost("copyStream");
             log.info(w.toPrettyString());
-//            return Response.makeTrue(w.toPrettyString());
+//            return new Response().setTip(w.toPrettyString());
         }
     }
 
@@ -383,7 +384,7 @@ public class FileController {
             @RequestParam(value = "checksum", required = false, defaultValue = "") String checksum,
             @RequestParam(value = "dir", required = false, defaultValue = "") String dir
     ) {
-        Watch w = new Watch(new Object[]{"upload"});
+        Watch w = new Watch("upload");
         String name = file.getOriginalFilename();
         String ext = FileUtil.getFileType(name);
 
@@ -422,12 +423,11 @@ public class FileController {
                 fileIndexService.saveAll(Arrays.asList(fileIndexNew, fileIndexOld));  //保存记录 然后移动文件
             }
             tempFile.delete();  //删除临时文件
-
-            return Response.makeTrue(w.toPrettyString(), fileIndexNew);
+            return new Response().setRes(fileIndexNew).setTip(w.toPrettyString());
         } catch (Exception e) {
             w.exception(e);
             log.error(w.toPrettyString(), e);
-            return Response.makeFalse(w.toPrettyString());
+            return new Response().setSuccess(false).setTip(w.toPrettyString());
         }
     }
 
@@ -444,15 +444,14 @@ public class FileController {
             Map<String, Object> res = new HashMap<>();
             res.put("list", list);
             res.put("dir", dir);
-            return Response.makeTrue("", res);
-        } else if (FileUtil.check(dir) == 0) {
-            return Response.makeFalse("这是一个文件" + dir);
+            return new Response().setTip("").setRes(res);        } else if (FileUtil.check(dir) == 0) {
+            return new Response().setSuccess(false).setTip("这是一个文件" + dir);
         } else {
             if (dir.startsWith(Config.getDownloadDir())) {
                 FileUtil.mkdir(dir);
-                return Response.makeTrue("不存在 创建文件夹" + dir);
+                return new Response().setRes("不存在 创建文件夹" + dir);
             } else {
-                return Response.makeFalse("不存在 无权限创建" + dir);
+                return new Response().setSuccess(false).setTip("不存在 无权限创建" + dir);
             }
         }
     }

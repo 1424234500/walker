@@ -38,7 +38,7 @@ spring:
       naming:
         #        jpa连接查询 leftjoin 第二张表出现依然小写的问题
         physical-strategy:  org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    #        physical-strategy:  com.walker.config.HibernateTableNameStrategy
+    #        physical-strategy:  com.walker.spring.config.HibernateTableNameStrategy
     database-platform: org.hibernate.dialect.MySQL5Dialect  #分表合表MERGE引擎依赖myisam
     open-in-view: false #避免一个jpa警告
   #    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加这句则默认为myisam引擎

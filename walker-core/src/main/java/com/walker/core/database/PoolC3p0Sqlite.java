@@ -5,6 +5,7 @@ import com.walker.core.Context;
 import com.walker.core.cache.ConfigMgr;
 import com.walker.core.util.FileUtil;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ import java.sql.SQLException;
  *
  */
 @Data
+@Accessors(chain = true)
 public class PoolC3p0Sqlite extends Pool {
     private final static Logger log = LoggerFactory.getLogger(PoolC3p0Sqlite.class);
     String driver;

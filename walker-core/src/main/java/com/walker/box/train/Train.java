@@ -3,6 +3,7 @@ package com.walker.box.train;
 
 import com.walker.core.util.Tools;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -143,6 +144,7 @@ public class Train {
     }
 
     @Data
+    @Accessors(chain = true)
     public static class StationNode {
         String arrive_time;  //"12:17",
         String station_name;  //"溧阳",

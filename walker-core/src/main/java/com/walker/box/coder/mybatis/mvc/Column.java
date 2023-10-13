@@ -4,8 +4,10 @@ import com.walker.box.coder.CodeUtil;
 import com.walker.core.mode.Bean;
 import com.walker.core.util.Tools;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class Column{
 
 	/**
@@ -202,7 +204,7 @@ public class Column{
 		if(this.tableColumnTypeXml.indexOf("(") > 0){
 			this.tableColumnTypeXml = this.tableColumnTypeXml.substring(0, this.tableColumnTypeXml.indexOf("("));
 		}
-		this.tableColumnTypeXml = this.tableColumnTypeXmlMap.get(this.tableColumnTypeXml, this.tableColumnTypeXml);
+		this.tableColumnTypeXml = tableColumnTypeXmlMap.get(this.tableColumnTypeXml, this.tableColumnTypeXml);
 
 
 	}

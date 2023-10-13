@@ -20,14 +20,9 @@ import java.util.*;
  * 			部署路径下
  * 			部署路径下的conf下
  *
- *
- * 
- * 
- * 常量配置池
  * @author walker
  *
  */
-@Deprecated
 public class Context {
 	static String dirConf = "";
 
@@ -132,33 +127,9 @@ springboot jar
 		return getPathConf() + File.separator + file;
 	}
 
-	public static String beginTip(Class<?> clz) {
-		return beginTip(clz.getName());
-	}	
-	public static String beginTip(String tip) {
-		return tip + " begin";
-	}
-	public static String endTip(Class<?> clz) {
-		return endTip(clz.getName());
-	}	
-	public static String endTip(String tip) {
-		return tip + " end";
-	}
-	
-	public static String okTip(Class<?> clz) {
-		return okTip(clz.getName());
-	}	
-	public static String okTip(String tip) {
-		return tip + " ok";
-	}
+	public static void main(String[] args) {
 
-	public static String errorTip(Class<?> clz) {
-		return errorTip(clz.getName());
-	}	
-	public static String errorTip(String tip) {
-		return tip + " error";
 	}
-	
 
 
 }

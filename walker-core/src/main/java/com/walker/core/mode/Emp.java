@@ -1,6 +1,9 @@
 package com.walker.core.mode;
 
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,8 @@ import java.io.Serializable;
  * @author Walker
  * 2017年10月30日09:50:08
  */
+@Data
+@Accessors(chain = true)
 public class Emp implements Serializable {
 	
 	public String id = "test";
@@ -42,33 +47,4 @@ public class Emp implements Serializable {
 		System.out.println("emp fun this.id:" + this.id  );
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public Emp setId(String id) {
-		this.id = id;
-		return this;
-	}
-	public Emp setId(Object id) {
-		this.id = String.valueOf(id);
-		return this;
-	}
-	public String getName() {
-		return name;
-	}
-
-	public Emp setName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	public String getDept() {
-		return dept;
-	}
-
-	public Emp setDept(String dept) {
-		this.dept = dept;
-		return this;
-	}
 }

@@ -99,11 +99,11 @@ sharding:
 #            sharding-column: SEX
 #            algorithm-expression: walker$->{SEX % 2}
 ##          standard:  #standard自定义表达式
-##            precise-algorithm-class-name: com.walker.sharding.DefaultShardingAlgorithm
+##            precise-algorithm-class-name: com.walker.spring.dao.DefaultShardingAlgorithm
 ##            sharding-column: SEX
         default-table-strategy: #默认分表配置复用
           standard:
-            precise-algorithm-class-name: com.walker.sharding.DefaultShardingAlgorithm
+            precise-algorithm-class-name: com.walker.spring.dao.DefaultShardingAlgorithm
             sharding-column: ID
 
         tables:
@@ -126,13 +126,13 @@ sharding:
                 algorithm-expression:  walker${SEX % 2}
 #              stanard:
 #                sharding-column: SEX
-#                precise-algorithm-class-name: com.walker.sharding.DefaultShardingAlgorithm
+#                precise-algorithm-class-name: com.walker.spring.dao.DefaultShardingAlgorithm
             table-strategy:  #分表策略
 #              inline:
 #                sharding-column: ID
 #                algorithm-expression: W_MAN_${ID % 4}
               standard:
-                precise-algorithm-class-name: com.walker.sharding.DefaultShardingAlgorithm
+                precise-algorithm-class-name: com.walker.spring.dao.DefaultShardingAlgorithm
                 sharding-column: ID
 
 

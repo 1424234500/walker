@@ -1,8 +1,8 @@
 package com.walker.controller.user;
 
 
-import com.walker.Response;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.school.Role;
 import com.walker.core.mode.school.RoleUser;
 import com.walker.core.util.TimeUtil;
@@ -29,7 +29,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/role")
 public class RoleController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     @Qualifier("baseService")
     private BaseService baseService;
@@ -63,9 +63,9 @@ public class RoleController {
         role.setNUM(num);
         role.setLEVEL(level);
 
-        String info = "post role:" +role.toString();
+        String info = "post role:" + role;
         List<Role> res = roleService.saveAll(Arrays.asList(role));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "delete 删除", notes = "delete参数 restful 路径 PathVariable ")
@@ -76,7 +76,7 @@ public class RoleController {
     ) {
         String info = "delete ids:" + ids;
         Object res = roleService.deleteAll(Arrays.asList(ids.split(",")));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "get 获取", notes = "")
@@ -87,7 +87,7 @@ public class RoleController {
     ) {
         String info = "get id:" + id;
         Role model = roleService.get(new Role().setID(id));
-        return Response.makeTrue(info, model);
+        return new Response().setTip(info).setRes(model).setSuccess(model != null);
     }
 
     @ApiOperation(value = "get findPage 分页查询", notes = "")
@@ -121,8 +121,8 @@ public class RoleController {
         String info = "get   role:" + role;
 
         List<Role> list = roleService.finds(role, page);
-        page.setTotal(roleService.count(role));
-        return Response.makePage(info, page, list);
+        return new Response().setTotal(roleService.count(role)).setRes(list).setTip(info);
+
     }
 
 
@@ -144,7 +144,7 @@ public class RoleController {
             List<Role> listDept = roleService.getRoles(deptId, "1");
             res.put("listDept", listDept);
         }
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
     @ApiOperation(value = "查询dept id 关联所有的角色 是否包含未拥有的角色", notes = "")
     @ResponseBody
@@ -159,7 +159,7 @@ public class RoleController {
             List<Role> listDept = roleService.getRoles(id, sFlag);
             res.put("listDept", listDept);
         }
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
 
@@ -175,11 +175,10 @@ public class RoleController {
         List<String> listOn = on.length() > 0 ? Arrays.asList(on.split(",")) : new ArrayList<>();
         List<String> listOff = off.length() > 0 ? Arrays.asList(off.split(",")) : new ArrayList<>();
         if(listOn.size() == 0 && listOff.size() == 0){
-            return Response.makeFalse(info + " all is null ");
+            return new Response().setSuccess(false).setTip(info + " all is null ");
         }
         List<RoleUser> roleUserList = roleService.saveRoles(id, listOn, listOff);
-
-        return Response.makeTrue(info, roleUserList);
+        return new Response().setRes(roleUserList);
     }
 
 

@@ -1,5 +1,9 @@
 package com.walker.core.exception;
 
+import com.walker.core.mode.Error;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 /**
  * 场景:
  * 初始化redis连接池
@@ -13,19 +17,27 @@ package com.walker.core.exception;
  *
  * @author walker
  */
+@Data
+@Accessors(chain = true)
 public class ErrorException extends RuntimeException {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
-    public ErrorException(Exception e) {
-        super(e);
+    public ErrorException(String message) {
+        super(message);
+        error = new Error(Error.LEVEL_ERROR, "exception", message);
     }
 
-    public ErrorException(Object object) {
-        super(String.valueOf(object));
+    public ErrorException(String message, Throwable cause) {
+        super(message, cause);
+        error = new Error(Error.LEVEL_ERROR, "exception", message);
     }
+
+    public ErrorException(Throwable cause) {
+        super(cause);
+        error = new Error(Error.LEVEL_ERROR, "exception", cause.getMessage());
+    }
+
+    Error error;
 
 
 }

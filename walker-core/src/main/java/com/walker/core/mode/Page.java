@@ -2,10 +2,14 @@ package com.walker.core.mode;
 
 
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
+@Accessors(chain = true)
 public class Page implements Serializable{
 	private static final long serialVersionUID = 1L;
 	public final static int showNumDefault = 10;
@@ -127,19 +131,11 @@ public class Page implements Serializable{
 	public static <T, RES> List<RES> batch(List<T> collection, int batchSize, FunArgsReturn<List<T>, RES> fun){
 		List<RES> res = new ArrayList<>();
 		assert collection != null;
-		assert collection.size() > 0;
 		assert batchSize > 0;
-
-		if(batchSize <= 0){
-//			Tools.out("batch batchSize is null ");
-		}else if(collection == null || collection.size() <= 0){
-//			Tools.out("batch collection is null ");
-		}else{
-			int s = (int) Math.ceil(1d * collection.size() / batchSize);
-			if(fun != null){
-				for(int pageNow = 0; pageNow < s; pageNow++){
-					res.add(fun.make(collection.subList(pageNow*batchSize, Math.min(pageNow*batchSize+batchSize, collection.size())), pageNow));
-				}
+		int s = (int) Math.ceil(1d * collection.size() / batchSize);
+		if(fun != null){
+			for(int pageNow = 0; pageNow < s; pageNow++){
+				res.add(fun.make(collection.subList(pageNow*batchSize, Math.min(pageNow*batchSize+batchSize, collection.size())), pageNow));
 			}
 		}
 		return res;

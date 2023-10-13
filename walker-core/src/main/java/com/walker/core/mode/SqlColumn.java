@@ -1,11 +1,13 @@
 package com.walker.core.mode;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * create table W_HELLO(TEST_ID VARCHAR(20) not null , primary key(TEST_ID)) comment TEST_ID 测试ID
  */
 @Data
+@Accessors(chain = true)
 public class SqlColumn {
 
 	/**

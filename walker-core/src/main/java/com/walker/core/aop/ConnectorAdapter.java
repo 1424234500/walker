@@ -1,7 +1,5 @@
 package com.walker.core.aop;
 
-import com.walker.core.Context;
-import com.walker.core.exception.ErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

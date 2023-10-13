@@ -1,6 +1,5 @@
 package com.walker.core.database;
 
-import com.walker.core.aop.Connector;
 import com.walker.core.util.Tools;
 import org.junit.Assert;
 import org.junit.Test;

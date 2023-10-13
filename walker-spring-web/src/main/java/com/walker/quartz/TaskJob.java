@@ -1,10 +1,10 @@
 package com.walker.quartz;
 
 import com.walker.core.mode.sys.LogModel;
-import com.walker.core.util.SpringContextUtil;
 import com.walker.core.util.Tools;
 import com.walker.service.Config;
 import com.walker.service.LogService;
+import com.walker.spring.component.SpringContextUtil;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  *  extends org.quartz.InterruptableJob	?
  */
 public abstract class TaskJob extends QuartzJobBean {
-	private Logger log = LoggerFactory.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 
 	LogService logService = SpringContextUtil.getBean("logService");

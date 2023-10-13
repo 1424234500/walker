@@ -1,8 +1,10 @@
 package com.walker.core.mode.sys;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class DataNormal implements DataPublish {
     String type = "text";    //消息体类型
     String body = "world";    //消息体详情

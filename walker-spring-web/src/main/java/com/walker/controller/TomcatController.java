@@ -1,8 +1,8 @@
 package com.walker.controller;
 
-import com.walker.Response;
 import com.walker.core.encode.JsonFastUtil;
 import com.walker.core.mode.Bean;
+import com.walker.core.mode.Response;
 import com.walker.core.util.MapListUtil;
 import com.walker.core.util.TimeUtil;
 import com.walker.dao.ConfigDao;
@@ -30,7 +30,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/tomcat")
 public class TomcatController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
 //    每条线名称
     List<String> lineNames = Arrays.asList("成功次数", "成功耗时", "失败次数", "失败耗时", "成功率");
@@ -95,8 +95,7 @@ public class TomcatController {
                 .put("args", new Bean().set("from", from).set("to", to))
                 .build();
 
-        return Response.makeTrue("", res);
-    }
+        return new Response().setTip("").setRes(res);    }
     @ApiOperation(value = "统计详情", notes = "")
     @ResponseBody
     @RequestMapping(value = "/staticsDetail.do", method = RequestMethod.GET)
@@ -131,8 +130,7 @@ public class TomcatController {
                 .put("args", new Bean().set("from", from).set("to", to).set("url", url))
                 .build();
 
-        return Response.makeTrue("", res);
-    }
+        return new Response().setTip("").setRes(res);    }
 
 
     @ApiOperation(value = "每天新增用户", notes = "")
@@ -164,8 +162,7 @@ public class TomcatController {
                 .put("args", new Bean().set("from", from).set("to", to))
                 .build();
 
-        return Response.makeTrue("", res);
-    }
+        return new Response().setTip("").setRes(res);    }
 
 
 
@@ -212,8 +209,7 @@ public class TomcatController {
                 .put("args", new Bean().set("from", from).set("to", to).set("url", url))
                 .build();
 
-        return Response.makeTrue("", res);
-
+        return new Response().setTip("").setRes(res);
     }
 
 //+----------------------------------+-------------+-------------------------------------+--------------------+----------------+------------+----------+---------------+---------+---------+---------+------------+-------------+----------------+
@@ -273,8 +269,7 @@ public class TomcatController {
                 .put("args", new Bean().set("from", from).set("to", to).set("url", url).set("consumer", consumer).set("provider", provider).set("type", type))
                 .build();
 
-        return Response.makeTrue("", res);
-
+        return new Response().setTip("").setRes(res);
     }
 
 //option = {

@@ -8,6 +8,7 @@ import com.walker.core.util.MapBuilder;
 import com.walker.core.util.ThreadUtil;
 import com.walker.core.util.Tools;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -266,6 +267,7 @@ public class TaskAnaTrain {
     }
 
     @Data
+    @Accessors(chain = true)
     public static class Response<T> {
         int httpstatus; // 200
         T data;
@@ -274,6 +276,7 @@ public class TaskAnaTrain {
     }
 
     @Data
+    @Accessors(chain = true)
     public static class TrainListData {
         List<String> result;
         String flag;
@@ -281,6 +284,7 @@ public class TaskAnaTrain {
     }
 
     @Data
+    @Accessors(chain = true)
     public static class StationTrainData {
         List<Train.StationNode> data;
     }

@@ -1,9 +1,9 @@
 package com.walker.job;
 
 import com.walker.core.mode.Bean;
-import com.walker.core.util.SpringContextUtil;
 import com.walker.quartz.TaskJob;
 import com.walker.service.SyncService;
+import com.walker.spring.component.SpringContextUtil;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.PersistJobDataAfterExecution;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 @PersistJobDataAfterExecution
 @DisallowConcurrentExecution
 public class JobMakeDept extends TaskJob {
-	private Logger log = LoggerFactory.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 //	@Autowired
 //	@Qualifier("syncService")

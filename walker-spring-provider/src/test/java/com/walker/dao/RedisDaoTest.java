@@ -4,17 +4,16 @@ import com.walker.ApplicationProviderTests;
 import com.walker.box.TaskThreadPie;
 import com.walker.core.util.ThreadUtil;
 import com.walker.core.util.Tools;
+import com.walker.spring.component.RedisLock;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 
-import java.io.IOException;
-
 public class RedisDaoTest extends ApplicationProviderTests {
     @Autowired
-    RedisDao redisDao;
+    RedisLock redisLock;
 
 
     @Autowired
@@ -32,19 +31,19 @@ public class RedisDaoTest extends ApplicationProviderTests {
     public void tryLock() {
         String key = "kkkk", key1 = "kk";
         String v = "", v1 = "", v2 = "";
-        redisDao.releaseLock(key1, v1);
-        v1 = redisDao.tryLock(key1, 5000, 1000);
+        redisLock.releaseLock(key1, v1);
+        v1 = redisLock.tryLock(key1, 5000, 1000);
         if(v1.length() > 0){
-            redisDao.releaseLock(key1, v1);
+            redisLock.releaseLock(key1, v1);
         }
-        v1 = redisDao.tryLock(key1, 5000, 1000);
+        v1 = redisLock.tryLock(key1, 5000, 1000);
 
         new TaskThreadPie(100) {
             @Override
-            public void onStartThread(int threadNo) throws IOException, Exception {//抢占资源后 加锁 占用1s
+            public void onStartThread(int threadNo) throws Exception {//抢占资源后 加锁 占用1s
                 String val = "";
                 try {
-                    val = redisDao.tryLock(key, 5000, 1000);//可以等待1s获取锁
+                    val = redisLock.tryLock(key, 5000, 1000);//可以等待1s获取锁
                     if(val.length() > 0){
                         Tools.out("t" + threadNo + " getLock ok !!!!! " + key + " " + val);
                     }
@@ -52,7 +51,7 @@ public class RedisDaoTest extends ApplicationProviderTests {
                     ThreadUtil.sleep(val.length() > 0 ? 3000 : 1000);    //有锁耗时大
                 }finally {
                     if(val.length() > 0)
-                        redisDao.releaseLock(key, val);
+                        redisLock.releaseLock(key, val);
                 }
             }
         }.setThreadSize(10).start();
@@ -64,10 +63,10 @@ public class RedisDaoTest extends ApplicationProviderTests {
     @Test
     public void releaseLock() {
         String key = "bbbbc";
-        String v = redisDao.tryLock(key, 10000, 500);
+        String v = redisLock.tryLock(key, 10000, 500);
         Assert.assertTrue(v.length() > 0);
         Tools.out(v);
-        Assert.assertTrue( redisDao.releaseLock(key, v) );
+        Assert.assertTrue( redisLock.releaseLock(key, v) );
 
     }
 

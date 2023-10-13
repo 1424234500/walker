@@ -1,8 +1,8 @@
 package com.walker.controller.user;
 
 
-import com.walker.Response;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.school.User;
 import com.walker.core.util.TimeUtil;
 import com.walker.service.BaseService;
@@ -30,7 +30,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     @Qualifier("baseService")
     private BaseService baseService;
@@ -72,9 +72,9 @@ public class UserController {
         user.setAREA_ID(areaId);
         user.setPWD(pwd);
 
-        String info = "post user:" +user.toString();
+        String info = "post user:" + user;
         List<User> res = userService.saveAll(Arrays.asList(user));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "delete 删除", notes = "delete参数 restful 路径 PathVariable ")
@@ -85,7 +85,7 @@ public class UserController {
     ) {
         String info = "delete ids:" + ids;
         Object res = userService.deleteAll(Arrays.asList(ids.split(",")));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "get 获取", notes = "")
@@ -96,7 +96,7 @@ public class UserController {
     ) {
         String info = "get id:" + id;
         User model = userService.get(new User().setID(id));
-        return Response.makeTrue(info, model);
+        return new Response().setTip(info).setRes(model).setSuccess(model != null);
     }
 
     @ApiOperation(value = "get findPage 分页查询", notes = "")
@@ -140,8 +140,7 @@ public class UserController {
         String info = "get   user:" + user;
 
         List<User> list = userService.finds(user, page);
-        page.setTotal(userService.count(user));
-        return Response.makePage(info, page, list);
+        return new Response().setTotal(userService.count(user)).setRes(list).setTip(info);
     }
 
 

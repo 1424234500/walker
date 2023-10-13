@@ -2,12 +2,14 @@ package com.walker.box.train;
 
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 车次
  * 如 G1234
  */
 @Data
+@Accessors(chain = true)
 public class Station {
     String code;
     String name;

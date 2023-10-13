@@ -1,8 +1,8 @@
 package com.walker.socket.model;
+
 import com.walker.core.mode.Property;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +14,7 @@ import java.util.Map;
  */
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Accessors(chain = true)
 public class Header {
 
 	private int crcCode = 0xabef0101;

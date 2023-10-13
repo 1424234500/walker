@@ -1,5 +1,8 @@
 package com.walker.core.mode;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -21,6 +24,8 @@ import java.util.Objects;
  * 父操作交由父节点
  * 
  */
+@Data
+@Accessors(chain = true)
 public class Node<T> {
 
 	/**

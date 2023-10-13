@@ -3,6 +3,7 @@ package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
 import com.walker.core.mode.sys.FileIndex;
+import com.walker.spring.dao.FileIndexRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

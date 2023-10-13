@@ -1,8 +1,8 @@
 package com.walker.controller.user;
 
 
-import com.walker.Response;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.school.Student;
 import com.walker.core.util.TimeUtil;
 import com.walker.service.BaseService;
@@ -30,7 +30,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/student")
 public class StudentController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     @Qualifier("baseService")
     private BaseService baseService;
@@ -60,9 +60,9 @@ public class StudentController {
         student.setSEX(sex.equalsIgnoreCase("1") ? "1" : "0");
         student.setCLASS_CODE(classCode);
 
-        String info = "post student:" +student.toString();
+        String info = "post student:" + student;
         List<Student> res = studentService.saveAll(Arrays.asList(student));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "delete 删除", notes = "delete参数 restful 路径 PathVariable ")
@@ -73,7 +73,7 @@ public class StudentController {
     ) {
         String info = "delete ids:" + ids;
         Object res = studentService.deleteAll(Arrays.asList(ids.split(",")));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "get 获取", notes = "")
@@ -84,7 +84,7 @@ public class StudentController {
     ) {
         String info = "get id:" + id;
         Student model = studentService.get(new Student().setID(id));
-        return Response.makeTrue(info, model);
+        return new Response().setTip(info).setRes(model).setSuccess(model != null);
     }
 
 
@@ -119,7 +119,7 @@ public class StudentController {
 
         List<Student> list = studentService.finds(student, page);
         page.setTotal(studentService.count(student));
-        return Response.makePage(info, page, list);
+        return new Response().setTotal(studentService.count(student)).setRes(list).setTip(info);
     }
 
 

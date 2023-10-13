@@ -1,9 +1,9 @@
 package com.walker.controller;
 
 
-import com.walker.Response;
 import com.walker.core.database.SqlUtil;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.scheduler.Task;
 import com.walker.core.util.LangUtil;
 import com.walker.dao.JdbcDao;
@@ -34,7 +34,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/quartz")
 public class QuartzController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     @Qualifier("baseService")
@@ -63,7 +63,7 @@ public class QuartzController {
         Task task = null;
         task = new Task(jobName, jobClassName, description);
         task = scheduleService.run(task);
-        return Response.makeTrue("", task);
+        return new Response().setRes(task);
     }
 
 
@@ -87,7 +87,7 @@ public class QuartzController {
             task = new Task(jobName, jobClassName, description);
 //        }
         task = scheduleService.save(task);
-        return Response.makeTrue("", task);
+        return new Response().setRes(task);
     }
     @ApiOperation(value = "保存触发器 ", notes = "")
     @ResponseBody
@@ -105,15 +105,14 @@ public class QuartzController {
         listOff = new ArrayList<>(new HashSet<>(listOff));
 
         if(listOn.size() == 0 && listOff.size() == 0){
-            return Response.makeFalse(info + " on off is null ");
+            return new Response().setSuccess(false).setTip(info + " on off is null ");
         }
         if(jobName.length() == 0){
-            return Response.makeFalse(info + " job is null ");
+            return new Response().setSuccess(false).setTip(info + " job is null ");
         }
         Task task = new Task().setId(jobName).setClassName(jobClassName);
         scheduleService.saveTrigger(task, listOn, listOff);
-
-        return Response.makeTrue(info, task);
+        return new Response().setRes(task).setTip(info);
     }
 
     @ApiOperation(value = "删除任务", notes = "delete参数 restful 路径 PathVariable ")
@@ -123,16 +122,16 @@ public class QuartzController {
             @RequestParam(value = "JOB_NAME", required = true, defaultValue = "") String jobName
     ) throws Exception {
         if(jobName.length() == 0){
-            return Response.makeFalse("null ? args");
+            return new Response().setSuccess(false).setTip("null ? args");
         }
-        String jobNames[] = jobName.split(",");
+        String[] jobNames = jobName.split(",");
         List<Task> res = new ArrayList<>();
         for(String clz : jobNames) {
-            Task task = new Task(jobName);
+            Task task = new Task(clz);
             task = scheduleService.remove(task);
             res.add(task);
         }
-        return Response.makeFalse(res.size() + "", res);
+        return new Response().setTip(res.size() + "").setRes(res);
     }
     @ApiOperation(value = "分页查询任务列表", notes = "")
     @ResponseBody
@@ -163,9 +162,9 @@ public class QuartzController {
             args.add("%" + description  + "%");
         }
 
-        log.info("make sql " + sb.toString());
+        log.info("make sql " + sb);
         List<?> res = jdbcDao.findPage(page, sb.toString(), args.toArray());
-        return Response.makePage(SqlUtil.makeSql(sb.toString(), args.toArray()), page, res);
+        return new Response().setTip(SqlUtil.makeSql(sb.toString(), args.toArray())).setRes(res).setTotal(page.getTotal());
     }
 
 
@@ -184,9 +183,9 @@ public class QuartzController {
         StringBuilder sb = new StringBuilder(
                 "select j.JOB_NAME,c.CRON_EXPRESSION,t.TRIGGER_STATE,t.DESCRIPTION from  W_QRTZ_JOB_DETAILS j, W_QRTZ_TRIGGERS t, W_QRTZ_CRON_TRIGGERS c  where 1=1 and j.JOB_NAME=t.JOB_NAME and t.TRIGGER_NAME=c.TRIGGER_NAME and j.JOB_NAME=? " );
 
-        log.info("make sql " + sb.toString());
+        log.info("make sql " + sb);
         List<?> res = jdbcDao.findPage(page, sb.toString(), jobName);
-        return Response.makePage(SqlUtil.makeSql(sb.toString(), jobName), page, res);
+        return new Response().setTip(SqlUtil.makeSql(sb.toString(), jobName)).setRes(res).setTotal(page.getTotal());
     }
 
     @ApiOperation(value = "分页查询 任务执行日志", notes = "")
@@ -204,9 +203,9 @@ public class QuartzController {
         StringBuilder sb = new StringBuilder(
                 "select h.* from  W_QRTZ_JOB_DETAILS j, W_JOB_HIS h  where 1=1 and j.JOB_NAME=? and j.JOB_NAME=h.INFO order by h.S_TIME_START desc " );
 
-        log.info("make sql " + sb.toString());
+        log.info("make sql " + sb);
         List<?> res = jdbcDao.findPage(page, sb.toString(), jobName);
-        return Response.makePage(SqlUtil.makeSql(sb.toString(), jobName), page, res);
+        return new Response().setTip(SqlUtil.makeSql(sb.toString(), jobName)).setRes(res).setTotal(page.getTotal());
     }
 
 

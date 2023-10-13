@@ -3,6 +3,7 @@ package com.walker.socket.model;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.List;
  * tcp/ip 七层协议结构分层
  */
 @Data
+@Accessors(chain = true)
 public class Msg implements Cloneable, Serializable {
     public static final long serialVersionUID = 1L;
     final public static String SPLIT = ",";

@@ -1,7 +1,6 @@
 package com.walker.service;
 
 
-import com.walker.config.MakeConfig;
 import com.walker.core.util.ThreadUtil;
 import com.walker.dao.ConfigDao;
 import com.walker.dao.SentinelLimitDao;
@@ -16,12 +15,10 @@ import org.springframework.stereotype.Service;
  */
 @Service("initService")
 public class InitService {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     ScheduleService scheduleService;
 
-    @Autowired
-    MakeConfig makeConfig;
     @Autowired
     ConfigDao configDao;
     @Autowired

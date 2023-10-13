@@ -7,12 +7,14 @@ import com.walker.core.mode.Bean;
 import com.walker.core.util.TimeUtil;
 import com.walker.core.util.Tools;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 public class MvcModel implements Serializable {
 	/**
 	 * com.walker.mvc.model

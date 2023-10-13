@@ -1,8 +1,8 @@
 package com.walker.controller.user;
 
 
-import com.walker.Response;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.school.Area;
 import com.walker.core.util.TimeUtil;
 import com.walker.service.AreaService;
@@ -30,7 +30,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/area")
 public class AreaController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     @Qualifier("baseService")
     private BaseService baseService;
@@ -58,9 +58,9 @@ public class AreaController {
         area.setNAME(name);
         area.setP_ID(pid);
 
-        String info = "post area:" +area.toString();
+        String info = "post area:" + area;
         List<Area> res = areaService.saveAll(Arrays.asList(area));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "delete 删除", notes = "delete参数 restful 路径 PathVariable ")
@@ -71,9 +71,9 @@ public class AreaController {
     ) {
         String info = "delete ids:" + ids;
         if(ids == null || ids.length() <= 0)
-            return Response.makeFalse("args is null ?");
+            return new Response().setSuccess(false);
         Object res = areaService.deleteAll(Arrays.asList(ids.split(",")));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "get 获取", notes = "")
@@ -84,10 +84,7 @@ public class AreaController {
     ) {
         String info = "get id:" + id;
         Area model = areaService.get(new Area().setID(id));
-        if(model != null)
-            return Response.makeTrue(info, model);
-        else
-            return Response.makeFalse(info);
+        return new Response().setTip(info).setRes(model).setSuccess(model != null);
     }
 
     @ApiOperation(value = "get findPage 分页查询", notes = "")
@@ -114,8 +111,7 @@ public class AreaController {
         Page page = new Page().setNowpage(nowPage).setShownum(showNum).setOrder(order);
         if(pidNull.equalsIgnoreCase("true")){
             List<Area> list = areaService.findsRoot(page);
-
-            return Response.makePage("", page, list);
+            return new Response().setTotal(page.getTotal()).setRes(list);
         }
 
         Area area = new Area();
@@ -132,8 +128,7 @@ public class AreaController {
         String info = "get   area:" + area;
 
         List<Area> list = areaService.finds(area, page);
-        page.setTotal(areaService.count(area));
-        return Response.makePage(info, page, list);
+        return new Response().setTotal(areaService.count(area)).setRes(list).setTip(info);
     }
 
 

@@ -4,6 +4,7 @@ import com.walker.core.mode.school.Area;
 import com.walker.core.util.Tools;
 import com.walker.core.util.Watch;
 import com.walker.service.Config;
+import com.walker.spring.service.impl.SyncAreaServiceImpl;
 import org.junit.Test;
 
 import java.util.List;

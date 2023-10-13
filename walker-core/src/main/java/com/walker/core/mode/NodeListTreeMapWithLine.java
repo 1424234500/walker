@@ -3,6 +3,7 @@ package com.walker.core.mode;
 
 import com.walker.core.util.Excel;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -32,6 +33,7 @@ import java.util.List;
  *              维护 图之间的线关系
  */
 @Data
+@Accessors(chain = true)
 public class NodeListTreeMapWithLine<DATA, LINE> extends NodeListTreeMap<DATA> {
 
     LinkedHashMap<NodeListTreeMapData<DATA>, LinkedHashMap<NodeListTreeMapData<DATA>, LINE>> lines = new LinkedHashMap<>();

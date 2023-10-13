@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.walker.core.util.FileUtil;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
  *              数据节点优先级 依赖compare
  */
 @Data
+@Accessors(chain = true)
 public class NodeListTreeMap<DATA> {
 
 //    头节点
@@ -58,7 +60,7 @@ public class NodeListTreeMap<DATA> {
 
         List<EchartsNode> replaceNodesMake = new ArrayList<>();
         List<EchartsLink> replaceLinksMake = new ArrayList<>();
-        traversalActionData((NodeListTreeMapData.ActionData<DATA, Object>) (level, nodeParent, node, nodeChildRess) -> {
+        traversalActionData((level, nodeParent, node, nodeChildRess) -> {
 //            构造当前node的对应图节点 由于循环引用问题 多次构建节点必然性 可能导致重复所以去重
 
             if(node != null) {
@@ -127,7 +129,7 @@ public class NodeListTreeMap<DATA> {
             return new EchartsLink(from.getId(), to.getId(), makeEchartsLinkRelation(from, to));
         }
         default EchartsLinkRelation makeEchartsLinkRelation(EchartsNode from, EchartsNode to){
-            String name = String.valueOf(from.getName()) + "->" + String.valueOf(to.getName());
+            String name = from.getName() + "->" + to.getName();
             return new EchartsLinkRelation(name, Math.abs(name.hashCode()) + "");
         }
 

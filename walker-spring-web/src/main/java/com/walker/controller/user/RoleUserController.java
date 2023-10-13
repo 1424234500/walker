@@ -1,8 +1,8 @@
 package com.walker.controller.user;
 
 
-import com.walker.Response;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.school.RoleUser;
 import com.walker.core.util.TimeUtil;
 import com.walker.service.RoleUserService;
@@ -28,7 +28,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/roleUser")
 public class RoleUserController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     @Qualifier("roleUserService")
@@ -56,9 +56,9 @@ public class RoleUserController {
         roleUser.setS_FLAG(sFlag.equalsIgnoreCase("1") ? "1" : "0");
         roleUser.setROLE_ID(roleUserId);
         roleUser.setUSER_ID(userId);
-        String info = "post roleUser:" +roleUser.toString();
+        String info = "post roleUser:" + roleUser;
         List<RoleUser> res = roleUserService.saveAll(Arrays.asList(roleUser));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "delete 删除", notes = "delete参数 restful 路径 PathVariable ")
@@ -69,7 +69,7 @@ public class RoleUserController {
     ) {
         String info = "delete ids:" + ids;
         Object res = roleUserService.deleteAll(Arrays.asList(ids.split(",")));
-        return Response.makeTrue(info, res);
+        return new Response().setTip(info).setRes(res);
     }
 
     @ApiOperation(value = "get 获取", notes = "")
@@ -80,7 +80,7 @@ public class RoleUserController {
     ) {
         String info = "get id:" + id;
         RoleUser model = roleUserService.get(new RoleUser().setID(id));
-        return Response.makeTrue(info, model);
+        return new Response().setTip(info).setRes(model).setSuccess(model != null);
     }
 
     @ApiOperation(value = "get findPage roleUserUser 分页查询", notes = "")
@@ -112,8 +112,7 @@ public class RoleUserController {
         String info = "get   roleUser:" + roleUser;
 
         List<RoleUser> list = roleUserService.finds(roleUser, page);
-        page.setTotal(roleUserService.count(roleUser));
-        return Response.makePage(info, page, list);
+        return new Response().setTotal(roleUserService.count(roleUser)).setRes(list).setTip(info);
     }
 
 

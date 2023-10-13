@@ -1,9 +1,9 @@
 package com.walker.controller;
 
-import com.walker.Response;
 import com.walker.core.database.ZooKeeperUtil;
 import com.walker.core.database.ZookeeperConnector;
 import com.walker.core.mode.Page;
+import com.walker.core.mode.Response;
 import com.walker.core.mode.SqlColumn;
 import com.walker.service.RedisService;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping({"/zookeeper"})
 public class ZookeeperController {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     RedisService redisService;
@@ -46,7 +46,7 @@ public class ZookeeperController {
 
         List<?> res = zookeeperConnector.findPage(url, page);
         page.setTotal(res.size());
-        return Response.makePage("get zk value", page, res);
+        return new Response().setTip("get zk value").setTotal(page.getTotal()).setRes(res);
     }
 
     @ApiOperation(value = "删除zk", notes = "")
@@ -57,7 +57,7 @@ public class ZookeeperController {
     ) {
 
         long res = 0;
-        for(String id : Arrays.asList(ids.split(","))){
+        for(String id : ids.split(",")){
             try {
                 res += zookeeperConnector.doZooKeeper(zk -> ZooKeeperUtil.delete(zk, false, new HashSet<String>(Arrays.asList(ids.split(",")))));
             } catch (Exception e) {
@@ -65,7 +65,7 @@ public class ZookeeperController {
             }
         }
 
-        return Response.makeTrue("rm zks " + ids, res);
+        return new Response().setTip("rm zks " + ids).setRes(res);
     }
     @ApiOperation(value = "添加字节点/更新 zk key value", notes = "")
     @ResponseBody
@@ -83,7 +83,7 @@ public class ZookeeperController {
         }
 
         String finalUrl = url;
-        return Response.makeTrue("save zk " + url + " " + data, zookeeperConnector.doZooKeeper(zk -> ZooKeeperUtil.createOrUpdateVersion(zk, false, finalUrl, data)));
+        return new Response().setTip("save zk " + url + " " + data).setRes(zookeeperConnector.doZooKeeper(zk -> ZooKeeperUtil.createOrUpdateVersion(zk, false, finalUrl, data)));
     }
 
 
@@ -96,7 +96,7 @@ public class ZookeeperController {
         Map<String, Object> res = new HashMap<>();
         res.put("colMap", colMap);
         res.put("colKey", colMap.stream().map(item -> item.getColumnName()).collect(Collectors.toList()));
-        return Response.makeTrue("zk key value", res);
+        return new Response().setTip("zk key value").setRes(res);
     }
 
 

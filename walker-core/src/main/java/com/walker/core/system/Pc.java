@@ -1,8 +1,12 @@
 package com.walker.core.system;
 
+import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinUser;
 import com.walker.core.exception.ErrorUtil;
 import com.walker.core.mode.Error;
-import com.walker.core.mode.Response;
+import com.walker.core.mode.ResponseO;
 import com.walker.core.mode.Tuple;
 import com.walker.core.util.FileUtil;
 import com.walker.core.util.Tools;
@@ -340,26 +344,25 @@ public class Pc {
 		return ips;
 	}
 
-	public static Response<String> doCmdString(String command) {
+	public static ResponseO<String> doCmdString(String command) {
 		return doCmdString(command, "");
 	}
 	/**
 	 * runtime方式执行
 	 * @param command
 	 */
-	public static Response doCmdString(String command, String dir) {
+	public static ResponseO doCmdString(String command, String dir) {
 		long st = System.currentTimeMillis();
-		Response res = new Response();
+		ResponseO res = new ResponseO();
 		StringBuilder stdout = new StringBuilder();
 		try {
 			Process process = Runtime.getRuntime().exec(command, new String[]{}, new File(dir));
 //			Process process = new ProcessBuilder(Arrays.asList(command.split(" +"))).redirectErrorStream(true).start(); // 标准错误和标准输出合并
-			Error error = new Error("", "", "");
 			int code = process.waitFor();
 			if(code == 0){
 				res.setSuccess(true);
 			}else{
-				error.setCode("" + code);
+				res.setError(new Error(Error.LEVEL_ERROR, code + "", ""));
 			}
 			InputStream inputStream = process.getInputStream();
 			if(inputStream != null){
@@ -438,7 +441,7 @@ public class Pc {
 		// 钩子回调函数
 		private final WinUser.LowLevelKeyboardProc keyboardProc = new WinUser.LowLevelKeyboardProc() {
 			@Override
-			public LRESULT callback(int nCode, WPARAM wParam, WinUser.KBDLLHOOKSTRUCT event) {
+			public WinDef.LRESULT callback(int nCode, WinDef.WPARAM wParam, WinUser.KBDLLHOOKSTRUCT event) {
 				// 输出按键值和按键时间
 				if (nCode >= 0) {
 					// 按下F7退出
@@ -458,7 +461,7 @@ public class Pc {
 
 		// 安装钩子
 		public void setHookOn() {
-			HMODULE hMod = Kernel32.INSTANCE.GetModuleHandle(null);
+			WinDef.HMODULE hMod = Kernel32.INSTANCE.GetModuleHandle(null);
 			hhk = User32.INSTANCE.SetWindowsHookEx(User32.WH_KEYBOARD_LL, keyboardProc, hMod, 0);
 
 			int result;

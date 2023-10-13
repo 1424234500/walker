@@ -5,6 +5,7 @@ import com.walker.core.mode.school.User;
 import com.walker.core.util.TimeUtil;
 import com.walker.dao.RedisDao;
 import com.walker.service.UserService;
+import com.walker.spring.config.Context;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -36,7 +37,7 @@ import java.util.Map;
 @EnableCaching
 public class ShiroConfig {
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     SecurityManager securityManager;

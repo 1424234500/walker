@@ -4,6 +4,7 @@ import com.walker.ApplicationProviderTests;
 import com.walker.core.mode.school.Man;
 import com.walker.core.util.TimeUtil;
 import com.walker.core.util.Tools;
+import com.walker.spring.dao.ManRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

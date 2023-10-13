@@ -12,6 +12,7 @@ import com.walker.core.util.Tools;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.*;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ import java.util.Map;
  *
  */
 @Data
+@Accessors(chain = true)
 public class MakeMvc {
 
     public MakeMvc()  {
@@ -95,7 +97,7 @@ public class MakeMvc {
         mvcModel.setPackageService(new CodeFileFtl("MvcService.java.ftl", projectDir + "\\src\\main\\java", "com.walker.service"));
         mvcModel.setPackageServiceImpl(new CodeFileFtl("MvcServiceImpl.java.ftl", projectDir + "\\src\\main\\java", "com.walker.service.impl"));
 
-        mvcModel.setPackageController(new CodeFileFtl("MvcController.java.ftl", projectDir + "\\src\\main\\java", "com.walker.controller"));
+        mvcModel.setPackageController(new CodeFileFtl("MvcController.java.ftl", projectDir + "\\src\\main\\java", "com.walker.spring.controller"));
 
         mvcModel.setPackageInterface(new CodeFileFtl("Interface.md.ftl", docDir, ""));
         mvcModel.setPackagePostman(new CodeFileFtl("Postman.json.ftl", docDir, ""));

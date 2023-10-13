@@ -2,6 +2,7 @@ package com.walker.dao;
 
 import com.walker.ApplicationProviderTests;
 import com.walker.core.mode.school.Teacher;
+import com.walker.spring.dao.TeacherRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

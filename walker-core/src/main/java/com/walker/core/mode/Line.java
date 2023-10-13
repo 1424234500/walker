@@ -1,9 +1,9 @@
 package com.walker.core.mode;
 
 import lombok.AllArgsConstructor;
-import lombok.Generated;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
  * 数据结构  线 权重
@@ -12,10 +12,10 @@ import lombok.ToString;
  *
  */
 
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Generated
+@Data
+@Accessors(chain = true)
 public class Line {
     String name = "";
 	int num = 1;

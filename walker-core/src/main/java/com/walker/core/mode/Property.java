@@ -3,8 +3,7 @@ package com.walker.core.mode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.io.File;
+import lombok.experimental.Accessors;
 
 /**
  * 字段描述约束
@@ -13,17 +12,17 @@ import java.io.File;
  *
  */
 @Data
+@Accessors(chain = true)
 @AllArgsConstructor
 public class Property<T> {
     /**
-     * 键 英文名
+     * 键 英文名 字段名
      */
     String key;
     /**
-     * 中文描述
+     * 中文名 描述
      */
     String name;
-
     /**
      * 详细信息
      */
@@ -40,10 +39,6 @@ public class Property<T> {
     public static Property<String> buildFile(String file) {
         return new Property<>("file", "文件", "", file);
     }
-    public static Property<String> buildFile(File file) {
-        return buildFile(file.getAbsolutePath());
-    }
-
 
     public static <T> Property<T> build(String key, T value) {
         return new Property<>(key, key, "", value);
